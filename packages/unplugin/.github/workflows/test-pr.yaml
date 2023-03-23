@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [main, next, alpha, beta, rc]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test
