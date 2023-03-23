@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+
+    "module": "ESNext",
+
+    "moduleResolution": "node",
+
+    "esModuleInterop": true,
+
+    "types": ["node"]
+  },
+  "exclude": ["./dist", "./src"],
+  "include": [
+    "./build.config.ts",
+    "./vitest.config.ts",
+    "./test/*.test.ts",
+    "./test/utils/*.ts",
+    "./tsconfig.build.json"
+  ]
+}

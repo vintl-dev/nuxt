@@ -1,0 +1,154 @@
+// Vitest Snapshot v1
+
+exports[`rollup > respects parser options 1`] = `
+"const introduction = [
+	{
+		type: 0,
+		value: \\"Hello, \\"
+	},
+	{
+		type: 1,
+		value: \\"name\\"
+	},
+	{
+		type: 0,
+		value: \\"! Press <Enter> to continue.\\"
+	}
+];
+var messages = {
+	introduction: introduction,
+	\\"invalid-key\\": [
+	{
+		type: 8,
+		value: \\"strong\\",
+		children: [
+			{
+				type: 0,
+				value: \\"Warning\\"
+			}
+		]
+	},
+	{
+		type: 0,
+		value: \\": Invalid key pressed\\"
+	}
+]
+};
+
+function example() {
+  return messages.introduction
+}
+
+export { example as default };
+"
+`;
+
+exports[`rollup > should generate bundle 1`] = `
+"const greeting = [
+	{
+		type: 0,
+		value: \\"Hello, \\"
+	},
+	{
+		type: 1,
+		value: \\"name\\"
+	},
+	{
+		type: 0,
+		value: \\"!\\"
+	}
+];
+var messages = {
+	greeting: greeting
+};
+
+function example() {
+  return messages
+}
+
+export { example as default };
+"
+`;
+
+exports[`rollup > should parse TOML when specified 1`] = `
+"const greeting = [
+	{
+		type: 0,
+		value: \\"Hello, \\"
+	},
+	{
+		type: 1,
+		value: \\"name\\"
+	},
+	{
+		type: 0,
+		value: \\"!\\"
+	}
+];
+var messages = {
+	greeting: greeting
+};
+
+function example() {
+  return messages.greeting
+}
+
+export { example as default };
+"
+`;
+
+exports[`rollup > should prevent json plugins if specified 1`] = `
+"var type = 0;
+var target = \\"World\\";
+var options = {
+	type: type,
+	target: target
+};
+
+const greeting = [
+	{
+		type: 0,
+		value: \\"Hello, \\"
+	},
+	{
+		type: 1,
+		value: \\"name\\"
+	},
+	{
+		type: 0,
+		value: \\"!\\"
+	}
+];
+const goodbye = [
+	{
+		type: 0,
+		value: \\"Farewell, \\"
+	},
+	{
+		type: 1,
+		value: \\"name\\"
+	},
+	{
+		type: 0,
+		value: \\"!\\"
+	}
+];
+var messages = {
+	greeting: greeting,
+	goodbye: goodbye
+};
+
+const messageTypes = [
+  [0, 'greeting'],
+  [1, 'goodbye'],
+];
+
+function example() {
+  const messageId = messageTypes.find(([type]) => options.type === type);
+  if (messageId == null) throw new Error(\`Unknown type \${options.type}\`)
+  return messages[messageId]
+}
+
+export { example as default };
+"
+`;

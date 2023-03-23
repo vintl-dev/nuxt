@@ -1,0 +1,27 @@
+// Vitest Snapshot v1
+
+exports[`vite > should generate bundle 1`] = `
+"const e = [
+  {
+    type: 0,
+    value: \\"Hello, \\"
+  },
+  {
+    type: 1,
+    value: \\"name\\"
+  },
+  {
+    type: 0,
+    value: \\"!\\"
+  }
+], t = {
+  greeting: e
+};
+function a() {
+  return t;
+}
+export {
+  a as default
+};
+"
+`;
