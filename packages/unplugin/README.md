@@ -40,7 +40,7 @@ Example configuration:
 
 ```ts
 import { defineConfig } from 'rollup'
-import { plugin as icuMessages } from '@vintl/unplugin/rollup'
+import { icuMessages } from '@vintl/unplugin/rollup'
 
 export default defineConfig({
   input: './src/index.mjs',
@@ -60,7 +60,7 @@ Similar to Rollup, import `icuMessages` from `@vintl/unplugin/vite` and then use
 
 ```ts
 import { defineConfig } from 'vite'
-import { plugin as icuMessages } from '@vintl/unplugin/vite'
+import { icuMessages } from '@vintl/unplugin/vite'
 
 export default defineConfig({
   // ...
