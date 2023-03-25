@@ -19,7 +19,7 @@
       "stabilityDays": 3
     },
     {
-      "matchDepTypes": ["engines"],
+      "matchDepTypes": ["engines", "peerDependencies"],
       "rangeStrategy": "replace"
     }
   ]
