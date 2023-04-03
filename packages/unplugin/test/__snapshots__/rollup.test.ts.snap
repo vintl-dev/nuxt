@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`rollup > respects parser options 1`] = `
 "const introduction = [
@@ -147,6 +147,47 @@ function example() {
   const messageId = messageTypes.find(([type]) => options.type === type);
   if (messageId == null) throw new Error(\`Unknown type \${options.type}\`)
   return messages[messageId]
+}
+
+export { example as default };
+"
+`;
+
+exports[`rollup > should transform to JSON of AST 1`] = `
+"var greeting = [
+	{
+		type: 0,
+		value: \\"Hello, \\"
+	},
+	{
+		type: 1,
+		value: \\"name\\"
+	},
+	{
+		type: 0,
+		value: \\"!\\"
+	}
+];
+var messages = {
+	greeting: greeting
+};
+
+function example() {
+  return messages
+}
+
+export { example as default };
+"
+`;
+
+exports[`rollup > should transform to JSON of messages 1`] = `
+"var greeting = \\"Hello, {name}!\\";
+var messages = {
+	greeting: greeting
+};
+
+function example() {
+  return messages
 }
 
 export { example as default };

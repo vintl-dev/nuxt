@@ -240,6 +240,62 @@ describe('rollup', () => {
     )
   })
 
+  it('should transform to JSON of AST', async () => {
+    const { generate } = await rollup({
+      input: [
+        resolve(
+          dirname(fileURLToPath(import.meta.url)),
+          'fixtures/normal/input.mjs',
+        ),
+      ],
+      plugins: [
+        icuMessages({
+          format: 'crowdin',
+          output: {
+            format: 'json',
+          },
+        }),
+        json(),
+      ],
+    })
+
+    const { output } = await generate({
+      format: 'esm',
+    })
+
+    expect(output).toHaveLength(1)
+    expect(output[0]?.code).toMatchSnapshot()
+  })
+
+  it('should transform to JSON of messages', async () => {
+    // same as above, but output.type set to raw
+    const { generate } = await rollup({
+      input: [
+        resolve(
+          dirname(fileURLToPath(import.meta.url)),
+          'fixtures/normal/input.mjs',
+        ),
+      ],
+      plugins: [
+        icuMessages({
+          format: 'crowdin',
+          output: {
+            format: 'json',
+            type: 'raw',
+          },
+        }),
+        json(),
+      ],
+    })
+
+    const { output } = await generate({
+      format: 'esm',
+    })
+
+    expect(output).toHaveLength(1)
+    expect(output[0]?.code).toMatchSnapshot()
+  })
+
   it('exposes filter in public API', () => {
     expect(icuMessages({}).api).toHaveProperty('filter')
   })

@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`webpack > should be able to parse using TOML files 1`] = `
 "/******/ // The require scope
@@ -201,6 +201,94 @@ const greeting = [
 
 function example() {
   return en_messages
+}
+
+var __webpack_exports__default = __webpack_exports__.Z;
+export { __webpack_exports__default as default };
+"
+`;
+
+exports[`webpack > should transform to AST JSON 1`] = `
+"/******/ // The require scope
+/******/ var __webpack_require__ = {};
+/******/ 
+/************************************************************************/
+/******/ /* webpack/runtime/define property getters */
+/******/ (() => {
+/******/ 	// define getter functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			}
+/******/ 		}
+/******/ 	};
+/******/ })();
+/******/ 
+/******/ /* webpack/runtime/hasOwnProperty shorthand */
+/******/ (() => {
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ })();
+/******/ 
+/************************************************************************/
+var __webpack_exports__ = {};
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  \\"Z\\": () => (/* binding */ example)
+});
+
+;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
+const en_messages_namespaceObject = JSON.parse('{\\"greeting\\":[{\\"type\\":0,\\"value\\":\\"Hello, \\"},{\\"type\\":1,\\"value\\":\\"name\\"},{\\"type\\":0,\\"value\\":\\"!\\"}]}');
+;// CONCATENATED MODULE: ./test/fixtures/normal/input.mjs
+
+
+function example() {
+  return en_messages_namespaceObject
+}
+
+var __webpack_exports__default = __webpack_exports__.Z;
+export { __webpack_exports__default as default };
+"
+`;
+
+exports[`webpack > should transform to JSON of raw messages 1`] = `
+"/******/ // The require scope
+/******/ var __webpack_require__ = {};
+/******/ 
+/************************************************************************/
+/******/ /* webpack/runtime/define property getters */
+/******/ (() => {
+/******/ 	// define getter functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			}
+/******/ 		}
+/******/ 	};
+/******/ })();
+/******/ 
+/******/ /* webpack/runtime/hasOwnProperty shorthand */
+/******/ (() => {
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ })();
+/******/ 
+/************************************************************************/
+var __webpack_exports__ = {};
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  \\"Z\\": () => (/* binding */ example)
+});
+
+;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
+const en_messages_namespaceObject = JSON.parse('{\\"greeting\\":\\"Hello, {name}!\\"}');
+;// CONCATENATED MODULE: ./test/fixtures/normal/input.mjs
+
+
+function example() {
+  return en_messages_namespaceObject
 }
 
 var __webpack_exports__default = __webpack_exports__.Z;

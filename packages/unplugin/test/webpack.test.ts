@@ -155,8 +155,39 @@ describe(
 
       expect(out).toMatchSnapshot()
     })
+
+    it('should transform to AST JSON', async () => {
+      const out = await buildFile('fixtures/normal/input.mjs', (config) => {
+        ;(config.plugins ??= []).push(
+          icuMessages({
+            include: '**/*.messages.json',
+            format: 'crowdin',
+            output: {
+              format: 'json',
+            },
+          }),
+        )
+      })
+
+      expect(out).toMatchSnapshot()
+    })
+
+    it('should transform to JSON of raw messages', async () => {
+      const out = await buildFile('fixtures/normal/input.mjs', (config) => {
+        ;(config.plugins ??= []).push(
+          icuMessages({
+            include: '**/*.messages.json',
+            format: 'crowdin',
+            output: {
+              type: 'raw',
+              format: 'json',
+            },
+          }),
+        )
+      })
+
+      expect(out).toMatchSnapshot()
+    })
   },
-  {
-    timeout: 60_000,
-  },
+  { timeout: 60_000 },
 )

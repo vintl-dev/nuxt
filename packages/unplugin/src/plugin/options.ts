@@ -6,6 +6,37 @@ import {
   type WrappablePlugin,
   type WrappingOptions,
 } from '../wrapping/index.js'
+import type { MessagesASTMap } from './types.js'
+
+/** Represents options for the transformation output. */
+interface OutputOptions {
+  /**
+   * Defines the format of the output file or provides a function that will
+   * encode input JavaScript object containing the messages into a string
+   * representing contents of the transformed file.
+   *
+   * The following formats are supported:
+   *
+   * - `module`, which outputs an ESM JavaScript module.
+   * - `json`, which outputs a JSON string, that can be processed by other
+   *   plugins.
+   *
+   * @default 'module' // The output is an ESM module.
+   */
+  format?: 'module' | 'json' | ((messages: MessagesASTMap) => string)
+
+  /**
+   * Defines what kind of output should be generated.
+   *
+   * The following output types are supported:
+   *
+   * - `raw` - outputs the messages as is.
+   * - `ast` - pre-parses the messages and outputs their AST.
+   *
+   * @default 'ast' // The output is an AST.
+   */
+  type?: 'raw' | 'ast'
+}
 
 /** Represents options for the plugin. */
 export interface Options<PluginType extends WrappablePlugin> {
@@ -13,7 +44,7 @@ export interface Options<PluginType extends WrappablePlugin> {
    * Defines a string or regular expression, or an array of those, that should
    * match with the file ID in order for it to be transformed.
    *
-   * @default '** /*.json' // Match any JSON files by default.
+   * @default '** /*.messages.json' // Match any JSON files by default.
    */
   include?: FilterPattern
 
@@ -115,6 +146,9 @@ export interface Options<PluginType extends WrappablePlugin> {
    * @default false // Plugins wrapping is disabled.
    */
   pluginsWrapping?: boolean | WrappingOptions<PluginType>
+
+  /** Options that allow to configure the output of transformation. */
+  output?: OutputOptions
 }
 
 function normalizeIndent(indent?: Options<any>['indent']) {
@@ -130,6 +164,14 @@ function normalizeWrappingOptions_<PluginType extends WrappablePlugin>(
   )
 }
 
+function normalizeOutputOptions(options?: OutputOptions) {
+  return {
+    ...options,
+    format: options?.format ?? 'module',
+    type: options?.type ?? 'ast',
+  } satisfies OutputOptions
+}
+
 export function normalizeOptions<PluginType extends WrappablePlugin>(
   options?: Options<PluginType>,
 ) {
@@ -142,6 +184,7 @@ export function normalizeOptions<PluginType extends WrappablePlugin>(
     pluginsWrapping: normalizeWrappingOptions_(
       options?.pluginsWrapping ?? false,
     ),
+    output: normalizeOutputOptions(options?.output),
   } satisfies Options<PluginType>
 }
 

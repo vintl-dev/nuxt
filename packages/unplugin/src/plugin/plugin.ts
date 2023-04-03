@@ -1,5 +1,4 @@
 import { dataToEsm } from '@rollup/pluginutils'
-import type { MessageFormatElement } from '@formatjs/icu-messageformat-parser'
 import type { CompileFn } from '@formatjs/cli-lib'
 import { createUnplugin, type RollupPlugin } from 'unplugin'
 import { basePluginName } from '../shared/consts.js'
@@ -19,7 +18,7 @@ import { normalizeOptions, type Options } from './options.js'
 import { parseMessages } from './message-parsing.js'
 import { compileMessages } from './message-compiling.js'
 import { readMessagesFile } from './message-reading.js'
-import type { MessagesMap } from './types.js'
+import type { MessagesASTMap, MessagesMap } from './types.js'
 import { createFilter } from './filter.js'
 
 /**
@@ -35,8 +34,14 @@ type Options_ = Options<any> | undefined
 
 /** Unplugin that parses files containing ICU MessageFormat messages into AST. */
 export const plugin = createUnplugin<Options_, false>((options_, meta) => {
-  const { indent, format, parse, pluginsWrapping, ...options } =
-    normalizeOptions(options_ ?? {})
+  const {
+    indent,
+    format,
+    parse,
+    pluginsWrapping,
+    output: outputOpts,
+    ...options
+  } = normalizeOptions(options_ ?? {})
 
   const filter = createFilter(options)
 
@@ -123,7 +128,7 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
     webpack(_compiler) {
       _compiler.options.module.rules.push({
         test: filter,
-        type: 'javascript/auto',
+        type: outputOpts.format === 'json' ? 'json' : 'javascript/auto',
       })
     },
 
@@ -176,19 +181,39 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
         throw new TransformError('Cannot compile the messages', { cause })
       }
 
-      let ast: Record<string, MessageFormatElement[]>
-      try {
-        ast = parseMessages(messages, getParserOptions, id)
-      } catch (cause) {
+      let data: MessagesASTMap | MessagesMap
+      if (outputOpts.type === 'ast') {
+        try {
+          data = parseMessages(messages, getParserOptions, id)
+        } catch (cause) {
+          this.error(
+            new TransformError('Cannot generate messages AST', { cause }),
+          )
+          return
+        }
+      } else if (outputOpts.type === 'raw') {
+        data = messages
+      } else {
         this.error(
-          new TransformError('Cannot generate messages AST', { cause }),
+          new TransformError(`Unsupported output type: ${outputOpts.type}`),
         )
         return
       }
 
-      return {
-        code: dataToEsm(ast, { indent, preferConst: true }),
-        map: { mappings: '' },
+      if (outputOpts.format === 'module') {
+        return {
+          code: dataToEsm(data, { indent, preferConst: true }),
+          map: { mappings: '' },
+        }
+      } else if (outputOpts.format === 'json') {
+        return {
+          code: JSON.stringify(data),
+          map: { mappings: '' },
+        }
+      } else {
+        this.error(
+          new TransformError(`Unsupported output format: ${outputOpts.format}`),
+        )
       }
     },
   }
