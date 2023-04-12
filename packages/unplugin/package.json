@@ -75,7 +75,7 @@
     "rollup": "^3.20.0",
     "semantic-release": "^21.0.1",
     "typescript": "^5.0.4",
-    "unbuild": "^1.1.2",
+    "unbuild": "^1.2.0",
     "vite": "^4.2.1",
     "vitest": "^0.29.5",
     "webpack": "^5.76.2"
