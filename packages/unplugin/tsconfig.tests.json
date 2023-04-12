@@ -5,12 +5,12 @@
 
     "module": "ESNext",
 
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
 
     "esModuleInterop": true,
 
-    "types": ["node"]
+    "types": []
   },
   "exclude": ["./dist", "./src"],
-  "include": ["./build.config.ts", "./tsconfig.build.json"]
+  "include": ["./vitest.config.ts", "./test/*.test.ts", "./test/utils/*.ts"]
 }

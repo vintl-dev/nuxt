@@ -7,7 +7,7 @@
     "strict": true,
     "strictBindCallApply": true,
 
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
 
     "resolveJsonModule": true,
     "isolatedModules": true,
