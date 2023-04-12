@@ -36,14 +36,15 @@
   },
   "overrides": [
     {
-      "files": [
-        "./build.config.ts",
-        "./vitest.config.ts",
-        "./build/*.ts",
-        "./test/*.test.ts",
-        "./test/utils/*.ts"
-      ],
+      "files": ["./build.config.ts", "./build/*.ts"],
       "parserOptions": { "project": "./tsconfig.build.json" },
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["./vitest.config.ts", "./test/*.test.ts", "./test/utils/*.ts"],
+      "parserOptions": { "project": "./tsconfig.tests.json" },
       "rules": {
         "no-console": "off"
       }
