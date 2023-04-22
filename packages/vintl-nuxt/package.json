@@ -25,7 +25,8 @@
   "exports": {
     ".": {
       "types": "./dist/module.d.ts",
-      "import": "./dist/module.mjs"
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
     },
     "./package.json": "./package.json"
   },
