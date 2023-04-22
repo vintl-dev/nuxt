@@ -4,7 +4,7 @@
     "@vintl/nuxt#build": {
       "outputs": ["dist"]
     },
-    "@vintl-dev/pg#prepare": {
+    "@vintl-dev/pg#dev:prepare": {
       "dependsOn": ["@vintl/nuxt#build"],
       "outputs": [".nuxt"]
     },
@@ -23,7 +23,7 @@
       "persistent": true,
       "cache": false
     },
-    "@vintl-dev/docs#prepare": {
+    "@vintl-dev/docs#dev:prepare": {
       "dependsOn": ["@vintl/nuxt#build"],
       "outputs": [".nuxt"]
     },

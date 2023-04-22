@@ -3,13 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:prepare": "nuxi prepare",
     "dev": "nuxi dev",
+    "dev:prepare": "nuxi prepare",
     "build": "nuxi build",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
     "lint": "eslint .",
-    "postinstall": "pnpm run -s dev:prepare",
     "intl:extract": "formatjs extract \"{,components,composables,layouts,middleware,modules,pages,plugins,utils}/**/*.{vue,ts,tsx,js,jsx,mts,cts,mjs,cjs}\" --ignore '**/*.d.ts' --ignore 'node_modules' --out-file locales/en-US.json --format simple",
     "start": "node .output/server/index.mjs"
   },

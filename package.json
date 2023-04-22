@@ -10,11 +10,11 @@
     "turbo": "^1.8.7"
   },
   "scripts": {
-    "pg:prepare": "turbo run --no-daemon @vintl-dev/pg#prepare",
+    "pg:prepare": "turbo run --no-daemon @vintl-dev/pg#dev:prepare",
     "pg:dev": "turbo run --no-daemon @vintl-dev/pg#dev",
     "pg:build": "turbo run --no-daemon @vintl-dev/pg#build",
     "pg:start": "turbo run --no-daemon @vintl-dev/pg#start",
-    "docs:prepare": "turbo run --no-daemon @vintl-dev/docs#prepare",
+    "docs:prepare": "turbo run --no-daemon @vintl-dev/docs#dev:prepare",
     "docs:dev": "turbo run --no-daemon @vintl-dev/docs#dev",
     "docs:build": "turbo run --no-daemon @vintl-dev/docs#build",
     "docs:start": "turbo run --no-daemon @vintl-dev/docs#start",
