@@ -21,7 +21,7 @@
     "@vintl-dev/pg-messages": "workspace:*",
     "@vintl/nuxt": "workspace:*",
     "@vintl/vintl": "^4.1.1",
-    "nuxi": "^3.3.3",
-    "nuxt": "^3.3.3"
+    "nuxi": "^3.4.2",
+    "nuxt": "^3.4.2"
   }
 }
