@@ -1,6 +1,3 @@
-import { icuMessages } from '@braw/rollup-plugin-icu-messages'
-import { icuMessagesWrapPluginsVite } from '@braw/rollup-plugin-icu-messages/wrap-plugins'
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ['@vintl/nuxt'],
@@ -41,12 +38,6 @@ export default defineNuxtConfig({
           '@formatjs/icu-messageformat-parser/lib/no-parser',
       },
     },
-    plugins: [
-      icuMessages({
-        include: ['./locales/*.json', '@vintl-dev/pg-messages/*'],
-        format: 'crowdin',
-      }),
-      icuMessagesWrapPluginsVite(),
-    ],
+    plugins: [],
   },
 })

@@ -14,13 +14,8 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@braw/rollup-plugin-icu-messages": "1.0.0-alpha.4",
-    "@formatjs/cli": "^6.0.4",
-    "@formatjs/cli-lib": "^6.0.3",
-    "@formatjs/intl": "^2.6.9",
     "@vintl-dev/pg-messages": "workspace:*",
     "@vintl/nuxt": "workspace:*",
-    "@vintl/vintl": "^4.1.1",
     "nuxi": "^3.4.2",
     "nuxt": "^3.4.2"
   }

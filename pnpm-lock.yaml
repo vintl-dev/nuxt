@@ -39,27 +39,12 @@ importers:
 
   apps/playground:
     devDependencies:
-      '@braw/rollup-plugin-icu-messages':
-        specifier: 1.0.0-alpha.4
-        version: 1.0.0-alpha.4(rollup@3.20.7)(vite@4.3.1)
-      '@formatjs/cli':
-        specifier: ^6.0.4
-        version: 6.0.4
-      '@formatjs/cli-lib':
-        specifier: ^6.0.3
-        version: 6.0.3
-      '@formatjs/intl':
-        specifier: ^2.6.9
-        version: 2.6.9
       '@vintl-dev/pg-messages':
         specifier: workspace:*
         version: link:../../packages/translations
       '@vintl/nuxt':
         specifier: workspace:*
         version: link:../../packages/vintl-nuxt
-      '@vintl/vintl':
-        specifier: ^4.1.1
-        version: 4.1.1
       nuxi:
         specifier: ^3.4.2
         version: 3.4.2
@@ -424,30 +409,7 @@ packages:
       vue: ^2.7 || ^3.2.45
     dependencies:
       vue: 3.2.47
-
-  /@braw/rollup-plugin-icu-messages@1.0.0-alpha.4(rollup@3.20.7)(vite@4.3.1):
-    resolution: {integrity: sha512-6SkFh+WUpUxcGfVHrg1NWgUv516DWKYnv0/7gzo9fhrIKPF/5ZP5iEOPyL4cfERABlL4eL3WlCX95W9XJDoCrA==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      rollup: ^3
-      vite: ^4
-    peerDependenciesMeta:
-      vite:
-        optional: true
-    dependencies:
-      '@formatjs/cli-lib': 5.1.13
-      '@formatjs/icu-messageformat-parser': 2.3.0
-      '@rollup/pluginutils': 5.0.2(rollup@3.20.7)
-      glob: 8.1.0
-      import-meta-resolve: 2.2.1
-      pathe: 1.1.0
-      rollup: 3.20.7
-      vite: 4.3.1(@types/node@18.15.13)
-    transitivePeerDependencies:
-      - '@vue/compiler-core'
-      - '@vue/compiler-sfc'
-      - ts-jest
-    dev: true
+    dev: false
 
   /@cloudflare/kv-asset-handler@0.3.0:
     resolution: {integrity: sha512-9CB/MKf/wdvbfkUdfrj+OkEwZ5b7rws0eogJ4293h+7b6KX5toPwym+VQKmILafNB9YiehqY0DlNrDcDhdWHSQ==}
@@ -715,36 +677,6 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@formatjs/cli-lib@5.1.13:
-    resolution: {integrity: sha512-fysnDdBPejaQwYaEzm8YGQp/8lMVozLYsfHIDX8TkOlpd4G4m/JAVdjqsEDFlVB6/+jpV+T//EPm/gVGzSSuuw==}
-    engines: {node: '>= 16.5.0'}
-    peerDependencies:
-      '@vue/compiler-core': ^3.2.23
-      '@vue/compiler-sfc': ^3.2.34
-    peerDependenciesMeta:
-      '@vue/compiler-core':
-        optional: true
-      '@vue/compiler-sfc':
-        optional: true
-    dependencies:
-      '@formatjs/icu-messageformat-parser': 2.2.0
-      '@formatjs/ts-transformer': 3.11.6
-      '@types/estree': 0.0.50
-      '@types/fs-extra': 9.0.13
-      '@types/json-stable-stringify': 1.0.34
-      '@types/node': 17.0.45
-      chalk: 4.1.2
-      commander: 8.3.0
-      fast-glob: 3.2.12
-      fs-extra: 10.1.0
-      json-stable-stringify: 1.0.2
-      loud-rejection: 2.2.0
-      tslib: 2.5.0
-      typescript: 4.9.5
-    transitivePeerDependencies:
-      - ts-jest
-    dev: true
-
   /@formatjs/cli-lib@6.0.3:
     resolution: {integrity: sha512-ubMqhKcbPcRFoLHonqYOnkrJFe5tXcqGC/juA43a38V24i9p0pdD2ohrB8SbwG2lh60tPe4Ed7GSCjzj1w9dPg==}
     engines: {node: '>= 16'}
@@ -773,6 +705,7 @@ packages:
       typescript: 4.9.5
     transitivePeerDependencies:
       - ts-jest
+    dev: false
 
   /@formatjs/cli@6.0.4:
     resolution: {integrity: sha512-ivb+uUcYmHnffBkXM7OM4NDofxyfnVvW5G52p+M9Cg3DGMz3wVBm3TwW3SXgGGTft7CMWHeGQGXjxTOwBYKeEA==}
@@ -790,19 +723,13 @@ packages:
     dependencies:
       '@formatjs/intl-localematcher': 0.2.32
       tslib: 2.5.0
+    dev: false
 
   /@formatjs/fast-memoize@2.0.1:
     resolution: {integrity: sha512-M2GgV+qJn5WJQAYewz7q2Cdl6fobQa69S1AzSM2y0P68ZDbK5cWrJIcPCO395Of1ksftGZoOt4LYCO/j9BKBSA==}
     dependencies:
       tslib: 2.5.0
-
-  /@formatjs/icu-messageformat-parser@2.2.0:
-    resolution: {integrity: sha512-NT/jKI9nvqNIsosTm+Cxv3BHutB1RIDFa4rAa2b664Od4sBnXtK7afXvAqNa3XDFxljKTij9Cp+kRMJbXozUww==}
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.14.3
-      '@formatjs/icu-skeleton-parser': 1.3.18
-      tslib: 2.5.0
-    dev: true
+    dev: false
 
   /@formatjs/icu-messageformat-parser@2.3.0:
     resolution: {integrity: sha512-xqtlqYAbfJDF4b6e4O828LBNOWXrFcuYadqAbYORlDRwhyJ2bH+xpUBPldZbzRGUN2mxlZ4Ykhm7jvERtmI8NQ==}
@@ -810,6 +737,7 @@ packages:
       '@formatjs/ecma402-abstract': 1.14.3
       '@formatjs/icu-skeleton-parser': 1.3.18
       tslib: 2.5.0
+    dev: false
 
   /@formatjs/icu-messageformat-parser@2.3.1:
     resolution: {integrity: sha512-knF2AkAKN4Upv4oIiKY4Wd/dLH68TNMPgV/tJMu/T6FP9aQwbv8fpj7U3lkyniPaNVxvia56Gxax8MKOjtxLSQ==}
@@ -824,14 +752,7 @@ packages:
     dependencies:
       '@formatjs/ecma402-abstract': 1.14.3
       tslib: 2.5.0
-
-  /@formatjs/intl-displaynames@6.2.6:
-    resolution: {integrity: sha512-scf5AQTk9EjpvPhboo5sizVOvidTdMOnajv9z+0cejvl7JNl9bl/aMrNBgC72UH+bP3l45usPUKAGskV6sNIrA==}
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.14.3
-      '@formatjs/intl-localematcher': 0.2.32
-      tslib: 2.5.0
-    dev: true
+    dev: false
 
   /@formatjs/intl-displaynames@6.3.1:
     resolution: {integrity: sha512-TlxguMDUbnFrJ4NA8fSyqXC62M7czvlRJ5mrJgtB91JVA+QPjjNdcRm1qPIC/DcU/pGUDcEzThn/x5A+jp15gg==}
@@ -840,14 +761,6 @@ packages:
       '@formatjs/intl-localematcher': 0.2.32
       tslib: 2.5.0
     dev: false
-
-  /@formatjs/intl-listformat@7.1.9:
-    resolution: {integrity: sha512-5YikxwRqRXTVWVujhswDOTCq6gs+m9IcNbNZLa6FLtyBStAjEsuE2vAU+lPsbz9ZTST57D5fodjIh2JXT6sMWQ==}
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.14.3
-      '@formatjs/intl-localematcher': 0.2.32
-      tslib: 2.5.0
-    dev: true
 
   /@formatjs/intl-listformat@7.2.1:
     resolution: {integrity: sha512-fRJFWLrGa7d25I4JSxNjKX29oXGcIXx8fJjgURnvs2C3ijS4gurUgFrUwLbv/2KfPfyJ5g567pz2INelNJZBdw==}
@@ -861,23 +774,7 @@ packages:
     resolution: {integrity: sha512-k/MEBstff4sttohyEpXxCmC3MqbUn9VvHGlZ8fauLzkbwXmVrEeyzS+4uhrvAk9DWU9/7otYWxyDox4nT/KVLQ==}
     dependencies:
       tslib: 2.5.0
-
-  /@formatjs/intl@2.6.9:
-    resolution: {integrity: sha512-EtcMZ9O24YSASu/jGOaTQtArx7XROjlKiO4KmkxJ/3EyAQLCr5hrS+KKvNud0a7GIwBucOb3IFrZ7WiSm2A/Cw==}
-    peerDependencies:
-      typescript: ^4.7
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.14.3
-      '@formatjs/fast-memoize': 2.0.1
-      '@formatjs/icu-messageformat-parser': 2.3.0
-      '@formatjs/intl-displaynames': 6.2.6
-      '@formatjs/intl-listformat': 7.1.9
-      intl-messageformat: 10.3.3
-      tslib: 2.5.0
-    dev: true
+    dev: false
 
   /@formatjs/intl@2.7.1(typescript@5.0.4):
     resolution: {integrity: sha512-se6vxidsN3PCmzqTsDd3YDT4IX9ZySPy39LYhF7x2ssNvlGMOuW3umkrIhKkXB7ZskqsJGY53LVCdiHsSwhGng==}
@@ -897,23 +794,6 @@ packages:
       typescript: 5.0.4
     dev: false
 
-  /@formatjs/ts-transformer@3.11.6:
-    resolution: {integrity: sha512-JYlf+WT+Fxy+jWVXGhZcj3lvVqMp2LPmHoA0UXs7MvMz2gLdb+Gl6q6GI6Bw/veIt6qYwRP+hnJkRcZuXlCvbA==}
-    peerDependencies:
-      ts-jest: '>=27'
-    peerDependenciesMeta:
-      ts-jest:
-        optional: true
-    dependencies:
-      '@formatjs/icu-messageformat-parser': 2.2.0
-      '@types/json-stable-stringify': 1.0.34
-      '@types/node': 17.0.45
-      chalk: 4.1.2
-      json-stable-stringify: 1.0.2
-      tslib: 2.5.0
-      typescript: 4.9.5
-    dev: true
-
   /@formatjs/ts-transformer@3.12.0:
     resolution: {integrity: sha512-/jEpXcqA6y/vdijgkxSoKGfkGR5VcClJeI8hnpJ2PBCHfrc4ywFMyoZqRAakKW3IJVttaDo7mGvBAIDxV1F4Qg==}
     peerDependencies:
@@ -929,6 +809,7 @@ packages:
       json-stable-stringify: 1.0.2
       tslib: 2.5.0
       typescript: 4.9.5
+    dev: false
 
   /@humanwhocodes/config-array@0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -1585,6 +1466,7 @@ packages:
 
   /@types/estree@0.0.50:
     resolution: {integrity: sha512-C6N5s2ZFtuZRj54k2/zyRhNDjJwwcViAM3Nbm8zjBpbqAdZ00mr0CFxvSKeO8Y/e03WVFLpQMdHYVfUd6SB+Hw==}
+    dev: false
 
   /@types/estree@1.0.1:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
@@ -1593,6 +1475,7 @@ packages:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     dependencies:
       '@types/node': 17.0.45
+    dev: false
 
   /@types/hash-sum@1.0.0:
     resolution: {integrity: sha512-FdLBT93h3kcZ586Aee66HPCVJ6qvxVjBlDWNmxSGSbCZe9hTsjRKdSsl4y1T+3zfujxo9auykQMnFsfyHWD7wg==}
@@ -1610,6 +1493,7 @@ packages:
 
   /@types/json-stable-stringify@1.0.34:
     resolution: {integrity: sha512-s2cfwagOQAS8o06TcwKfr9Wx11dNGbH2E9vJz1cqV+a/LOyhWNLUNd6JSRYNzvB4d29UuJX2M0Dj9vE1T8fRXw==}
+    dev: false
 
   /@types/mdast@3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
@@ -1623,6 +1507,7 @@ packages:
 
   /@types/node@17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+    dev: false
 
   /@types/node@18.15.12:
     resolution: {integrity: sha512-Wha1UwsB3CYdqUm2PPzh/1gujGCNtWVUYF0mB00fJFoR4gTyWTDPjSm+zBF787Ahw8vSGgBja90MkgFwvB86Dg==}
@@ -1874,19 +1759,6 @@ packages:
       - '@vue/compiler-sfc'
       - ts-jest
     dev: false
-
-  /@vintl/vintl@4.1.1:
-    resolution: {integrity: sha512-2HPZhmjnIgxHqvqSzjQ+2dD1gRKpgRHEkUeyukcWOByrHSfbe85+/LSWtIpDJW+OQXQ9/rv2y7n4TOPfsA2h0w==}
-    dependencies:
-      '@braw/async-computed': 5.0.2(vue@3.2.47)
-      '@formatjs/icu-messageformat-parser': 2.3.0
-      '@formatjs/intl': 2.6.9
-      '@formatjs/intl-localematcher': 0.2.32
-      intl-messageformat: 10.3.3
-      vue: 3.2.47
-    transitivePeerDependencies:
-      - typescript
-    dev: true
 
   /@vintl/vintl@4.1.2(typescript@5.0.4):
     resolution: {integrity: sha512-X+Grxp8bAAbu/5o3NxKWEmIhPHe17uQq16Jv2/VDyK25kvAo0/Y1ruZc9V0GOi7THy9F2nlsXisvn7KUa+Ae8w==}
@@ -2229,6 +2101,7 @@ packages:
   /array-find-index@1.0.2:
     resolution: {integrity: sha512-M1HQyIXcBGtVywBt8WVdim+lrNaK7VHp99Qt5pSNziXznKHViIBbXWtfRTpEFpF/c4FdfxNAsCCwPp5phBYJtw==}
     engines: {node: '>=0.10.0'}
+    dev: false
 
   /array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
@@ -2846,6 +2719,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       array-find-index: 1.0.2
+    dev: false
 
   /data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
@@ -3928,10 +3802,6 @@ packages:
       resolve-from: 4.0.0
     dev: true
 
-  /import-meta-resolve@2.2.1:
-    resolution: {integrity: sha512-C6lLL7EJPY44kBvA80gq4uMsVFw5x3oSKfuMl1cuZ2RkI5+UJqQXgn+6hlUew0y4ig7Ypt4CObAAIzU53Nfpuw==}
-    dev: true
-
   /import-meta-resolve@2.2.2:
     resolution: {integrity: sha512-f8KcQ1D80V7RnqVm+/lirO9zkOxjGxhaTC1IPrBGd3MEfNgmNG67tSUO9gTi2F3Blr2Az6g1vocaxzkVnWl9MA==}
     dev: false
@@ -3983,6 +3853,7 @@ packages:
       '@formatjs/fast-memoize': 2.0.1
       '@formatjs/icu-messageformat-parser': 2.3.0
       tslib: 2.5.0
+    dev: false
 
   /intl-messageformat@10.3.4:
     resolution: {integrity: sha512-/FxUIrlbPtuykSNX85CB5sp2FjLVeTmdD7TfRkVFPft2n4FgcSlAcilFytYiFAEmPHc+0PvpLCIPXeaGFzIvOg==}
@@ -4241,6 +4112,7 @@ packages:
     resolution: {integrity: sha512-eunSSaEnxV12z+Z73y/j5N37/In40GK4GmsSy+tEHJMxknvqnA7/djeYtAgW0GsWHUfg+847WJjKaEylk2y09g==}
     dependencies:
       jsonify: 0.0.1
+    dev: false
 
   /json5@2.2.3:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
@@ -4259,6 +4131,7 @@ packages:
 
   /jsonify@0.0.1:
     resolution: {integrity: sha512-2/Ki0GcmuqSrgFyelQq9M05y7PS0mEwuIzrf3f1fPqkVDVRvZrPZtVSMHxdgo8Aq0sxAOb/cr2aqqA3LeWHVPg==}
+    dev: false
 
   /kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
@@ -4402,6 +4275,7 @@ packages:
     dependencies:
       currently-unhandled: 0.4.1
       signal-exit: 3.0.7
+    dev: false
 
   /lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
