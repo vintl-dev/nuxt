@@ -14,8 +14,8 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@vintl-dev/pg-messages": "workspace:*",
-    "@vintl/nuxt": "workspace:*",
+    "@vintl-dev/pg-messages": "workspace:^",
+    "@vintl/nuxt": "workspace:^",
     "nuxi": "^3.4.2",
     "nuxt": "^3.4.2"
   }
