@@ -1,0 +1,5 @@
+{
+  "current-locale": "Поточна мова: {locale}",
+  "greeting": "Привіт, {name}!",
+  "personal-greeting": "Привіт, <bold>{name}</bold>! {waving_hand}"
+}

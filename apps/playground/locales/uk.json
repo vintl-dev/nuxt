@@ -1,0 +1,14 @@
+{
+  "example": {
+    "message": "Приклад"
+  },
+  "greeting": {
+    "message": "Привіт, {name}!"
+  },
+  "language": {
+    "message": "Мова"
+  },
+  "options": {
+    "message": "Налаштування"
+  }
+}

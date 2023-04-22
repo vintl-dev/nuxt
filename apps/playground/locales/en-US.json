@@ -1,0 +1,23 @@
+{
+  "example": {
+    "message": "Example"
+  },
+  "greeting": {
+    "message": "Hello, {name}!"
+  },
+  "index.other-page": {
+    "message": "To the other page"
+  },
+  "language": {
+    "message": "Language"
+  },
+  "options": {
+    "message": "Options"
+  },
+  "other-page.back": {
+    "message": "Go back"
+  },
+  "other-page.title": {
+    "message": "Hello from the other page!"
+  }
+}

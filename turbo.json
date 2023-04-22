@@ -1,0 +1,56 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "@vintl/nuxt#build": {
+      "outputs": ["dist"]
+    },
+    "@vintl-dev/pg#prepare": {
+      "dependsOn": ["@vintl/nuxt#build"],
+      "outputs": [".nuxt"]
+    },
+    "@vintl-dev/pg#build": {
+      "dependsOn": ["@vintl/nuxt#build"],
+      "outputs": [".output", ".nuxt"]
+    },
+    "@vintl-dev/pg#dev": {
+      "dependsOn": ["@vintl/nuxt#build"],
+      "outputs": [".nuxt"],
+      "cache": false,
+      "persistent": true
+    },
+    "@vintl-dev/pg#start": {
+      "dependsOn": ["build"],
+      "persistent": true,
+      "cache": false
+    },
+    "@vintl-dev/docs#prepare": {
+      "dependsOn": ["@vintl/nuxt#build"],
+      "outputs": [".nuxt"]
+    },
+    "@vintl-dev/docs#build": {
+      "dependsOn": ["@vintl/nuxt#build"],
+      "outputs": [".output", ".nuxt"]
+    },
+    "@vintl-dev/docs#dev": {
+      "dependsOn": ["@vintl/nuxt#build"],
+      "outputs": [".nuxt"],
+      "cache": false,
+      "persistent": true
+    },
+    "@vintl-dev/docs#start": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+    "//#build": {
+      "dependsOn": [
+        "@vintl/nuxt#build",
+        "@vintl-dev/pg#build",
+        "@vintl-dev/docs#build"
+      ]
+    },
+    "lint": {
+      "outputs": []
+    }
+  }
+}

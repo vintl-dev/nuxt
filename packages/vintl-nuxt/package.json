@@ -1,0 +1,63 @@
+{
+  "name": "@vintl/nuxt",
+  "version": "1.0.0",
+  "description": "Nuxt Module for VIntl integration",
+  "keywords": [
+    "i18n",
+    "intl",
+    "nuxt"
+  ],
+  "homepage": "https://github.com/vintl-dev/nuxt-module/tree/main/packages/vintl-nuxt",
+  "bugs": {
+    "url": "https://github.com/vintl-dev/nuxt-module"
+  },
+  "author": {
+    "name": "Alexander 'Brawaru' Sorokin",
+    "url": "https://github.com/brawaru"
+  },
+  "funding": "https://github.com/brawaru/brawaru/blob/main/SUPPORT.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vintl-dev/nuxt-module.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/module.d.ts",
+      "import": "./dist/module.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "module": "./dist/module.mjs",
+  "types": "./dist/module.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "nuxt-module-build"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "^0.3.0",
+    "@types/hash-sum": "^1.0.0",
+    "@types/node": "^18.15.12",
+    "@unhead/vue": "^1.1.26",
+    "hookable": "^5.5.3",
+    "prettier-plugin-jsdoc": "^0.4.2"
+  },
+  "dependencies": {
+    "@formatjs/intl": "^2.7.1",
+    "@nuxt/kit": "^3.4.2",
+    "@nuxt/schema": "^3.4.2",
+    "@vintl/unplugin": "^1.2.0",
+    "@vintl/vintl": "^4.1.2",
+    "astring": "^1.8.4",
+    "defu": "^6.1.2",
+    "hash-sum": "^2.0.0",
+    "import-meta-resolve": "^2.2.2",
+    "pathe": "^1.1.0",
+    "picocolors": "^1.0.0",
+    "slash": "^5.0.0",
+    "zod": "^3.21.4"
+  }
+}

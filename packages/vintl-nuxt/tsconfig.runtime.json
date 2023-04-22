@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
+
+    "types": ["./types/nuxt"],
+
+    "outDir": "./dist",
+    "paths": {
+      "#imports": ["./stubs/imports.js"]
+    }
+  },
+  "include": [
+    "./src/runtime/**/*.ts",
+    "./src/runtime/**/*.mts",
+    "./types/*.d.ts"
+  ]
+}

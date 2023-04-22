@@ -1,0 +1,5 @@
+{
+  "module.greetings": {
+    "message": "This is a message coming from the module!"
+  }
+}

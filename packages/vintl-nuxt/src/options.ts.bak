@@ -1,0 +1,336 @@
+import type { ModuleOptions } from '@nuxt/schema'
+import { createDefu } from 'defu'
+import { OptionsError } from './errors.js'
+
+/**
+ * Represents an import source for the file. It can be just a path to import the
+ * default export from, or an array (tuple) of an import path and export name
+ * from the module imported from that path.
+ *
+ * For example, if you define your module as
+ *
+ * ```js
+ * export const americanEnglish = {
+ *   greeting: 'Hello, {name}!',
+ * }
+ *
+ * export default { americanEnglish }
+ * ```
+ *
+ * And want to import just `americanEnglish`, then you should use an array
+ * containing `source` and `exportName` elements as such:
+ * `['./i18n/messages.js', 'americanEnglish']`. This would effectively resolve
+ * to this import construction:
+ *
+ * ```js
+ * // non-lazy locale:
+ * import { 'americanEnglish' as messages } from '<resolveDir>/i18n/messages.js'
+ *
+ * // lazy locale import:
+ * const messages = await import('<resolveDir>/i18n/messages.js').then(
+ *   (imported) => imported['americanEnglish'],
+ * )
+ * ```
+ */
+export type ImportSource = string | [source: string, exportName: string]
+
+/** Represents a configured locale. */
+interface LocaleDescriptor {
+  /**
+   * A source of import for the messages file, which is resolved against the
+   * {@link Options.resolveDir}. If {@link files} option specified together with
+   * this option, this messages file will be imported before any other file
+   * defined in {@link files}.
+   */
+  file?: ImportSource
+
+  /**
+   * An array of import sources for the message files, resolved against the
+   * {@link Options.resolveDir} and overriding the messages by previously
+   * imported sources in the order of their appeareance in the array.
+   */
+  files?: ImportSource[]
+
+  /**
+   * BCP 47 language tag of the locale.
+   *
+   * @see https://www.w3.org/International/questions/qa-choosing-language-tags W3 guide on choosing the language tags.
+   */
+  tag: string
+
+  /** List of additional side-effect only imports (like polyfill data). */
+  additionalImports?: string[]
+
+  /**
+   * An array of mapped resource imports.
+   *
+   * Unlike additional imports, which are used for side effects, these imports
+   * will be mapped to provided key in runtime.
+   *
+   * This is useful for language-associated documents, which would otherwise
+   * create frustrating experience for translators be they left as regular
+   * strings in the messages file.
+   */
+  resources?: Record<string, ImportSource>
+
+  /**
+   * Custom meta for the locale that is always accessible even when the locale
+   * is not loaded.
+   *
+   * It can be used to store data like meta tags. Keep in mind, it needs to be
+   * JSON serialisable.
+   */
+  meta?: Partial<VueIntlController.LocaleMeta>
+}
+
+/**
+ * Similar to Webpack's condition:
+ *
+ * - If a string, the module ID must start with the following string.
+ * - If a {@link RegExp}, then the module ID must match it.
+ * - If a function, it must return a truthy value for the module ID.
+ */
+export type Condition = string | RegExp | ((id: string) => boolean)
+
+/** Settings for the parserless mode. */
+export interface ParserlessOptions {
+  /** Whether to use parserless mode. */
+  enabled: 'always' | 'only-prod' | 'never' | boolean
+}
+
+/** Represents the Nuxt module options. */
+export interface Options extends ModuleOptions {
+  /**
+   * BCP 47 code of the locale to use by default.
+   *
+   * @default 'en-US' // American English will be used as a default locale.
+   */
+  defaultLocale: string
+
+  /**
+   * A directory where all the imports associated with the locales are being
+   * resolved.
+   *
+   * If it's relative, then it will be resolved against the Nuxt `srcDir`
+   * directory.
+   *
+   * @default '.' // Modules will be resolved from Nuxt srcDir.
+   */
+  resolveDir?: string
+
+  /** An array of all the configured locales. */
+  locales: LocaleDescriptor[]
+
+  /**
+   * Either a built-in storage name (localStorage / cookie), node module name or
+   * path to a file that exports an adapter as default export.
+   */
+  storage?: 'localStorage' | 'cookie' | (string & Record<never, never>)
+
+  /**
+   * Whether to use `BroadcastChannel` (if available) to synchronise locale
+   * change between multiple tabs on the same origin.
+   *
+   * @default true // Broadcasts locale changes to other tabs.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel
+   */
+  broadcastLocaleChange?: boolean
+
+  /**
+   * Configuration options for the parserless mode, a mode in which the parser
+   * is removed from runtime and all strings are processed during the initial
+   * build, which can have drastic bundle size reduction and performance
+   * improvements. The tradeoff, however, is that no messages can be parsed
+   * anymore, they all will have to be processed beforehand.
+   *
+   * Parserless mode is still an experimental feature and will continue to
+   * improve with time.
+   */
+  parserlessMode?: ParserlessOptions | ParserlessOptions['enabled']
+}
+
+export function createOptionsMerger() {
+  const mergeLocale = createDefu((output, key, value, namespace) => {
+    if (namespace === '' && key === 'resources') {
+      output[key] = Object.assign({}, output[key], value) // shallow
+
+      return true
+    }
+  })
+
+  return createDefu((output, key, value, namespace) => {
+    if (!(namespace === '' && key === 'locales')) return
+
+    if (!Array.isArray(value)) {
+      throw new TypeError('"locales" must be an array of locale descriptors')
+    }
+
+    const newLocales: LocaleDescriptor[] = []
+
+    if (output[key] != null) {
+      newLocales.push(...(output[key] as LocaleDescriptor[]))
+    }
+
+    for (const locale of value as LocaleDescriptor[]) {
+      const existingLocaleIndex = newLocales.findIndex(
+        (it) => it.tag === locale.tag,
+      )
+
+      if (existingLocaleIndex === -1) {
+        newLocales.push(locale)
+      } else {
+        newLocales[existingLocaleIndex] = mergeLocale(
+          locale,
+          newLocales[existingLocaleIndex],
+        )
+      }
+    }
+
+    output[key] = newLocales as any
+
+    return true
+  })
+}
+
+function toTypeString(value: unknown) {
+  const valueType = typeof value
+  if (valueType === 'object' && value == null) return 'null'
+  if (Array.isArray(value)) return 'array'
+  return valueType
+}
+
+function isValidImportSource(value: unknown): value is ImportSource {
+  return (
+    typeof value === 'string' ||
+    (Array.isArray(value) &&
+      value.length === 2 &&
+      typeof value[0] === 'string' &&
+      typeof value[1] === 'string')
+  )
+}
+
+export function assertOptionsValid(
+  options: Partial<Options>,
+): asserts options is Options {
+  if (options.defaultLocale == null) {
+    throw new OptionsError('defaultLocale', '{} must have a value')
+  }
+
+  if (!Array.isArray(options.locales)) {
+    throw new OptionsError(
+      'locales',
+      `{} must be an array of locale descriptors (is ${toTypeString(
+        options.locales,
+      )})`,
+    )
+  }
+
+  if (options.locales.length === 0) {
+    throw new OptionsError(
+      'locales',
+      '{} must define at least one locale descriptor',
+    )
+  }
+
+  const uniqueLocaleCodes = new Set()
+
+  for (let i = 0, l = options.locales.length; i < l; i++) {
+    const locale = options.locales[i]
+
+    if (locale == null) {
+      throw new OptionsError(
+        `locales[${i}]`,
+        `{} must be an object (is ${toTypeString(locale)} instead)`,
+      )
+    }
+
+    if (typeof locale.tag !== 'string') {
+      throw new OptionsError(
+        `locales[${i}].tag`,
+        `{} must be a string containing BCP 47 language tag (is ${toTypeString(
+          locale.tag,
+        )} instead)`,
+      )
+    }
+
+    if (locale.file == null && locale.files == null) {
+      throw new OptionsError(
+        `locales[${i}]`,
+        '{} must include at least one import source containing the messages through `file`, `files`, or both of these options (has none)',
+      )
+    }
+
+    if (locale.file != null && !isValidImportSource(locale.file)) {
+      throw new OptionsError(
+        `locales[${i}].file`,
+        '{} must a be an import source string or a tuple containing both import source and a custom export name',
+      )
+    }
+
+    if (locale.files != null) {
+      if (!Array.isArray(locale.files)) {
+        throw new OptionsError(
+          `locales[${i}].files`,
+          '{} must be an array containing messages import sources',
+        )
+      }
+
+      if (locale.files.length === 0 && locale.file == null) {
+        throw new OptionsError(
+          `locales[${i}].files`,
+          '{} must include at least one messages import source if no import source is provided with `file` option',
+        )
+      }
+
+      for (let j = 0, l = locale.files.length; j < l; j++) {
+        if (!isValidImportSource(locale.files[j])) {
+          throw new OptionsError(
+            `locales[${i}].files[${j}]`,
+            '{} must a be an array of import sources strings or the tuples containing both import sources and their custom export names',
+          )
+        }
+      }
+    }
+
+    let intlLocale: Intl.Locale
+    try {
+      intlLocale = new Intl.Locale(locale.tag)
+    } catch (err) {
+      const message = err instanceof Error ? `${err.name}: ${err.message}` : err
+
+      throw new OptionsError(
+        `locales[${i}].code`,
+        `{} must be a valid BCP 47 tag (fails Intl.Locale instantiation: ${message})`,
+      )
+    }
+
+    const localeTag = intlLocale.toString()
+
+    if (uniqueLocaleCodes.has(localeTag)) {
+      throw new OptionsError(
+        `locales[${i}]`,
+        `{} must not duplicate previously added locale descriptor (locale descriptor with tag ${localeTag} is already defined)`,
+      )
+    }
+
+    uniqueLocaleCodes.add(localeTag)
+
+    if (locale.meta != null) {
+      try {
+        JSON.stringify(locale.meta)
+      } catch (err) {
+        throw new OptionsError(
+          `locales[${i}].meta`,
+          `{} must be JSON encodable object (${err})`,
+        )
+      }
+    }
+  }
+
+  if (!options.locales.some((locale) => locale.tag === options.defaultLocale)) {
+    throw new OptionsError(
+      'locales',
+      `{} must have a locale descriptor for default locale (no locale descriptor has code ${options.defaultLocale})`,
+    )
+  }
+}

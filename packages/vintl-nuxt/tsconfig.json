@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
+
+    "types": ["./types/nuxt"],
+
+    "outDir": "./dist",
+
+    "noEmit": true
+  },
+  "include": ["./src/**/*.ts", "./types/*.d.ts"],
+  "exclude": ["./src/runtime/**/*.ts", "dist"],
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    },
+    {
+      "path": "./tsconfig.runtime.json"
+    }
+  ]
+}

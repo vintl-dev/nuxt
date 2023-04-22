@@ -1,0 +1,27 @@
+{
+  "name": "@vintl-dev/pg",
+  "version": "0.0.0",
+  "description": "Development playground for Nuxt VIntl module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "dev:prepare": "nuxt prepare",
+    "intl:extract": "formatjs extract \"{,components,composables,layouts,middleware,modules,pages,plugins,utils}/**/*.{vue,ts,tsx,js,jsx,mts,cts,mjs,cjs}\" --ignore '**/*.d.ts' --ignore 'node_modules' --out-file locales/en-US.json --format default",
+    "start": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "@braw/rollup-plugin-icu-messages": "1.0.0-alpha.4",
+    "@formatjs/cli": "^6.0.4",
+    "@formatjs/cli-lib": "^6.0.3",
+    "@formatjs/intl": "^2.6.9",
+    "@vintl-dev/pg-messages": "workspace:*",
+    "@vintl/nuxt": "workspace:*",
+    "@vintl/vintl": "^4.1.1",
+    "nuxi": "^3.3.3",
+    "nuxt": "^3.3.3"
+  }
+}
