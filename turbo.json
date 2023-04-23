@@ -9,6 +9,7 @@
     },
     "@vintl-dev/pg#dev:prepare": {
       "dependsOn": ["@vintl/nuxt#build"],
+      "inputs": ["./package.json", "./nuxt.config.ts"],
       "outputs": [".nuxt"]
     },
     "@vintl-dev/pg#build": {
@@ -27,10 +28,17 @@
       "cache": false
     },
     "@vintl-dev/pg#lint": {
+      "dependsOn": ["dev:prepare"],
       "outputs": []
     },
     "@vintl-dev/docs#dev:prepare": {
       "dependsOn": ["@vintl/nuxt#build"],
+      "inputs": [
+        "./package.json",
+        "./nuxt.config.ts",
+        "./app.config.ts",
+        "./tokens.config.ts"
+      ],
       "outputs": [".nuxt"]
     },
     "@vintl-dev/docs#build": {
@@ -49,6 +57,7 @@
       "persistent": true
     },
     "@vintl-dev/docs#lint": {
+      "dependsOn": ["dev:prepare"],
       "outputs": []
     },
     "//#prepare": {
