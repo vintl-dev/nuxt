@@ -1,5 +1,5 @@
 {
-  "extends": ["@nuxtjs/eslint-config-typescript"],
+  "extends": ["./nuxt-eslint-config.cjs"],
   "rules": {
     "space-before-function-paren": "off",
     "comma-dangle": "off",
