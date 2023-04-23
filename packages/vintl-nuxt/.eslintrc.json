@@ -17,8 +17,8 @@
     },
     {
       "files": [
-        "./src/runtime/**/*.ts",
-        "./src/runtime/**/*.mts",
+        "./stubs/*.{d.ts,js}",
+        "./src/runtime/**/*.{ts,mts}",
         "./types/*.d.ts"
       ],
       "parserOptions": {
