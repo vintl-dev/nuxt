@@ -58,6 +58,7 @@ async function onLocaleChange(e: Event) {
       >
         <option
           v-for="locale in [...$nuxt.$i18n.$locales.value.keys()]"
+          :key="locale.tag"
           :value="locale.tag"
         >
           {{ locale.tag }}

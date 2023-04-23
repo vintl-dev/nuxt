@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const vintl = useVIntl()
 const switching = ref(false)
-const locale = computed({
+const activeLocale = computed({
   get() {
     return vintl.locale
   },
@@ -19,7 +19,7 @@ const locale = computed({
   <div>
     <label>
       Locale:
-      <select v-model="locale" :disabled="switching.value">
+      <select v-model="activeLocale" :disabled="switching.value">
         <option v-for="locale in vintl.availableLocales" :key="locale.tag">
           {{ locale.tag }}
         </option>

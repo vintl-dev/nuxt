@@ -20,7 +20,9 @@ const user = {
       <template #bold="{ children }">
         <strong><component :is="() => children" /></strong>
       </template>
-      <template #~waving_hand><Icon name="noto:waving-hand" /></template>
+      <template #~waving_hand>
+        <Icon name="noto:waving-hand" />
+      </template>
     </IntlFormatted>
   </div>
 </template>
