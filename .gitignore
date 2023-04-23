@@ -44,9 +44,12 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-.vscode
-
 # End of https://www.toptal.com/developers/gitignore/api/node
 
 # Turborepo cache
 .turbo
+
+.vscode/*
+
+# Don't ignore VS Code settings that configure ESLint extension
+!.vscode/settings.json
