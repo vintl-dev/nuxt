@@ -13,5 +13,5 @@
       }
     }
   ],
-  "ignorePatterns": ["./.nuxt", "./.output"]
+  "ignorePatterns": ["/.nuxt", "/.output"]
 }
