@@ -53,6 +53,7 @@ export function locale() {
         | RawValue<MessagesMap>,
       importProperty = defaultExport,
     ) {
+      // eslint-disable-next-line prefer-const
       let id = messages.length
 
       if (isRaw(messagesImport)) {

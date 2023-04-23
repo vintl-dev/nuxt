@@ -1,4 +1,4 @@
-import type { ZodError, ZodIssue } from 'zod'
+import type { ZodError } from 'zod'
 import pico from 'picocolors'
 
 function isEqualArray<T>(a: T[], b: T[]) {

@@ -1,6 +1,6 @@
 /// <reference types="nuxt" />
 
-import { ModuleHooks } from '../src/module.js'
+import type { ModuleHooks } from '../src/module.js'
 
 declare module '@nuxt/schema' {
   interface NuxtHooks extends ModuleHooks {}

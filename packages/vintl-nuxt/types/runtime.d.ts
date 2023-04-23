@@ -1,8 +1,9 @@
 declare module '@vintl/nuxt-runtime/options' {
-  import '@vintl/vintl'
+  import type { MessagesMap } from '@vintl/vintl'
+  import type { StorageAdapterFactory } from '../src/runtime/storage-adapter.js'
 
   export interface LocaleImport {
-    messages: import('@vintl/vintl').MessagesMap
+    messages: MessagesMap
     resources: VueIntlController.LocaleResources
   }
 
@@ -49,9 +50,7 @@ declare module '@vintl/nuxt-runtime/options' {
   export const localeDefinitions: LocalesDefinitionsMap
 
   /** Storage adapter used to save or retrieve user preference. */
-  export const storageAdapterFactory:
-    | import('../src/runtime/storage-adapter.js').StorageAdapterFactory
-    | null
+  export const storageAdapterFactory: StorageAdapterFactory | null
 
   /** Whether to broadcast locale changes to other tabs. */
   export const broadcastLocaleChange: boolean

@@ -32,7 +32,7 @@ const currentLocale = computed({
   get() {
     return vintl.locale
   },
-  set(_value) {
+  set() {
     // ignore
   },
 })

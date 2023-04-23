@@ -2,7 +2,6 @@ import hash from 'hash-sum'
 import { generate as fromAST } from 'astring'
 import type { z as t } from 'zod'
 import type {
-  extImportSourceSchema,
   messagesImportSourceSchema,
   moduleOptionsSchema,
 } from './schemas/index.js'

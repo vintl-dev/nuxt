@@ -131,7 +131,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.vueApp.use(plugin)
 
   if (broadcastLocaleChange) {
-    ;(await import('./broadcasting.js')).setupBroadcasting(controller)
+    const { setupBroadcasting } = await import('./broadcasting.js')
+    setupBroadcasting(controller)
   }
 
   if (hostLanguageParam != null) {
