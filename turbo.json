@@ -5,7 +5,7 @@
       "outputs": ["dist"]
     },
     "@vintl/nuxt#lint": {
-      "outputs": []
+      "outputs": [".eslintcache"]
     },
     "@vintl-dev/pg#dev:prepare": {
       "dependsOn": ["@vintl/nuxt#build"],
@@ -29,7 +29,7 @@
     },
     "@vintl-dev/pg#lint": {
       "dependsOn": ["dev:prepare"],
-      "outputs": []
+      "outputs": [".eslintcache"]
     },
     "@vintl-dev/docs#dev:prepare": {
       "dependsOn": ["@vintl/nuxt#build"],
@@ -58,7 +58,7 @@
     },
     "@vintl-dev/docs#lint": {
       "dependsOn": ["dev:prepare"],
-      "outputs": []
+      "outputs": [".eslintcache"]
     },
     "//#prepare": {
       "dependsOn": ["@vintl-dev/pg#dev:prepare", "@vintl-dev/docs#dev:prepare"]

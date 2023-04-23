@@ -35,7 +35,7 @@
   ],
   "scripts": {
     "build": "nuxt-module-build",
-    "lint": "eslint ."
+    "lint": "eslint --cache ."
   },
   "devDependencies": {
     "@nuxt/module-builder": "^0.3.0",
