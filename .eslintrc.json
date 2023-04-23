@@ -31,42 +31,8 @@
     "brace-style": "off"
   },
   "overrides": [
-    //vintl-nuxt
-    {
-      "files": [
-        "./packages/vintl-nuxt/src/**/*.ts",
-        "./packages/vintl-nuxt/types/*.d.ts"
-      ],
-      "excludedFiles": ["./packages/vintl-nuxt/src/runtime/**/*.ts"],
-      "parserOptions": {
-        "project": "./packages/vintl-nuxt/tsconfig.json"
-      }
-    },
-    {
-      "files": ["./packages/vintl-nuxt/src/runtime/**/*.ts"],
-      "parserOptions": {
-        "project": "./packages/vintl-nuxt/tsconfig.runtime.json"
-      }
-    },
-    {
-      "files": [
-        "./build.config.ts",
-        "./vitest.config.ts",
-        "./build/*.ts",
-        "./test/*.test.ts"
-      ],
-      "parserOptions": {
-        "project": "./packages/vintl-nuxt/tsconfig.build.json"
-      }
-    },
-    // playground
-    {
-      "files": ["./apps/playground/**/*.ts"],
-      "parserOptions": {
-        "project": "./apps/playground/tsconfig.json"
-      }
-    },
-    // docs
+    //
+    // ./apps/docs/tsconfig.json
     {
       "files": ["./apps/docs/**/*.{ts,tsx,vue}"],
       "parserOptions": {
@@ -75,6 +41,46 @@
       "rules": {
         "vue/max-attributes-per-line": "off",
         "vue/multi-word-component-names": "off"
+      }
+    },
+    //
+    // ./apps/playground/tsconfig.json
+    {
+      "files": ["./apps/playground/**/*.{ts,tsx,vue}"],
+      "parserOptions": {
+        "project": "./apps/playground/tsconfig.json"
+      }
+    },
+    //
+    //./packages/vintl-nuxt/tsconfig.json
+    {
+      "files": [
+        "./packages/vintl-nuxt/src/**/*.ts",
+        "./packages/vintl-nuxt/types/*.d.ts"
+      ],
+      "excludedFiles": ["./packages/vintl-nuxt/src/runtime/**/*.ts", "dist"],
+      "parserOptions": {
+        "project": "./packages/vintl-nuxt/tsconfig.json"
+      }
+    },
+    //
+    // ./packages/vintl-nuxt/tsconfig.build.json
+    {
+      "files": ["./packages/vintl-nuxt/build.config.ts"],
+      "parserOptions": {
+        "project": "./packages/vintl-nuxt/tsconfig.build.json"
+      }
+    },
+    //
+    // ./packages/vintl-nuxt/tsconfig.runtime.json
+    {
+      "files": [
+        "./packages/vintl-nuxt/src/runtime/**/*.ts",
+        "./packages/vintl-nuxt/src/runtime/**/*.mts",
+        "./packages/vintl-nuxt/types/*.d.ts"
+      ],
+      "parserOptions": {
+        "project": "./packages/vintl-nuxt/tsconfig.runtime.json"
       }
     }
   ]

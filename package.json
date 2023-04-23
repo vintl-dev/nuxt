@@ -18,12 +18,16 @@
     "docs:dev": "turbo run --no-daemon @vintl-dev/docs#dev",
     "docs:build": "turbo run --no-daemon @vintl-dev/docs#build",
     "docs:start": "turbo run --no-daemon @vintl-dev/docs#start",
-    "mod:build": "pnpm --filter=@vintl/nuxt exec turbo run --no-daemon build"
+    "mod:build": "pnpm --filter=@vintl/nuxt exec turbo run --no-daemon build",
+    "lint": "eslint ."
   },
   "pnpm": {
     "patchedDependencies": {
       "astring@1.8.4": "patches/astring@1.8.4.patch"
     }
   },
-  "packageManager": "pnpm@8.3.1"
+  "packageManager": "pnpm@8.3.1",
+  "dependencies": {
+    "@nuxtjs/eslint-config-typescript": "^12.0.0"
+  }
 }

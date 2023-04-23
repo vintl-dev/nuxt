@@ -1,0 +1,3 @@
+./apps/*/.nuxt
+./apps/*/.output
+./packages/*/dist

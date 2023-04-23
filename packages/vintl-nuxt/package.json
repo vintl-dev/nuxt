@@ -7,10 +7,8 @@
     "intl",
     "nuxt"
   ],
-  "homepage": "https://github.com/vintl-dev/nuxt-module/tree/main/packages/vintl-nuxt",
-  "bugs": {
-    "url": "https://github.com/vintl-dev/nuxt-module"
-  },
+  "homepage": "https://github.com/vintl-dev/nuxt/tree/main/packages/vintl-nuxt",
+  "bugs": "https://github.com/vintl-dev/nuxt/issues",
   "author": {
     "name": "Alexander 'Brawaru' Sorokin",
     "url": "https://github.com/brawaru"
@@ -18,7 +16,7 @@
   "funding": "https://github.com/brawaru/brawaru/blob/main/SUPPORT.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vintl-dev/nuxt-module.git"
+    "url": "https://github.com/vintl-dev/nuxt.git"
   },
   "license": "MIT",
   "type": "module",

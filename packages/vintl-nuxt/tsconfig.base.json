@@ -14,8 +14,6 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
 
-    "skipLibCheck": true,
-
-    "noUncheckedIndexedAccess": true
+    "skipLibCheck": true
   }
 }

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "composite": true,
 
-    "module": "CommonJS",
+    "module": "ESNext",
 
     "moduleResolution": "node",
 
@@ -11,10 +11,5 @@
 
     "types": ["node"]
   },
-  "include": [
-    "./build.config.ts",
-    "./vitest.config.ts",
-    "./test/*.test.ts",
-    "./tsconfig.build.json"
-  ]
+  "include": ["./build.config.ts"]
 }
