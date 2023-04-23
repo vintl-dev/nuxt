@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "extends": ["@vintl-dev/eslint-config-peony"],
+  "overrides": [
+    {
+      "files": ["./src/**/*.ts", "./types/*.d.ts"],
+      "excludedFiles": ["./src/runtime/**/*.ts", "./dist"],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    },
+    {
+      "files": ["./build.config.ts"],
+      "parserOptions": {
+        "project": "./tsconfig.build.json"
+      }
+    },
+    {
+      "files": [
+        "./src/runtime/**/*.ts",
+        "./src/runtime/**/*.mts",
+        "./types/*.d.ts"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.runtime.json"
+      }
+    }
+  ]
+}

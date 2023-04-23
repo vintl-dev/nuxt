@@ -4,6 +4,9 @@
     "@vintl/nuxt#build": {
       "outputs": ["dist"]
     },
+    "@vintl/nuxt#lint": {
+      "outputs": []
+    },
     "@vintl-dev/pg#dev:prepare": {
       "dependsOn": ["@vintl/nuxt#build"],
       "outputs": [".nuxt"]
@@ -22,6 +25,9 @@
       "dependsOn": ["build"],
       "persistent": true,
       "cache": false
+    },
+    "@vintl-dev/pg#lint": {
+      "outputs": []
     },
     "@vintl-dev/docs#dev:prepare": {
       "dependsOn": ["@vintl/nuxt#build"],
@@ -42,6 +48,12 @@
       "cache": false,
       "persistent": true
     },
+    "@vintl-dev/docs#lint": {
+      "outputs": []
+    },
+    "//#prepare": {
+      "dependsOn": ["@vintl-dev/pg#dev:prepare", "@vintl-dev/docs#dev:prepare"]
+    },
     "//#build": {
       "dependsOn": [
         "@vintl/nuxt#build",
@@ -49,8 +61,12 @@
         "@vintl-dev/docs#build"
       ]
     },
-    "lint": {
-      "outputs": []
+    "//#lint": {
+      "dependsOn": [
+        "@vintl/nuxt#lint",
+        "@vintl-dev/pg#lint",
+        "@vintl-dev/docs#lint"
+      ]
     }
   }
 }

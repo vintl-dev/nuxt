@@ -1,0 +1,31 @@
+{
+  "name": "@vintl-dev/eslint-config-peony",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Shared ESLint configuration for VIntl for Nuxt monorepo",
+  "homepage": "https://github.com/vintl-dev/nuxt/tree/main/packages/eslint-config",
+  "bugs": "https://github.com/vintl-dev/nuxt/issues",
+  "author": {
+    "name": "Alexander 'Brawaru' Sorokin",
+    "url": "https://github.com/brawaru"
+  },
+  "funding": "https://github.com/brawaru/brawaru/blob/main/SUPPORT.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vintl-dev/nuxt.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./config.json"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "config.json"
+  ],
+  "dependencies": {
+    "@nuxtjs/eslint-config-typescript": "^12.0.0"
+  }
+}

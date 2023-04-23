@@ -13,12 +13,13 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
+    "@formatjs/cli": "^6.0.4",
     "@nuxt-themes/docus": "^1.10.1",
     "@nuxt/eslint-config": "^0.1.1",
+    "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl/nuxt": "workspace:^",
     "eslint": "^8.39.0",
     "nuxt": "^3.4.2",
-    "theme-colors": "^0.0.5",
-    "@formatjs/cli": "^6.0.4"
+    "theme-colors": "^0.0.5"
   }
 }

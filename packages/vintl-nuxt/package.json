@@ -34,15 +34,18 @@
     "dist"
   ],
   "scripts": {
-    "build": "nuxt-module-build"
+    "build": "nuxt-module-build",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@nuxt/module-builder": "^0.3.0",
     "@types/hash-sum": "^1.0.0",
     "@types/node": "^18.15.12",
     "@unhead/vue": "^1.1.26",
+    "@vintl-dev/eslint-config-peony": "workspace:^",
     "hookable": "^5.5.3",
-    "prettier-plugin-jsdoc": "^0.4.2"
+    "prettier-plugin-jsdoc": "^0.4.2",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@formatjs/intl": "^2.7.1",

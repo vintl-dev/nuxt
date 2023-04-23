@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "extends": ["@vintl-dev/eslint-config-peony"],
+  "overrides": [
+    {
+      "files": ["./**/*.{ts,tsx,vue}"],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    }
+  ]
+}
