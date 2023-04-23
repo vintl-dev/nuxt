@@ -31,7 +31,7 @@
     "vue/singleline-html-element-content-newline": "off"
   },
   "parserOptions": {
-    "extraFileExtensions": ["vue"]
+    "extraFileExtensions": [".vue"]
   },
   "ignorePatterns": ["node_modules", ".turbo"]
 }
