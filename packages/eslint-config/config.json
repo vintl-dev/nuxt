@@ -32,5 +32,6 @@
   },
   "parserOptions": {
     "extraFileExtensions": ["vue"]
-  }
+  },
+  "ignorePatterns": ["node_modules", ".turbo"]
 }

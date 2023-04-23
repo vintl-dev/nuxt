@@ -25,5 +25,6 @@
         "project": "./tsconfig.runtime.json"
       }
     }
-  ]
+  ],
+  "ignorePatterns": ["./dist"]
 }
