@@ -31,13 +31,4 @@ export default defineNuxtConfig({
     broadcastLocaleChange: true,
     parserless: 'always',
   },
-  vite: {
-    resolve: {
-      alias: {
-        '@formatjs/icu-messageformat-parser':
-          '@formatjs/icu-messageformat-parser/lib/no-parser',
-      },
-    },
-    plugins: [],
-  },
 })

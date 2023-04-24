@@ -7,6 +7,8 @@ import {
   addComponent,
   addVitePlugin,
   addWebpackPlugin,
+  extendViteConfig,
+  extendWebpackConfig,
 } from '@nuxt/kit'
 import { relative as relativizePath, resolve as resolvePath } from 'pathe'
 import { generate as generateOptions } from './options-gen.js'
@@ -139,6 +141,36 @@ export default defineNuxtModule<InputModuleOptions>({
           })
           .map((pluginOptions) => icuMessages.webpack(pluginOptions)),
       )
+
+      if (parserlessEnabled) {
+        extendViteConfig((cfg) => {
+          const aliases = ((cfg.resolve ??= {}).alias ??= {})
+          if (Array.isArray(aliases)) {
+            aliases.push({
+              find: '@formatjs/icu-messageformat-parser',
+              replacement: '@formatjs/icu-messageformat-parser/lib/no-parser',
+            })
+          } else {
+            Object.assign(aliases, {
+              '@formatjs/icu-messageformat-parser':
+                '@formatjs/icu-messageformat-parser/lib/no-parser',
+            })
+          }
+        })
+
+        extendWebpackConfig((cfg) => {
+          const aliases = ((cfg.resolve ??= {}).alias ??= {})
+          if (Array.isArray(aliases)) {
+            aliases.push({
+              name: '@formatjs/icu-messageformat-parser',
+              alias: '@formatjs/icu-messageformat-parser/lib/no-parser',
+            })
+          } else {
+            aliases['@formatjs/icu-messageformat-parser'] =
+              '@formatjs/icu-messageformat-parser/lib/no-parser'
+          }
+        })
+      }
     }
 
     addImports({
