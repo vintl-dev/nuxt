@@ -28,6 +28,13 @@
   "pnpm": {
     "patchedDependencies": {
       "astring@1.8.4": "patches/astring@1.8.4.patch"
+    },
+    "packageExtensions": {
+      "@nuxt/kit": {
+        "dependencies": {
+          "webpack": "^5.80.0"
+        }
+      }
     }
   },
   "packageManager": "pnpm@8.3.1"
