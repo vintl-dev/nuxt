@@ -636,6 +636,12 @@ interface GeneratorContext {
    * @returns Path relative to the optons file.
    */
   resolveRuntimeModule(specifier: string): Promise<string>
+
+  /** Additional state to encode which is not included in the options. */
+  state: {
+    /** Whether the parserless mode is enabled. */
+    parserlessModeEnabled: boolean
+  }
 }
 
 /**
@@ -645,7 +651,12 @@ interface GeneratorContext {
  */
 export async function generate(
   opts: t.output<typeof moduleOptionsSchema>,
-  { resolve, resolveRuntimeModule, registerMessagesFile }: GeneratorContext,
+  {
+    resolve,
+    resolveRuntimeModule,
+    registerMessagesFile,
+    state,
+  }: GeneratorContext,
 ) {
   if (opts.defaultLocale == null) {
     throw new Error('Options are missing a default locale')
@@ -1003,6 +1014,17 @@ export async function generate(
         new VariableDeclarator(
           new Identifier('hostLanguageParam'),
           new Literal(opts.hostLanguageParam),
+        ),
+      ]),
+    ),
+  )
+
+  exports.push(
+    new ExportNamedDeclaration().setDeclaration(
+      new VariableDeclaration('const', [
+        new VariableDeclarator(
+          new Identifier('parserless'),
+          new Literal(state.parserlessModeEnabled),
         ),
       ]),
     ),

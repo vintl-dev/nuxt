@@ -95,6 +95,9 @@ export default defineNuxtModule<InputModuleOptions>({
                 optionsFile.dst,
               )
             },
+            state: {
+              parserlessModeEnabled,
+            },
           })
         },
       })

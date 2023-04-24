@@ -4,6 +4,7 @@ import {
   storageAdapterFactory,
   broadcastLocaleChange,
   hostLanguageParam,
+  parserless,
 } from '@vintl/nuxt-runtime/options'
 import type { LocaleDescriptor, MessageValueType } from '@vintl/vintl'
 import type { IntlController } from '@vintl/vintl/controller'
@@ -122,6 +123,9 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             })()
           : useNavigatorLanguage(),
       ],
+      defaultMessageOrder: parserless
+        ? ['locale', 'descriptor']
+        : ['descriptor', 'locale'],
     },
   })
 

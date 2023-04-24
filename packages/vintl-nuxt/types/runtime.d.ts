@@ -57,4 +57,11 @@ declare module '@vintl/nuxt-runtime/options' {
 
   /** Name of the `hostLanguage` parameter or its name. */
   export const hostLanguageParam: string | null
+
+  /**
+   * Whether the parserless mode is enabled and message loading order must be
+   * changed to prioritise the default locale messages rather than the
+   * descriptor.
+   */
+  export const parserless: boolean
 }
