@@ -1,4 +1,8 @@
 {
-  "greeting": "Hello, {name}!",
-  "personal-greeting": "Hello, <bold>{name}</bold>! {waving_hand}"
+  "greeting": {
+    "defaultMessage": "Hello, {name}!"
+  },
+  "personal-greeting": {
+    "defaultMessage": "Hello, <bold>{name}</bold>! {waving_hand}"
+  }
 }

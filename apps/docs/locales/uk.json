@@ -1,5 +1,8 @@
 {
-  "current-locale": "Поточна мова: {locale}",
-  "greeting": "Привіт, {name}!",
-  "personal-greeting": "Привіт, <bold>{name}</bold>! {waving_hand}"
+  "greeting": {
+    "defaultMessage": "Привіт, {name}!"
+  },
+  "personal-greeting": {
+    "defaultMessage": "Привіт, <bold>{name}</bold>! {waving_hand}"
+  }
 }
