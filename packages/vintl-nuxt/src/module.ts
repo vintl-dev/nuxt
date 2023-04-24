@@ -5,12 +5,14 @@ import {
   addTemplate,
   addImports,
   addComponent,
-  addVitePlugin,
-  addWebpackPlugin,
   extendViteConfig,
   extendWebpackConfig,
 } from '@nuxt/kit'
-import { relative as relativizePath, resolve as resolvePath } from 'pathe'
+import {
+  relative as relativizePath,
+  resolve as resolvePath,
+  dirname,
+} from 'pathe'
 import { generate as generateOptions } from './options-gen.js'
 import { createDirResolver } from './utils/resolvers.js'
 import { purgeEntryResources } from './manifest-clean.js'
@@ -70,6 +72,15 @@ export default defineNuxtModule<InputModuleOptions>({
         throw err
       }
 
+      const parserlessModeEnabled = (() => {
+        const { enabled } = options.parserless
+        return (
+          enabled !== 'never' &&
+          ((enabled === 'only-prod' && !nuxt.options.dev) ||
+            enabled === 'always')
+        )
+      })()
+
       const pluginOptionsBank = new PluginOptionsBank()
 
       const optionsFile = addTemplate({
@@ -87,8 +98,10 @@ export default defineNuxtModule<InputModuleOptions>({
               )
             },
             registerMessagesFile(file, importPath) {
-              pluginOptionsBank.registerFile(file, importPath)
-              return file
+              pluginOptionsBank.registerFile(
+                file,
+                resolvePath(dirname(optionsFile.dst), importPath),
+              )
             },
             async resolveRuntimeModule(specifier) {
               return (await resolveInRuntime(specifier)).relativeTo(
@@ -113,39 +126,36 @@ export default defineNuxtModule<InputModuleOptions>({
 
       nuxt.options.alias['@vintl/nuxt-runtime/options'] = optionsFile.dst
 
-      const parserlessEnabled = (() => {
-        const { enabled } = options.parserless
-        return (
-          enabled !== 'never' &&
-          ((enabled === 'only-prod' && !nuxt.options.dev) ||
-            enabled === 'always')
-        )
-      })()
-
       const { icuMessages } = await import('@vintl/unplugin')
 
-      addVitePlugin(
-        pluginOptionsBank
-          .createOptions({
-            pluginsWrapping: true,
-            output: {
-              type: parserlessEnabled ? 'ast' : 'raw',
-            },
-          })
-          .map((pluginOptions) => icuMessages.vite(pluginOptions)),
-      )
+      extendWebpackConfig((cfg) => {
+        const plugins = (cfg.plugins ??= [])
+        plugins.push(
+          ...pluginOptionsBank
+            .createOptions({
+              output: {
+                type: parserlessModeEnabled ? 'ast' : 'raw',
+              },
+            })
+            .map((pluginOptions) => icuMessages.webpack(pluginOptions)),
+        )
+      })
 
-      addWebpackPlugin(
-        pluginOptionsBank
-          .createOptions({
-            output: {
-              type: parserlessEnabled ? 'ast' : 'raw',
-            },
-          })
-          .map((pluginOptions) => icuMessages.webpack(pluginOptions)),
-      )
+      extendViteConfig((cfg) => {
+        const plugins = (cfg.plugins ??= [])
+        plugins.push(
+          ...pluginOptionsBank
+            .createOptions({
+              pluginsWrapping: true,
+              output: {
+                type: parserlessModeEnabled ? 'ast' : 'raw',
+              },
+            })
+            .map((pluginOptions) => icuMessages.vite(pluginOptions)),
+        )
+      })
 
-      if (parserlessEnabled) {
+      if (parserlessModeEnabled) {
         extendViteConfig((cfg) => {
           const aliases = ((cfg.resolve ??= {}).alias ??= {})
           if (Array.isArray(aliases)) {
