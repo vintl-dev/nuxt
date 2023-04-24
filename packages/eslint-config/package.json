@@ -1,7 +1,7 @@
 {
   "name": "@vintl-dev/eslint-config-peony",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Shared ESLint configuration for VIntl for Nuxt monorepo",
   "homepage": "https://github.com/vintl-dev/nuxt/tree/main/packages/eslint-config",
   "bugs": "https://github.com/vintl-dev/nuxt/issues",

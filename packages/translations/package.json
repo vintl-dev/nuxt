@@ -1,7 +1,7 @@
 {
   "name": "@vintl-dev/pg-messages",
   "description": "Translations for strings used in playground",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "exports": {
     "./*": "./src/*.json"

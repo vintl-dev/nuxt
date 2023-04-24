@@ -1,6 +1,6 @@
 {
   "name": "@vintl-dev/pg",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Development playground for Nuxt VIntl module",
   "private": true,
   "scripts": {
