@@ -52,7 +52,7 @@
     "@formatjs/intl": "^2.7.1",
     "@nuxt/kit": "^3.4.2",
     "@nuxt/schema": "^3.4.2",
-    "@vintl/unplugin": "^1.2.0",
+    "@vintl/unplugin": "^1.2.1",
     "@vintl/vintl": "^4.1.2",
     "astring": "^1.8.4",
     "hash-sum": "^2.0.0",
