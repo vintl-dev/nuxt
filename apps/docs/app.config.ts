@@ -8,7 +8,7 @@ export default defineAppConfig({
       github: 'vintl-dev/nuxt',
     },
     github: {
-      dir: 'apps/docs',
+      dir: 'apps/docs/content',
       repo: 'nuxt',
       owner: 'vintl-dev',
       branch: 'main',
