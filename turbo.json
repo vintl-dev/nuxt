@@ -14,7 +14,7 @@
     },
     "@vintl-dev/pg#build": {
       "dependsOn": ["@vintl/nuxt#build"],
-      "outputs": [".output", ".nuxt"]
+      "outputs": [".output", ".nuxt", ".vercel"]
     },
     "@vintl-dev/pg#dev": {
       "dependsOn": ["@vintl/nuxt#build"],
@@ -43,7 +43,7 @@
     },
     "@vintl-dev/docs#build": {
       "dependsOn": ["@vintl/nuxt#build"],
-      "outputs": [".output", ".nuxt"]
+      "outputs": [".output", ".nuxt", ".vercel"]
     },
     "@vintl-dev/docs#dev": {
       "dependsOn": ["@vintl/nuxt#build"],
