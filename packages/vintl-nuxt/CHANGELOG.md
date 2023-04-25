@@ -1,5 +1,13 @@
 # @vintl/nuxt
 
+## 1.0.2
+
+### Patch Changes
+
+- 8554729: Restore legacy resolution fields to package.json
+
+  Nuxt still uses the legacy resolution mechanism that ignores the `exports` field. So `module` and `types` also need to be present in `package.json`.
+
 ## 1.0.1
 
 ### Patch Changes
