@@ -22,14 +22,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/module.d.ts",
+      "types": "./dist/types.d.ts",
       "import": "./dist/module.mjs",
       "require": "./dist/module.cjs"
     },
     "./package.json": "./package.json"
   },
-  "module": "./dist/module.mjs",
-  "types": "./dist/module.d.ts",
   "files": [
     "dist"
   ],
