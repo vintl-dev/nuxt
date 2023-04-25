@@ -55,7 +55,6 @@
     "@vintl/unplugin": "^1.2.0",
     "@vintl/vintl": "^4.1.2",
     "astring": "^1.8.4",
-    "defu": "^6.1.2",
     "hash-sum": "^2.0.0",
     "import-meta-resolve": "^2.2.2",
     "pathe": "^1.1.0",

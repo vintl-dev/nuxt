@@ -113,9 +113,6 @@ importers:
       astring:
         specifier: ^1.8.4
         version: 1.8.4(patch_hash=vm4vvif2xhq2qzswqzindfy2di)
-      defu:
-        specifier: ^6.1.2
-        version: 6.1.2
       hash-sum:
         specifier: ^2.0.0
         version: 2.0.0
