@@ -4,11 +4,16 @@ on:
   push:
     branches: [main, next, alpha, beta, rc]
 
-permissions: write-all
-
 jobs:
   release:
     runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: read
 
     if: >-
       !contains(github.event.head_commit.message, '[skip ci]')
