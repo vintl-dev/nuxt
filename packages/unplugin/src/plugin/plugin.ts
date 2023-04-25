@@ -83,7 +83,13 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
         throw new BaseError('buildStart() has already been called')
       }
 
-      return (buildStartCall = resolveFormatter())
+      return (buildStartCall = (async () => {
+        try {
+          return await resolveFormatter()
+        } finally {
+          buildStartCall = undefined
+        }
+      })())
     }
 
     return {
