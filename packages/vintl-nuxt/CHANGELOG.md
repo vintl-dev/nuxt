@@ -1,5 +1,11 @@
 # @vintl/nuxt
 
+## 1.0.1
+
+### Patch Changes
+
+- bfca7c2: Export types with shims instead of module types directly
+
 ## 1.0.0
 
 ### Major Changes
