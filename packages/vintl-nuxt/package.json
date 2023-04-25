@@ -28,6 +28,8 @@
     },
     "./package.json": "./package.json"
   },
+  "module": "./dist/module.mjs",
+  "types": "./dist/types.d.ts",
   "files": [
     "dist"
   ],
