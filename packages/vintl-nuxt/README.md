@@ -10,6 +10,8 @@ Nuxt app internationalization made easy
 
 ## Getting Started
 
+> **Warning** VIntl for Nuxt is still very new and may not be fully production-ready for large scale apps. That being said, the fundamental functionality is already in place, so it's probably good enough for small apps and general testing. Please submit your feedback and bug reports [on GitHub](https://github.com/vintl-dev/nuxt/issues).
+
 ```bash
 npm install @vintl/nuxt
 ```
