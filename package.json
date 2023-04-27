@@ -24,7 +24,8 @@
     "mod:build": "turbo run --no-daemon @vintl/nuxt#build",
     "mod:lint": "turbo run --no-daemon @vintl/nuxt#lint",
     "all:prepare": "turbo run --no-daemon prepare",
-    "all:lint": "turbo run --no-daemon lint"
+    "all:lint": "turbo run --no-daemon lint",
+    "_ci:publish": "changeset publish"
   },
   "pnpm": {
     "patchedDependencies": {
