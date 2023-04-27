@@ -1,6 +1,6 @@
 import { z as t } from 'zod'
 import { tSwitch } from '../utils/zod-utils.js'
-import { importObjectSchema, importSourceTupleSchema } from './imports.js'
+import { importSourceObjectSchema, importSourceTupleSchema } from './imports.js'
 
 export const messagesImportFormatterName = t.string({
   invalid_type_error: 'Format must be a string',
@@ -34,9 +34,9 @@ export const messagesImportOptionsSchema = t.object({
     .optional(),
 })
 
-export const messagesImportSourceObjectSchema = importObjectSchema.merge(
-  messagesImportOptionsSchema,
-)
+export const messagesImportSourceObjectSchema = importSourceObjectSchema
+  .omit({ resolve: true })
+  .merge(messagesImportOptionsSchema)
 
 // const _messagesImportSourceSchema = t.union([
 //   t.string(),

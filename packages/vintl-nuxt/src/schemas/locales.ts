@@ -1,5 +1,5 @@
 import { z as t } from 'zod'
-import { extImportSourceSchema } from './imports.js'
+import { importSourceSchema, unspecifiedImportSourceSchema } from './imports.js'
 import { jsonValueSchema } from './json.js'
 import { languageTagSchema } from './language-tag.js'
 import { messagesImportSourceSchema } from './messages-imports.js'
@@ -63,8 +63,7 @@ export const localeDescriptorSchema = t
     files: messagesImportSourceSchema.array().optional(),
 
     /** List of additional side-effect only imports (like polyfill data). */
-    additionalImports: t
-      .string()
+    additionalImports: unspecifiedImportSourceSchema
       .array()
       .describe(
         'List of additional side-effect only imports (like polyfill data)',
@@ -82,7 +81,7 @@ export const localeDescriptorSchema = t
      * create frustrating experience for translators be they left as regular
      * strings in the messages file.
      */
-    resources: t.record(extImportSourceSchema).optional(),
+    resources: t.record(importSourceSchema).optional(),
 
     /**
      * Custom meta for the locale that is always accessible even when the locale
