@@ -1,5 +1,5 @@
 ---
-'@vintl/nuxt': patch
+'@vintl/nuxt': minor
 ---
 
 Add option to opt out of the import resolution
