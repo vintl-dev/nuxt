@@ -828,8 +828,11 @@ export async function generate(
       }
     }
 
-    for (const importPath of locale.additionalImports ?? []) {
-      const resolvedPath = await resolve(importPath)
+    for (const import_ of locale.additionalImports ?? []) {
+      const resolvedPath = import_.resolve
+        ? await resolve(import_.from)
+        : import_.from
+
       if (isDefaultLocale) {
         // import "<import path>"
         imports.push(new ImportDeclaration(new Literal(resolvedPath)))
@@ -848,8 +851,15 @@ export async function generate(
     for (const [resourceName, dataImport] of Object.entries(
       locale.resources ?? {},
     )) {
-      const [importPath, importKey] = dataImport
-      const resolvedPath = await resolve(importPath)
+      const {
+        from: importPath,
+        name: importKey,
+        resolve: shouldResolve,
+      } = dataImport
+
+      const resolvedPath = shouldResolve
+        ? await resolve(importPath)
+        : importPath
 
       if (isDefaultLocale) {
         // if import key is 'default' then:
