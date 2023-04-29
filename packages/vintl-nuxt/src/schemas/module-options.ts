@@ -53,8 +53,8 @@ export const moduleOptionsSchema = t
       .default('.'),
 
     /** An array of all the configured locales. */
-    locales: localeDescriptorSchema
-      .array()
+    locales: t
+      .array(localeDescriptorSchema)
       .min(1, {
         message: 'Must define at least one locale',
       })

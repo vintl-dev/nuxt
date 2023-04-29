@@ -60,11 +60,11 @@ export const localeDescriptorSchema = t
      *
      * @see https://www.w3.org/International/questions/qa-choosing-language-tags W3 guide on choosing the language tags.
      */
-    files: messagesImportSourceSchema.array().optional(),
+    files: t.array(messagesImportSourceSchema).optional(),
 
     /** List of additional side-effect only imports (like polyfill data). */
-    additionalImports: unspecifiedImportSourceSchema
-      .array()
+    additionalImports: t
+      .array(unspecifiedImportSourceSchema)
       .describe(
         'List of additional side-effect only imports (like polyfill data)',
       )
