@@ -2,7 +2,7 @@ export default defineAppConfig({
   docus: {
     title: 'VIntl for Nuxt',
     description: 'Internationalization for your Nuxt apps',
-    url: 'http://vintl-nuxt.vercel.app',
+    url: 'https://vintl-nuxt.netlify.app',
     // image: '/social-card-preview.png',
     socials: {
       github: 'vintl-dev/nuxt',

@@ -9,7 +9,7 @@ This monorepo hosts the VIntl for Nuxt module as well as other projects that hel
 ### Apps
 
 - [Playground](https://github.com/vintl-dev/nuxt/tree/main/apps/playground) 🔒
-- [Docs](https://github.com/vintl-dev/nuxt/tree/main/apps/docs) 🔒 [🌐](https://vintl-nuxt.vercel.app/)
+- [Docs](https://github.com/vintl-dev/nuxt/tree/main/apps/docs) 🔒 [🌐](https://vintl-nuxt.netlify.app/)
 
 ### Packages
 

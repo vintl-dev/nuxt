@@ -36,7 +36,7 @@ Store your users preferences with cookies, localStorage, or with the custom stor
 
 ## Documentation
 
-Check out the [VIntl for Nuxt documentation site](https://vintl-nuxt.vercel.app/) for detailed usage instructions and examples.
+Check out the [VIntl for Nuxt documentation site](https://vintl-nuxt.netlify.app/) for detailed usage instructions and examples.
 
 ## Credits
 
