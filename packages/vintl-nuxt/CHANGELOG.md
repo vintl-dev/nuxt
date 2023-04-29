@@ -1,5 +1,11 @@
 # @vintl/nuxt
 
+## 1.1.1
+
+### Patch Changes
+
+- 70c440e: Fix arrays of imports having incorrect types
+
 ## 1.1.0
 
 ### Minor Changes
