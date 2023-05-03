@@ -1,5 +1,11 @@
 # @vintl/nuxt
 
+## 1.1.2
+
+### Patch Changes
+
+- 71b9000: Fix object import sources not resolving by default
+
 ## 1.1.1
 
 ### Patch Changes
