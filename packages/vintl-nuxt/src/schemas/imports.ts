@@ -16,7 +16,7 @@ export const importSourceObjectSchema = t.object({
     .default('default'),
 
   /** Whether to resolve the import to a path or import as is. */
-  resolve: t.boolean().optional(),
+  resolve: t.boolean().default(true),
 })
 
 /** A schema for the tuple consisting of an import path and a custom export name. */
