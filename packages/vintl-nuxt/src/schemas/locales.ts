@@ -68,7 +68,6 @@ export const localeDescriptorSchema = t
       .describe(
         'List of additional side-effect only imports (like polyfill data)',
       )
-      .nonempty()
       .optional(),
 
     /**
