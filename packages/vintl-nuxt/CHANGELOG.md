@@ -1,5 +1,11 @@
 # @vintl/nuxt
 
+## 1.1.3
+
+### Patch Changes
+
+- 25b5acf: Don't require additionalImports to be a non-empty array
+
 ## 1.1.2
 
 ### Patch Changes
