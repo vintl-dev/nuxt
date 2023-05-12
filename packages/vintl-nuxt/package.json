@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@nuxt/module-builder": "^0.3.0",
+    "@nuxt/schema": "^3.4.2",
     "@types/hash-sum": "^1.0.0",
     "@types/node": "^18.15.12",
     "@unhead/vue": "^1.1.26",
@@ -51,7 +52,6 @@
   "dependencies": {
     "@formatjs/intl": "^2.7.1",
     "@nuxt/kit": "^3.4.2",
-    "@nuxt/schema": "^3.4.2",
     "@vintl/unplugin": "^1.2.1",
     "@vintl/vintl": "^4.1.2",
     "astring": "^1.8.4",

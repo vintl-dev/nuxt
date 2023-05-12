@@ -101,9 +101,6 @@ importers:
       '@nuxt/kit':
         specifier: ^3.4.2
         version: 3.4.2(esbuild@0.17.17)(rollup@3.20.7)
-      '@nuxt/schema':
-        specifier: ^3.4.2
-        version: 3.4.2(rollup@3.20.7)
       '@vintl/unplugin':
         specifier: ^1.2.1
         version: 1.2.1(rollup@3.20.7)(webpack@5.80.0)
@@ -135,6 +132,9 @@ importers:
       '@nuxt/module-builder':
         specifier: ^0.3.0
         version: 0.3.0
+      '@nuxt/schema':
+        specifier: ^3.4.2
+        version: 3.4.2(rollup@3.20.7)
       '@types/hash-sum':
         specifier: ^1.0.0
         version: 1.0.0
