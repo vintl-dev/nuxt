@@ -1,0 +1,72 @@
+name: Test and release
+
+on:
+  pull_request:
+    branches: [main, next, alpha, beta, rc]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Check changed files
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            nvintl:
+              - 'packages/vintl-nuxt/**'
+            playground:
+              - 'apps/playground/**'
+              - 'packages/translations/**'
+            docs:
+              - 'apps/docs/**'
+
+      - name: Install pnpm via corepack
+        shell: bash
+        run: |
+          corepack enable
+          corepack prepare --activate
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Prepare everything
+        run: pnpm all:prepare
+
+      - name: Lint everything
+        run: pnpm all:lint
+
+      - name: Build module
+        if: steps.filter.outputs.nvintl == 'true'
+        run: pnpm mod:build
+
+      - name: Build playground
+        if: steps.filter.outputs.playground == 'true' || steps.filter.outputs.nvintl == 'true'
+        run: pnpm pg:build
+
+      - name: Build docs
+        if: steps.filter.outputs.docs == 'true' || steps.filter.outputs.nvintl == 'true'
+        run: pnpm docs:build
