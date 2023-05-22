@@ -1,4 +1,4 @@
-name: Test and release
+name: Test pull request
 
 on:
   pull_request:
@@ -22,12 +22,19 @@ jobs:
         id: filter
         with:
           filters: |
+            shared: &shared
+              - .npmrc
+              - package.json
+              - pnpm-lock.yaml
             nvintl:
+              - *shared
               - 'packages/vintl-nuxt/**'
             playground:
+              - *shared
               - 'apps/playground/**'
               - 'packages/translations/**'
             docs:
+              - *shared
               - 'apps/docs/**'
 
       - name: Install pnpm via corepack
