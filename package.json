@@ -8,7 +8,7 @@
   ],
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
-    "turbo": "^1.8.7"
+    "turbo": "^1.9.8"
   },
   "scripts": {
     "pg:prepare": "turbo run --no-daemon @vintl-dev/pg#dev:prepare",
@@ -36,5 +36,5 @@
       }
     }
   },
-  "packageManager": "pnpm@8.3.1"
+  "packageManager": "pnpm@8.5.1"
 }
