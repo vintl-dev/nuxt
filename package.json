@@ -28,9 +28,6 @@
     "_ci:publish": "changeset publish"
   },
   "pnpm": {
-    "patchedDependencies": {
-      "astring@1.8.4": "patches/astring@1.8.4.patch"
-    },
     "packageExtensions": {
       "@nuxt/kit": {
         "dependencies": {

@@ -2,11 +2,6 @@ lockfileVersion: '6.0'
 
 packageExtensionsChecksum: 69533c7d10e0e3ed0c342b1e02ff022c
 
-patchedDependencies:
-  astring@1.8.4:
-    hash: vm4vvif2xhq2qzswqzindfy2di
-    path: patches/astring@1.8.4.patch
-
 importers:
 
   .:
@@ -114,8 +109,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0(typescript@5.0.4)(vue@3.3.4)
       astring:
-        specifier: ^1.8.4
-        version: 1.8.4(patch_hash=vm4vvif2xhq2qzswqzindfy2di)
+        specifier: ^1.8.5
+        version: 1.8.5
       hash-sum:
         specifier: ^2.0.0
         version: 2.0.0
@@ -2847,11 +2842,10 @@ packages:
       '@babel/types': 7.21.5
     dev: true
 
-  /astring@1.8.4(patch_hash=vm4vvif2xhq2qzswqzindfy2di):
-    resolution: {integrity: sha512-97a+l2LBU3Op3bBQEff79i/E4jMD2ZLFD8rHx9B6mXyB2uQwhJQYfiDqUwtfjF4QA1F2qs//N6Cw8LetMbQjcw==}
+  /astring@1.8.5:
+    resolution: {integrity: sha512-TuBbdn7jWVzf8dmFGTaRpW8qgANtWLi1qJLnkfGO5uVf6jf9f/F4B1H35tnOI+qVYZo3p3i8WZlbZOuPAE0wEA==}
     hasBin: true
     dev: false
-    patched: true
 
   /async-sema@3.1.1:
     resolution: {integrity: sha512-tLRNUXati5MFePdAk8dw7Qt7DpxPB60ofAgn8WRhW6a2rcimZnYBP9oxHiv0OHy+Wz7kPMG+t4LGdt31+4EmGg==}
