@@ -6,8 +6,8 @@ import slash from 'slash'
 export function createDirResolver(dir: string) {
   const pseudoParent = pathToFileURL(joinPaths(dir, '.resolve-root')).toString()
 
-  return async function resolve(specifier: string) {
-    const resolved = await rawResolve(specifier, pseudoParent)
+  return function resolve(specifier: string) {
+    const resolved = rawResolve(specifier, pseudoParent)
 
     return {
       /** A getter that returns resolved URL as is. */

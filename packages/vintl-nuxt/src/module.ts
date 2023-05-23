@@ -48,7 +48,7 @@ export default defineNuxtModule<InputModuleOptions>({
 
     const resolveInRuntime = createDirResolver(runtimeDir)
 
-    addPlugin((await resolveInRuntime('./plugin.js')).path)
+    addPlugin(resolveInRuntime('./plugin.js').path)
 
     if (!nuxt.options._prepare) {
       let options: t.output<typeof moduleOptionsSchema>
@@ -86,16 +86,14 @@ export default defineNuxtModule<InputModuleOptions>({
       const optionsFile = addTemplate({
         filename: optionsFilePath,
         write: true,
-        async getContents() {
+        getContents() {
           const resolveInResDir = createDirResolver(
             resolvePath(nuxt.options.srcDir, options.resolveDir ?? '.'),
           )
 
-          return await generateOptions(options, {
-            async resolve(specifier) {
-              return (await resolveInResDir(specifier)).relativeTo(
-                optionsFile.dst,
-              )
+          return generateOptions(options, {
+            resolve(specifier) {
+              return resolveInResDir(specifier).relativeTo(optionsFile.dst)
             },
             registerMessagesFile(file, importPath) {
               pluginOptionsBank.registerFile(
@@ -103,10 +101,8 @@ export default defineNuxtModule<InputModuleOptions>({
                 resolvePath(dirname(optionsFile.dst), importPath),
               )
             },
-            async resolveRuntimeModule(specifier) {
-              return (await resolveInRuntime(specifier)).relativeTo(
-                optionsFile.dst,
-              )
+            resolveRuntimeModule(specifier) {
+              return resolveInRuntime(specifier).relativeTo(optionsFile.dst)
             },
             state: {
               parserlessModeEnabled,

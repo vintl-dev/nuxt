@@ -616,7 +616,7 @@ interface GeneratorContext {
    * @param specifier Module import specifier.
    * @returns Path relative to the options file.
    */
-  resolve(specifier: string): Promise<string>
+  resolve(specifier: string): string
 
   /**
    * Analytical method that is called for every generated messages import.
@@ -635,7 +635,7 @@ interface GeneratorContext {
    * @param specifier Module import specifier.
    * @returns Path relative to the optons file.
    */
-  resolveRuntimeModule(specifier: string): Promise<string>
+  resolveRuntimeModule(specifier: string): string
 
   /** Additional state to encode which is not included in the options. */
   state: {
@@ -649,7 +649,7 @@ interface GeneratorContext {
  * then renders it to actual JavaScript code. The resulting code can be written
  * to a special file and read at runtime to retrieve the options.
  */
-export async function generate(
+export function generate(
   opts: t.output<typeof moduleOptionsSchema>,
   {
     resolve,
@@ -697,7 +697,7 @@ export async function generate(
 
   imports.push(
     new ImportDeclaration(
-      new Literal(await resolveRuntimeModule('./utils/locale-loader.js')),
+      new Literal(resolveRuntimeModule('./utils/locale-loader.js')),
     )
       .addSpecifier(id$defineLocale)
       .addSpecifier(id$rawValue),
@@ -780,7 +780,7 @@ export async function generate(
 
     for (const messageFile of files) {
       const { from: importPath, name: importKey } = messageFile
-      const resolvedPath = await resolve(messageFile.from)
+      const resolvedPath = resolve(messageFile.from)
       registerMessagesFile(messageFile, resolvedPath)
 
       if (isDefaultLocale) {
@@ -830,7 +830,7 @@ export async function generate(
 
     for (const import_ of locale.additionalImports ?? []) {
       const resolvedPath = import_.resolve
-        ? await resolve(import_.from)
+        ? resolve(import_.from)
         : import_.from
 
       if (isDefaultLocale) {
@@ -857,9 +857,7 @@ export async function generate(
         resolve: shouldResolve,
       } = dataImport
 
-      const resolvedPath = shouldResolve
-        ? await resolve(importPath)
-        : importPath
+      const resolvedPath = shouldResolve ? resolve(importPath) : importPath
 
       if (isDefaultLocale) {
         // if import key is 'default' then:
@@ -984,11 +982,11 @@ export async function generate(
     let storage = opts.storage
 
     if (storage === 'localStorage') {
-      storage = await resolveRuntimeModule('./storage/local-storage.js')
+      storage = resolveRuntimeModule('./storage/local-storage.js')
     } else if (storage === 'cookie') {
-      storage = await resolveRuntimeModule('./storage/cookie.js')
+      storage = resolveRuntimeModule('./storage/cookie.js')
     } else {
-      storage = await resolve(storage)
+      storage = resolve(storage)
     }
 
     exports.push(
