@@ -157,12 +157,12 @@ export default defineNuxtModule<InputModuleOptions>({
           if (Array.isArray(aliases)) {
             aliases.push({
               find: '@formatjs/icu-messageformat-parser',
-              replacement: '@formatjs/icu-messageformat-parser/no-parser',
+              replacement: '@formatjs/icu-messageformat-parser/lib/no-parser',
             })
           } else {
             Object.assign(aliases, {
               '@formatjs/icu-messageformat-parser':
-                '@formatjs/icu-messageformat-parser/no-parser',
+                '@formatjs/icu-messageformat-parser/lib/no-parser',
             })
           }
         })
@@ -172,11 +172,11 @@ export default defineNuxtModule<InputModuleOptions>({
           if (Array.isArray(aliases)) {
             aliases.push({
               name: '@formatjs/icu-messageformat-parser',
-              alias: '@formatjs/icu-messageformat-parser/no-parser',
+              alias: '@formatjs/icu-messageformat-parser/lib/no-parser',
             })
           } else {
             aliases['@formatjs/icu-messageformat-parser'] =
-              '@formatjs/icu-messageformat-parser/no-parser'
+              '@formatjs/icu-messageformat-parser/lib/no-parser'
           }
         })
       }
