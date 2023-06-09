@@ -17,8 +17,8 @@
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl-dev/pg-messages": "workspace:^",
     "@vintl/nuxt": "workspace:^",
-    "eslint": "^8.41.0",
-    "nuxi": "^3.5.1",
-    "nuxt": "^3.5.1"
+    "eslint": "^8.42.0",
+    "nuxi": "^3.5.3",
+    "nuxt": "^3.5.3"
   }
 }
