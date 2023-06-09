@@ -1,6 +1,6 @@
 {
   "name": "@vintl/nuxt",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Nuxt Module for VIntl integration",
   "keywords": [
     "i18n",
