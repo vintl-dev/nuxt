@@ -1,2 +1,2 @@
-export type { Options } from './options.js'
-export { plugin } from './plugin.js'
+export type { Options } from './options.ts'
+export { plugin } from './plugin.ts'

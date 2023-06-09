@@ -1,6 +1,6 @@
 import type { CompileFn } from '@formatjs/cli-lib'
-import { BaseError } from '../shared/error-proto.js'
-import type { MessagesMap } from './types.js'
+import { BaseError } from '../shared/error-proto.ts'
+import type { MessagesMap } from './types.ts'
 
 /** An error that is thrown whenever there's an error compiling the messages. */
 class CompilationError extends BaseError {

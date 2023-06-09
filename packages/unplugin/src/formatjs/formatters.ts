@@ -2,7 +2,7 @@ import { fileURLToPath, pathToFileURL } from 'url'
 import { glob } from 'glob'
 import { basename, dirname, extname } from 'pathe'
 import type { CompileFn } from '@formatjs/cli-lib'
-import { BaseError } from '../shared/error-proto.js'
+import { BaseError } from '../shared/error-proto.ts'
 
 /** An error that is thrown whenever a built-in formatter cannot be resolved. */
 class FormatterResolutionError extends BaseError {

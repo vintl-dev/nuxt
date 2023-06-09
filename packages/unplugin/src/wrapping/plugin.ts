@@ -1,8 +1,8 @@
 import type { PluginContext } from 'rollup'
 import type { RollupPlugin, VitePlugin } from 'unplugin'
-import type { FilterFunction } from '../shared/types.js'
-import type { NormalizedOptions } from './options.js'
-import { wrapPlugins } from './wrapper.js'
+import type { FilterFunction } from '../shared/types.ts'
+import type { NormalizedOptions } from './options.ts'
+import { wrapPlugins } from './wrapper.ts'
 
 /**
  * Provides Vite plugin hooks for implementing plugins wrapping based on the

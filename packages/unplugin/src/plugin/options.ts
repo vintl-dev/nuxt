@@ -1,12 +1,12 @@
 import type { CompileFn } from '@formatjs/cli-lib'
 import type { FilterPattern } from '@rollup/pluginutils'
-import type { MessagesParserOptionsValue } from '../parser/options.js'
+import type { MessagesParserOptionsValue } from '../parser/options.ts'
 import {
   normalizeWrappingOptions,
   type WrappablePlugin,
   type WrappingOptions,
-} from '../wrapping/index.js'
-import type { MessagesASTMap } from './types.js'
+} from '../wrapping/index.ts'
+import type { MessagesASTMap } from './types.ts'
 
 /** Represents options for the transformation output. */
 interface OutputOptions {

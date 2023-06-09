@@ -1,8 +1,8 @@
-import type { WarningFunction } from '../shared/types.js'
-import { isEmptyObject } from '../utils/object.js'
-import type { WrappingFunctionsMap } from './options.js'
-import { wrapTransform } from './default-wrapper.js'
-import { PluginIneffectiveError } from './errors.js'
+import type { WarningFunction } from '../shared/types.ts'
+import { isEmptyObject } from '../utils/object.ts'
+import type { WrappingFunctionsMap } from './options.ts'
+import { wrapTransform } from './default-wrapper.ts'
+import { PluginIneffectiveError } from './errors.ts'
 
 /**
  * A class that holds a map of wrapping functions and exposes a function that

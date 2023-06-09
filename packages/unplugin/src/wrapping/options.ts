@@ -1,5 +1,5 @@
-import type { FilterFunction } from '../shared/types.js'
-import type { WrappablePlugin } from './types.js'
+import type { FilterFunction } from '../shared/types.ts'
+import type { WrappablePlugin } from './types.ts'
 
 /**
  * A function that accepts plugin and filter function as inputs and mutates the

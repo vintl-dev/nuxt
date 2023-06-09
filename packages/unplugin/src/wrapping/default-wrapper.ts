@@ -1,5 +1,5 @@
 import type { Plugin, TransformHook } from 'rollup'
-import type { FilterFunction } from '../shared/types.js'
+import type { FilterFunction } from '../shared/types.ts'
 
 /**
  * A default wrapping function for Rollup-based plugins, which wraps the

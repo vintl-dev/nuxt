@@ -1,8 +1,8 @@
-export { normalizeOptions as normalizeWrappingOptions } from './options.js'
-export type { Options as WrappingOptions } from './options.js'
-export type { WrappablePlugin } from './types.js'
+export { normalizeOptions as normalizeWrappingOptions } from './options.ts'
+export type { Options as WrappingOptions } from './options.ts'
+export type { WrappablePlugin } from './types.ts'
 export {
   rollup as rollupWrappingPartial,
   vite as viteWrappingPartial,
-} from './plugin.js'
-export { isSupportedLoader as supportsWrapping } from './utils.js'
+} from './plugin.ts'
+export { isSupportedLoader as supportsWrapping } from './utils.ts'

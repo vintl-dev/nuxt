@@ -1,3 +1,3 @@
-export { createOptionsResolver, AnyMessage } from './options.js'
-export type { MessagesParserOptionsValue } from './options.js'
-export { defaultOptionsResolver } from './default-options-resolver.js'
+export { createOptionsResolver, AnyMessage } from './options.ts'
+export type { MessagesParserOptionsValue } from './options.ts'
+export { defaultOptionsResolver } from './default-options-resolver.ts'

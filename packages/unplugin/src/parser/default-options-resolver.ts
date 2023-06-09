@@ -1,5 +1,5 @@
 import { basename } from 'pathe'
-import type { ParserOptionsResolvingFunction } from './options.js'
+import type { ParserOptionsResolvingFunction } from './options.ts'
 
 export const defaultOptionsResolver: ParserOptionsResolvingFunction =
   function () {

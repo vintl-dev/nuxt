@@ -1,25 +1,25 @@
 import { dataToEsm } from '@rollup/pluginutils'
 import type { CompileFn } from '@formatjs/cli-lib'
 import { createUnplugin, type RollupPlugin } from 'unplugin'
-import { basePluginName } from '../shared/consts.js'
+import { basePluginName } from '../shared/consts.ts'
 import {
   createOptionsResolver,
   defaultOptionsResolver,
-} from '../parser/index.js'
-import { isTransformed } from '../utils/code.js'
-import { BaseError } from '../shared/error-proto.js'
+} from '../parser/index.ts'
+import { isTransformed } from '../utils/code.ts'
+import { BaseError } from '../shared/error-proto.ts'
 import {
   rollupWrappingPartial,
   viteWrappingPartial,
   supportsWrapping,
-} from '../wrapping/index.js'
-import type { API } from './api.js'
-import { normalizeOptions, type Options } from './options.js'
-import { parseMessages } from './message-parsing.js'
-import { compileMessages } from './message-compiling.js'
-import { readMessagesFile } from './message-reading.js'
-import type { MessagesASTMap, MessagesMap } from './types.js'
-import { createFilter } from './filter.js'
+} from '../wrapping/index.ts'
+import type { API } from './api.ts'
+import { normalizeOptions, type Options } from './options.ts'
+import { parseMessages } from './message-parsing.ts'
+import { compileMessages } from './message-compiling.ts'
+import { readMessagesFile } from './message-reading.ts'
+import type { MessagesASTMap, MessagesMap } from './types.ts'
+import { createFilter } from './filter.ts'
 
 /**
  * An error that is thrown whenever plugin encounters an error during the
@@ -68,7 +68,7 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
     }
 
     const { getBuiltinFormatter: getBultinFormatter } = await import(
-      '../formatjs/formatters.js'
+      '../formatjs/formatters.ts'
     )
 
     compileFunc = await getBultinFormatter(format)

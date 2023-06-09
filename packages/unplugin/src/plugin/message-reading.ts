@@ -1,4 +1,4 @@
-import { BaseError } from '../shared/error-proto.js'
+import { BaseError } from '../shared/error-proto.ts'
 
 /**
  * A function that is called to parse the message file contents.

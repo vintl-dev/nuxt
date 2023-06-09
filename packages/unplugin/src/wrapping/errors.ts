@@ -1,4 +1,4 @@
-import { BaseError } from '../shared/error-proto.js'
+import { BaseError } from '../shared/error-proto.ts'
 
 /**
  * A error emitted as a warning to note about ineffectiveness of the plugin in

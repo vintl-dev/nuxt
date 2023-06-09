@@ -1,9 +1,9 @@
-import { BaseError } from '../shared/error-proto.js'
-import type { FilterFunction, WarningFunction } from '../shared/types.js'
-import { PluginIneffectiveError } from './errors.js'
-import type { NormalizedOptions } from './options.js'
-import { WrappingFunctionSelector } from './resolver.js'
-import type { WrappablePlugin } from './types.js'
+import { BaseError } from '../shared/error-proto.ts'
+import type { FilterFunction, WarningFunction } from '../shared/types.ts'
+import { PluginIneffectiveError } from './errors.ts'
+import type { NormalizedOptions } from './options.ts'
+import { WrappingFunctionSelector } from './resolver.ts'
+import type { WrappablePlugin } from './types.ts'
 
 export function wrapPlugins<PluginType extends WrappablePlugin>(
   plugins: readonly PluginType[],

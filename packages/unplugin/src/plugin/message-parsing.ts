@@ -2,9 +2,9 @@ import {
   type MessageFormatElement,
   parse as parseMessage,
 } from '@formatjs/icu-messageformat-parser'
-import type { ParserOptionsResolver } from '../parser/options.js'
-import { BaseError } from '../shared/error-proto.js'
-import type { MessagesMap } from './types.js'
+import type { ParserOptionsResolver } from '../parser/options.ts'
+import { BaseError } from '../shared/error-proto.ts'
+import type { MessagesMap } from './types.ts'
 
 /**
  * An error that is thrown whenever there's an error with parsing the raw

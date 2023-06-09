@@ -1,2 +1,2 @@
-export type { Options as PluginOptions } from './plugin/options.js'
-export { AnyMessage } from './parser/index.js'
+export type { Options as PluginOptions } from './plugin/options.ts'
+export { AnyMessage } from './parser/index.ts'
