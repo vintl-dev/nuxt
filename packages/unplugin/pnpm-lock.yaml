@@ -18,8 +18,8 @@ dependencies:
     specifier: ^10.2.6
     version: 10.2.6
   import-meta-resolve:
-    specifier: ^2.2.2
-    version: 2.2.2
+    specifier: ^3.0.0
+    version: 3.0.0
   pathe:
     specifier: ^1.1.1
     version: 1.1.1
@@ -3249,8 +3249,8 @@ packages:
     engines: {node: '>=12.2'}
     dev: true
 
-  /import-meta-resolve@2.2.2:
-    resolution: {integrity: sha512-f8KcQ1D80V7RnqVm+/lirO9zkOxjGxhaTC1IPrBGd3MEfNgmNG67tSUO9gTi2F3Blr2Az6g1vocaxzkVnWl9MA==}
+  /import-meta-resolve@3.0.0:
+    resolution: {integrity: sha512-4IwhLhNNA8yy445rPjD/lWh++7hMDOml2eHtd58eG7h+qK3EryMuuRbsHGPikCoAgIkkDnckKfWSk2iDla/ejg==}
     dev: false
 
   /imurmurhash@0.1.4:
