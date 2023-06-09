@@ -1,4 +1,4 @@
-import type { ParserOptions } from '@formatjs/icu-messageformat-parser/parser.js'
+import type { ParserOptions } from '@formatjs/icu-messageformat-parser'
 
 /** Represents a special key that provides defaults for all of the messages. */
 export const AnyMessage = Symbol('defaultParserOptions')
