@@ -1,5 +1,15 @@
 # @vintl/nuxt
 
+## 1.2.1
+
+### Patch Changes
+
+- f62ae92: Adapt to new export conditions of the parser
+
+  `@formatjs/icu-messageformat-parser` has been updated and now has export conditions, this change adapts and fixes the error caused by the previous direct import of the file for `no-parser` alias.
+
+- 47f1739: Fix consola not being actually listed as a dependency or used
+
 ## 1.2.0
 
 ### Minor Changes
