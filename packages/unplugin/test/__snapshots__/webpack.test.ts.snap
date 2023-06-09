@@ -27,7 +27,7 @@ var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  \\"Z\\": () => (/* binding */ example)
+  Z: () => (/* binding */ example)
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/toml/en.messages.toml
@@ -88,7 +88,7 @@ var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  \\"Z\\": () => (/* binding */ example)
+  Z: () => (/* binding */ example)
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/with-json/options.json
@@ -174,7 +174,7 @@ var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  \\"Z\\": () => (/* binding */ example)
+  Z: () => (/* binding */ example)
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
@@ -235,7 +235,7 @@ var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  \\"Z\\": () => (/* binding */ example)
+  Z: () => (/* binding */ example)
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
@@ -279,7 +279,7 @@ var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  \\"Z\\": () => (/* binding */ example)
+  Z: () => (/* binding */ example)
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
