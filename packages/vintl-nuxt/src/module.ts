@@ -21,7 +21,7 @@ import { moduleOptionsSchema } from './schemas/index.js'
 import { PluginOptionsBank } from './parser-bank.js'
 import { formatZodError } from './utils/zod-error.js'
 import { OptionsError } from './errors.js'
-import * as consola from 'console'
+import { consola } from 'consola'
 
 /** Path to the options file relative to `buildDir`. */
 const optionsFilePath = 'i18n/options.mjs'
