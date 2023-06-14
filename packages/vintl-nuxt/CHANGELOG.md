@@ -1,5 +1,11 @@
 # @vintl/nuxt
 
+## 1.2.3
+
+### Patch Changes
+
+- db449d4: Fix missing options in the newer Nuxt versions
+
 ## 1.2.2
 
 ### Patch Changes
