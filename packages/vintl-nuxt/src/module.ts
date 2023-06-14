@@ -28,9 +28,9 @@ const optionsFilePath = 'i18n/options.mjs'
 
 type _InputModuleOptions = typeof moduleOptionsSchema
 
-export interface InputModuleOptions extends t.input<_InputModuleOptions> {}
+export interface ModuleOptions extends t.input<_InputModuleOptions> {}
 
-export default defineNuxtModule<InputModuleOptions>({
+export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@vintl/nuxt',
     configKey: 'vintl',
