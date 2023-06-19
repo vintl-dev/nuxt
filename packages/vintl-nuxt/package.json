@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@formatjs/intl": "2.7.2",
+    "@formatjs/intl-localematcher": "^0.4.0",
     "@nuxt/kit": "^3.5.3",
     "@vintl/unplugin": "^1.2.4",
     "@vintl/vintl": "^4.2.1",

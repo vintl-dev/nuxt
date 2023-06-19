@@ -21,6 +21,7 @@ import { useAcceptLanguageHeader } from '@vintl/vintl/sources/header'
 import { defineNuxtPlugin } from 'nuxt/app'
 import { syncCaller } from './utils/hookable.js'
 import { initHead } from './head.js'
+import { match as matchLocales } from '@formatjs/intl-localematcher'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const locales: LocaleDescriptor[] = Object.entries(localeDefinitions).map(
@@ -51,6 +52,16 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     if (hlLocale != null) {
       locale = hlLocale
     }
+  }
+
+  if (locale != null) {
+    const match = matchLocales(
+      [locale],
+      locales.map(({ tag }) => tag),
+      'en-x-placeholder',
+    )
+
+    locale = match == 'en-x-placeholder' ? undefined : match
   }
 
   const plugin = createPlugin<MessageValueType>({
