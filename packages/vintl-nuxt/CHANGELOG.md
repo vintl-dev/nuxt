@@ -1,5 +1,17 @@
 # @vintl/nuxt
 
+## 1.3.0
+
+### Minor Changes
+
+- 951f363: Add graceful fallback for unknown locales in storage
+
+### Patch Changes
+
+- ae71089: Use automatic locale if none returned by the storage
+
+  Fixed a bug where automatic locale would not be restored from the storage properly on the next page reload, despite it being saved properly.
+
 ## 1.2.3
 
 ### Patch Changes
