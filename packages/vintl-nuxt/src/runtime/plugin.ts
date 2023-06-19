@@ -59,6 +59,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       defaultLocale,
       locales,
       locale,
+      usePreferredLocale: locale == null,
       listen: {
         error(event) {
           nuxtApp.hooks.callHookWith(syncCaller, 'i18n:error', {

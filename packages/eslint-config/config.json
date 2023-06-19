@@ -28,7 +28,9 @@
     "no-useless-constructor": "off",
     "@typescript-eslint/no-useless-constructor": "warn",
     "brace-style": "off",
-    "vue/singleline-html-element-content-newline": "off"
+    "vue/singleline-html-element-content-newline": "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/html-self-closing": "off"
   },
   "parserOptions": {
     "extraFileExtensions": [".vue"]

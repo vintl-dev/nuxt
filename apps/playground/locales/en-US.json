@@ -8,6 +8,9 @@
   "index.other-page": {
     "message": "To the other page"
   },
+  "index.use-automatic": {
+    "message": "Use automatic"
+  },
   "language": {
     "message": "Language"
   },
@@ -16,6 +19,9 @@
   },
   "other-page.back": {
     "message": "Go back"
+  },
+  "other-page.description": {
+    "message": "You must've clicked me a thousand times"
   },
   "other-page.title": {
     "message": "Hello from the other page!"

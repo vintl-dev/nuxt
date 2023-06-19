@@ -23,47 +23,80 @@ const messages = defineMessages({
     id: 'index.other-page',
     defaultMessage: 'To the other page',
   },
+  useAutomatic: {
+    id: 'index.use-automatic',
+    defaultMessage: 'Use automatic',
+  },
 } as const)
 
 const vintl = useVIntl()
 const { formatMessage } = vintl
 
+const changing = ref(false)
+
+async function changeLocale(locale: string) {
+  if (changing.value) return
+  changing.value = true
+  try {
+    await vintl.changeLocale(locale)
+  } catch (err) {
+    console.error('Error changing locale', err)
+  } finally {
+    changing.value = false
+  }
+}
+
+const noop = () => {}
+
 const currentLocale = computed({
   get() {
     return vintl.locale
   },
-  set() {
-    // ignore
+  set(value) {
+    changeLocale(value).then(noop, noop)
   },
 })
 
-async function onLocaleChange(e: Event) {
-  await vintl.changeLocale(
-    (e as Event & { target: HTMLSelectElement }).target.value,
-  )
-}
+const useAutomatic = computed({
+  get() {
+    return vintl.automatic
+  },
+  set(value) {
+    changeLocale(value ? 'auto' : vintl.locale).then(noop, noop)
+  },
+})
 </script>
 
 <template>
   <div>
     <div>
       <h3>{{ formatMessage(messages.options) }}</h3>
-      <label for="language-select">
-        {{ formatMessage(messages.language) }}
-      </label>
-      <select
-        id="language-select"
-        v-model="currentLocale"
-        @change="onLocaleChange"
-      >
-        <option
-          v-for="locale in [...$nuxt.$i18n.$locales.value.keys()]"
-          :key="locale.tag"
-          :value="locale.tag"
-        >
-          {{ locale.tag }}
-        </option>
-      </select>
+      <div>
+        <label>
+          <input v-model="useAutomatic" type="checkbox" />
+          {{ formatMessage(messages.useAutomatic) }}
+        </label>
+      </div>
+
+      <div>
+        <label>
+          {{ formatMessage(messages.language) }}
+          <select
+            id="language-select"
+            v-model="currentLocale"
+            :disabled="vintl.automatic"
+            @change="onLocaleChange"
+          >
+            <option
+              v-for="locale in [...$nuxt.$i18n.$locales.value.keys()]"
+              :key="locale.tag"
+              :value="locale.tag"
+            >
+              {{ locale.tag }}
+            </option>
+          </select>
+        </label>
+      </div>
     </div>
 
     <div>
