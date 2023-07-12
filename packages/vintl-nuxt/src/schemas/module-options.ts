@@ -2,6 +2,7 @@ import { z as t } from 'zod'
 import { tSwitch } from '../utils/zod-utils.js'
 import { languageTagSchema } from './language-tag.js'
 import { localeDescriptorSchema } from './locales.js'
+import { seoOptions } from './seo.js'
 
 const parselessModeEnumSchema = t.enum(['always', 'only-prod', 'never'])
 
@@ -167,6 +168,7 @@ export const moduleOptionsSchema = t
      * user language. `null` to disable. If this value is `null`, the SEO tags
      * generation will be disabled.
      *
+     * @deprecated Use `seo` options instead.
      * @default 'hl' // For example, ?hl=en to use English locale (if defined).
      */
     hostLanguageParam: t
@@ -174,8 +176,10 @@ export const moduleOptionsSchema = t
       .describe(
         'Name of the host language URL parameter, used to override the default or user language.',
       )
-      .nullable()
-      .default('hl'),
+      .optional()
+      .nullable(),
+
+    seo: seoOptions.optional(),
 
     /**
      * Configuration options for the parserless mode, a mode in which the parser
@@ -196,6 +200,21 @@ export const moduleOptionsSchema = t
         return parselessOptionsSchema
       }
     }).default('only-prod'),
+  })
+  .transform((from) => {
+    if (from.seo === undefined) {
+      let hostLanguageParam = from.hostLanguageParam
+      if (hostLanguageParam === undefined) {
+        hostLanguageParam = 'hl'
+      }
+
+      from.seo = seoOptions.parse({
+        enabled: hostLanguageParam != null,
+        hostLanguageParameter: hostLanguageParam ?? undefined,
+      })
+    }
+
+    return from as typeof from & { seo: t.output<typeof seoOptions> }
   })
   .refine((value) => {
     return value.locales.some((locale) => locale.tag === value.defaultLocale)

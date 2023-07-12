@@ -64,4 +64,31 @@ declare module '@vintl/nuxt-runtime/options' {
    * descriptor.
    */
   export const parserless: boolean
+
+  export interface SEOOptions {
+    /**
+     * Whether SEO features are enabled.
+     *
+     * @default true
+     */
+    enabled: boolean
+
+    /**
+     * Name of the host language URL parameter, used to override the default or
+     * user language.
+     *
+     * @default 'hl' // For example, ?hl=en to use English locale (if defined).
+     */
+    hostLanguageParameter: string
+
+    /**
+     * Base URL at which the site will be available. This is required to generate
+     * absolute hreflang links. Without this, VIntl must try to guess the URL
+     * based on the server request URL / current `window.location`.
+     */
+    baseURL?: string
+  }
+
+  /** SEO options. */
+  export const seo: SEOOptions
 }

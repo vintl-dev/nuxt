@@ -3,8 +3,8 @@ import {
   localeDefinitions,
   storageAdapterFactory,
   broadcastLocaleChange,
-  hostLanguageParam,
   parserless,
+  seo as seoOptions,
 } from '@vintl/nuxt-runtime/options'
 import type { LocaleDescriptor, MessageValueType } from '@vintl/vintl'
 import type { IntlController } from '@vintl/vintl/controller'
@@ -42,8 +42,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
   }
 
-  if (hostLanguageParam != null) {
-    let hlLocale = nuxtApp._route.query[hostLanguageParam]
+  if (seoOptions.enabled) {
+    let hlLocale = nuxtApp._route.query[seoOptions.hostLanguageParameter]
 
     if (Array.isArray(hlLocale)) {
       hlLocale = hlLocale[0]
@@ -151,8 +151,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     setupBroadcasting(controller)
   }
 
-  if (hostLanguageParam != null) {
-    nuxtApp.hook('vue:setup', () => initHead(controller, hostLanguageParam!))
+  if (seoOptions.enabled) {
+    nuxtApp.hook('vue:setup', () => initHead(controller, seoOptions))
   }
 
   await nuxtApp.callHook('i18n:ready', controller)

@@ -1020,8 +1020,8 @@ export function generate(
     new ExportNamedDeclaration().setDeclaration(
       new VariableDeclaration('const', [
         new VariableDeclarator(
-          new Identifier('hostLanguageParam'),
-          new Literal(opts.hostLanguageParam),
+          new Identifier('seo'),
+          new Literal(null).setRaw(JSON.stringify(opts.seo)),
         ),
       ]),
     ),

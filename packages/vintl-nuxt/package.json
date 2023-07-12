@@ -47,7 +47,8 @@
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "hookable": "^5.5.3",
     "prettier-plugin-jsdoc": "^0.4.2",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "vue-router": "^4.2.4"
   },
   "dependencies": {
     "@formatjs/intl": "2.7.2",
@@ -62,6 +63,7 @@
     "pathe": "^1.1.1",
     "picocolors": "^1.0.0",
     "slash": "^5.1.0",
+    "ufo": "^1.1.2",
     "zod": "^3.21.4"
   }
 }
