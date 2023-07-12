@@ -1,11 +1,11 @@
 import { useHead } from '#imports'
 import type { IntlController } from '@vintl/vintl/controller'
 import { computed } from 'vue'
-import { useRouter } from 'nuxt/app'
+import type { LocationQuery, useRouter as _useRouter$type } from 'vue-router'
+import { useRouter as _useRouter, useRequestURL } from 'nuxt/app'
+import { joinURL } from 'ufo'
 
-type LocationQuery = ReturnType<
-  typeof useRouter
->['currentRoute']['value']['query']
+const useRouter = _useRouter as typeof _useRouter$type
 
 // I wish there was a better way to do this T_T
 function getSeachParams(query: LocationQuery) {
@@ -35,10 +35,31 @@ type LangHrefLink = {
   href: string
 }
 
-export function initHead(controller: IntlController<any>, hlParam: string) {
+interface HeadOptions {
+  hostLanguageParameter: string
+  baseURL?: string
+}
+
+export function initHead(
+  controller: IntlController<any>,
+  options: HeadOptions,
+) {
   const router = useRouter()
 
   const currentRoute = computed(() => router.currentRoute.value)
+
+  const requestURL = useRequestURL()
+
+  const normalizeURL = (url: string) => {
+    try {
+      return options.baseURL == null
+        ? new URL(url, requestURL).toString()
+        : joinURL(options.baseURL, url)
+    } catch (err) {
+      console.error(`[vintl] cannot normalize url: ${String(err)}`)
+      return url
+    }
+  }
 
   useHead({
     htmlAttrs: {
@@ -55,12 +76,12 @@ export function initHead(controller: IntlController<any>, hlParam: string) {
 
       {
         const sp = new URLSearchParams(query)
-        sp.delete(hlParam)
+        sp.delete(options.hostLanguageParameter)
         defaultEntry = {
           // key: `hreflang-default`,
           rel: 'alternate',
           hreflang: 'x-default',
-          href: withQueryParams(path, sp.toString()),
+          href: normalizeURL(withQueryParams(path, sp.toString())),
         }
       }
 
@@ -71,13 +92,13 @@ export function initHead(controller: IntlController<any>, hlParam: string) {
         if (hrefLangs.has(hrefLang)) continue
 
         const sp = new URLSearchParams(query)
-        sp.set(hlParam, locale.tag)
+        sp.set(options.hostLanguageParameter, locale.tag)
 
         hrefLangs.set(hrefLang, {
           // key: `hreflang-${locale.tag}`,
           rel: 'alternate',
           hreflang: hrefLang,
-          href: withQueryParams(path, sp.toString()),
+          href: normalizeURL(withQueryParams(path, sp.toString())),
         })
       }
 
