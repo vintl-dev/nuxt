@@ -3,7 +3,7 @@
   "compilerOptions": {
     "composite": true,
 
-    "module": "ESNext",
+    "module": "nodenext",
     "moduleResolution": "nodenext",
 
     "types": ["./types/nuxt"],

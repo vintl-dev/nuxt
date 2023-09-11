@@ -1,8 +1,10 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+
+    "allowImportingTsExtensions": true,
 
     "types": ["./types/nuxt"],
 
