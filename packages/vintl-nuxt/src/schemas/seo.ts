@@ -29,4 +29,17 @@ export const seoOptions = t.object({
       'Base URL at which the site will be available. This is required to generate absolute hreflang links. ',
     )
     .optional(),
+
+  /**
+   * Whether to use the host language parameter for the default locale.
+   *
+   * This options helps keep URLs for your default language clean, however it is
+   * not correct, and is not recommended, because lack of the host language
+   * parameter tells VIntl to use the user locale (whether it's the one they've
+   * choosen before or their browser's one).
+   */
+  defaultLocaleHasParameter: t.boolean().default(true),
+
+  /** Whether to enable `x-default` hreflang. */
+  xDefaultHreflang: t.boolean().default(true),
 })

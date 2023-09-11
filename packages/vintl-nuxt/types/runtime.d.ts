@@ -82,11 +82,17 @@ declare module '@vintl/nuxt-runtime/options' {
     hostLanguageParameter: string
 
     /**
-     * Base URL at which the site will be available. This is required to generate
-     * absolute hreflang links. Without this, VIntl must try to guess the URL
-     * based on the server request URL / current `window.location`.
+     * Base URL at which the site will be available. This is required to
+     * generate absolute hreflang links. Without this, VIntl must try to guess
+     * the URL based on the server request URL / current `window.location`.
      */
     baseURL?: string
+
+    /** Whether to use the host language parameter for the default locale. */
+    defaultLocaleHasParameter: boolean
+
+    /** Whether to enable `x-default` hreflang. */
+    xDefaultHreflang: boolean
   }
 
   /** SEO options. */

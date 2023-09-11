@@ -16,6 +16,11 @@ export default defineNuxtConfig({
             format: 'crowdin',
           },
         ],
+        meta: {
+          static: {
+            iso: 'en',
+          },
+        },
       },
       {
         tag: 'uk',
@@ -30,5 +35,9 @@ export default defineNuxtConfig({
     storage: 'cookie',
     broadcastLocaleChange: true,
     parserless: 'always',
+    seo: {
+      xDefaultHreflang: false,
+      defaultLocaleHasParameter: false,
+    },
   },
 })

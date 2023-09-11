@@ -1,9 +1,10 @@
 import { useHead } from '#imports'
+import type { SEOOptions } from '@vintl/nuxt-runtime/options'
 import type { IntlController } from '@vintl/vintl/controller'
-import { computed } from 'vue'
-import type { LocationQuery, useRouter as _useRouter$type } from 'vue-router'
 import { useRouter as _useRouter, useRequestURL } from 'nuxt/app'
 import { joinURL } from 'ufo'
+import { computed } from 'vue'
+import type { LocationQuery, useRouter as _useRouter$type } from 'vue-router'
 
 const useRouter = _useRouter as typeof _useRouter$type
 
@@ -35,10 +36,7 @@ type LangHrefLink = {
   href: string
 }
 
-interface HeadOptions {
-  hostLanguageParameter: string
-  baseURL?: string
-}
+type HeadOptions = Omit<SEOOptions, 'enabled'>
 
 export function initHead(
   controller: IntlController<any>,
@@ -72,27 +70,33 @@ export function initHead(
       const query = String(getSeachParams(route.query))
       const { path } = route
 
-      let defaultEntry: LangHrefLink
+      const hrefLangs: Map<string, LangHrefLink> = new Map()
 
-      {
+      if (options.xDefaultHreflang) {
         const sp = new URLSearchParams(query)
         sp.delete(options.hostLanguageParameter)
-        defaultEntry = {
+        hrefLangs.set('x-default', {
           // key: `hreflang-default`,
           rel: 'alternate',
           hreflang: 'x-default',
           href: normalizeURL(withQueryParams(path, sp.toString())),
-        }
+        })
       }
 
-      const hrefLangs: Map<string, LangHrefLink> = new Map()
       for (const locale of controller.availableLocales) {
         const hrefLang = locale.meta?.static?.iso ?? locale.tag
 
         if (hrefLangs.has(hrefLang)) continue
 
         const sp = new URLSearchParams(query)
-        sp.set(options.hostLanguageParameter, locale.tag)
+        if (
+          controller.defaultLocale === locale.tag &&
+          !options.defaultLocaleHasParameter
+        ) {
+          sp.delete(options.hostLanguageParameter)
+        } else {
+          sp.set(options.hostLanguageParameter, locale.tag)
+        }
 
         hrefLangs.set(hrefLang, {
           // key: `hreflang-${locale.tag}`,
@@ -102,7 +106,7 @@ export function initHead(
         })
       }
 
-      return [defaultEntry, ...hrefLangs.values()]
+      return Array.from(hrefLangs.values())
     },
   })
 }
