@@ -63,31 +63,31 @@
   },
   "devDependencies": {
     "@ltd/j-toml": "^1.38.0",
-    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@rollup/plugin-json": "^6.0.0",
     "@types/glob": "^8.1.0",
-    "@types/node": "^18.16.16",
-    "del-cli": "^5.0.0",
-    "eslint": "^8.42.0",
-    "memfs": "^4.3.0",
+    "@types/node": "^18.18.1",
+    "del-cli": "^5.1.0",
+    "eslint": "^8.50.0",
+    "memfs": "^4.5.0",
     "prettier": "^2.8.8",
     "prettier-plugin-jsdoc": "^0.4.2",
-    "rollup": "^3.23.1",
-    "semantic-release": "^21.0.3",
-    "typescript": "^5.1.3",
+    "rollup": "^3.29.4",
+    "semantic-release": "^21.1.2",
+    "typescript": "^5.2.2",
     "unbuild": "^2.0.0",
-    "vite": "^4.3.9",
-    "vitest": "^0.31.4",
-    "webpack": "^5.85.1"
+    "vite": "^4.4.9",
+    "vitest": "^0.34.6",
+    "webpack": "^5.88.2"
   },
   "dependencies": {
-    "@formatjs/cli-lib": "6.1.1",
-    "@formatjs/icu-messageformat-parser": "2.4.0",
-    "@rollup/pluginutils": "^5.0.2",
-    "glob": "^10.2.6",
+    "@formatjs/cli-lib": "6.2.0",
+    "@formatjs/icu-messageformat-parser": "2.6.2",
+    "@rollup/pluginutils": "^5.0.4",
+    "glob": "^10.3.10",
     "import-meta-resolve": "^3.0.0",
     "pathe": "^1.1.1",
-    "unplugin": "^1.3.1"
+    "unplugin": "^1.5.0"
   },
   "peerDependencies": {
     "rollup": "^3",
@@ -108,5 +108,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@8.6.1"
+  "packageManager": "pnpm@8.8.0"
 }
