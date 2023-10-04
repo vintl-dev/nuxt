@@ -81,8 +81,8 @@
     "webpack": "^5.88.2"
   },
   "dependencies": {
-    "@formatjs/cli-lib": "6.2.0",
-    "@formatjs/icu-messageformat-parser": "2.6.2",
+    "@formatjs/cli-lib": "^6.2.0",
+    "@formatjs/icu-messageformat-parser": "^2.6.2",
     "@rollup/pluginutils": "^5.0.4",
     "glob": "^10.3.10",
     "import-meta-resolve": "^3.0.0",

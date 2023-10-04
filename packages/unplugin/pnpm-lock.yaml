@@ -6,10 +6,10 @@ settings:
 
 dependencies:
   '@formatjs/cli-lib':
-    specifier: 6.2.0
+    specifier: ^6.2.0
     version: 6.2.0
   '@formatjs/icu-messageformat-parser':
-    specifier: 2.6.2
+    specifier: ^2.6.2
     version: 2.6.2
   '@rollup/pluginutils':
     specifier: ^5.0.4
