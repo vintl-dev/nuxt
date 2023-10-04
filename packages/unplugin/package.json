@@ -70,7 +70,7 @@
     "del-cli": "^5.1.0",
     "eslint": "^8.50.0",
     "memfs": "^4.5.0",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.3",
     "prettier-plugin-jsdoc": "^0.4.2",
     "rollup": "^3.29.4",
     "semantic-release": "^21.1.2",
