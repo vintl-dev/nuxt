@@ -217,6 +217,11 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
           code: JSON.stringify(data),
           map: { mappings: '' },
         }
+      } else if (outputOpts.format != null) {
+        return {
+          code: outputOpts.format(data),
+          map: { mappings: '' },
+        }
       } else {
         this.error(
           new TransformError(`Unsupported output format: ${outputOpts.format}`),

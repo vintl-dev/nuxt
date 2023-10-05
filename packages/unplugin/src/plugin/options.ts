@@ -10,7 +10,7 @@ import {
   type WrappablePlugin,
   type WrappingOptions,
 } from '../wrapping/index.ts'
-import type { MessagesASTMap } from './types.ts'
+import type { MessagesASTMap, MessagesMap } from './types.ts'
 
 /** Represents options for the transformation output. */
 interface OutputOptions {
@@ -27,7 +27,10 @@ interface OutputOptions {
    *
    * @default 'module' // The output is an ESM module.
    */
-  format?: 'module' | 'json' | ((messages: MessagesASTMap) => string)
+  format?:
+    | 'module'
+    | 'json'
+    | ((messages: MessagesASTMap | MessagesMap) => string)
 
   /**
    * Defines what kind of output should be generated.

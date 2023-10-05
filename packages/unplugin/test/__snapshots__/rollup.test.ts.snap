@@ -212,3 +212,32 @@ function example() {
 export { example as default };
 "
 `;
+
+exports[`rollup > should transform using custom formatter 1`] = `
+"var messages = [
+	[
+		\\"greeting\\",
+		[
+			{
+				type: 0,
+				value: \\"Hello, \\"
+			},
+			{
+				type: 1,
+				value: \\"name\\"
+			},
+			{
+				type: 0,
+				value: \\"!\\"
+			}
+		]
+	]
+];
+
+function example() {
+  return messages
+}
+
+export { example as default };
+"
+`;

@@ -190,6 +190,24 @@ describe(
       expect(out).toMatchSnapshot()
     })
 
+    it('should transform using custom formatter', async () => {
+      const out = await buildFile('fixtures/normal/input.mjs', (config) => {
+        ;(config.plugins ??= []).push(
+          icuMessages({
+            include: '**/*.messages.json',
+            format: 'crowdin',
+            output: {
+              format(messages) {
+                return JSON.stringify(Object.entries(messages))
+              },
+            },
+          }),
+        )
+      })
+
+      expect(out).toMatchSnapshot()
+    })
+
     it('should handle errors as defined', async () => {
       const onParseError = vi.fn(function ({ useBuiltinStrategy }) {
         return useBuiltinStrategy('use-message-as-literal')

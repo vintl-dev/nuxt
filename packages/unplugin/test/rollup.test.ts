@@ -296,6 +296,35 @@ describe('rollup', () => {
     expect(output[0]?.code).toMatchSnapshot()
   })
 
+  it('should transform using custom formatter', async () => {
+    const { generate } = await rollup({
+      input: [
+        resolve(
+          dirname(fileURLToPath(import.meta.url)),
+          'fixtures/normal/input.mjs',
+        ),
+      ],
+      plugins: [
+        icuMessages({
+          format: 'crowdin',
+          output: {
+            format(messages) {
+              return JSON.stringify(Object.entries(messages))
+            },
+          },
+        }),
+        json(),
+      ],
+    })
+
+    const { output } = await generate({
+      format: 'esm',
+    })
+
+    expect(output).toHaveLength(1)
+    expect(output[0]?.code).toMatchSnapshot()
+  })
+
   it('should handle errors as defined', async () => {
     const onParseError = vi.fn(function ({ useBuiltinStrategy }) {
       return useBuiltinStrategy('use-message-as-literal')
