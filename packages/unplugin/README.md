@@ -163,6 +163,13 @@ A method to handle any errors that may arise during the parsing of one of the me
 
 Plugins wrapping enables additional hooks in compatible bundlers to prevent other plugins from transforming files that would be transformed by this plugin.
 
+#### **`output`**
+
+- **Type**: [`OutputOptions`](#outputoptions)
+- **Default**: `{ format: 'module', type: 'ast' }`
+
+Options that allow to configure the output of transformation.
+
 ---
 
 ### `ParseErrorHandlingOption`
@@ -247,6 +254,42 @@ Whether to extend the defaults with provided `wrappers` or overwrite them.
 - **Type**: `WrappingFunctionsMap<PluginType>`
 
 A map of wrapping functions that can be used to modify the behavior of plugins. The map is an object where each key is a plugin name and the value is a function that accepts a plugin object and a filter function, and mutates the plugin hooks to use the provided filter function.
+
+---
+
+### `OutputOptions`
+
+Represents options for the transformation output.
+
+#### **`format`**
+
+- **Type**: `'module' | 'json' | ((messages: MessagesASTMap | MessagesMap) => string)`
+- **Default**: `'module'`
+
+Defines the format of the output file or provides a function that will encode input JavaScript object containing the messages into a string representing contents of the transformed file.
+
+The following formats are supported:
+
+|    Name    | Description                                                   |
+| :--------: | :------------------------------------------------------------ |
+| `'module'` | Outputs an ESM JavaScript module.                             |
+|  `'json'`  | Outputs a JSON string that can be processed by other plugins. |
+
+You can also provide a custom function that accepts either a `MessagesASTMap` or a `MessagesMap` and returns a string.
+
+#### **`type`**
+
+- **Type**: `'raw' | 'ast'`
+- **Default**: `'ast'`
+
+Defines what kind of output should be generated.
+
+The following output types are supported:
+
+|  Name   | Description                                    |
+| :-----: | :--------------------------------------------- |
+| `'raw'` | Outputs the messages as is.                    |
+| `'ast'` | Pre-parses the messages and outputs their AST. |
 
 </details>
 
