@@ -70,6 +70,25 @@ export { example as default };
 "
 `;
 
+exports[`rollup > should handle errors as defined 1`] = `
+"const greeting = [
+	{
+		type: 0,
+		value: \\"Hello, <bold>{name}</bold!\\"
+	}
+];
+var messages = {
+	greeting: greeting
+};
+
+function example() {
+  return messages
+}
+
+export { example as default };
+"
+`;
+
 exports[`rollup > should parse TOML when specified 1`] = `
 "const greeting = [
 	{

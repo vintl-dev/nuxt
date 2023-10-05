@@ -4,10 +4,11 @@ import {
   default as webpack,
   type StatsCompilation,
 } from 'webpack'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { createFsFromVolume, Volume } from 'memfs'
 import type * as _distWebpack from '../dist/webpack'
 import { createResolver } from './utils/resolver'
+import { basename } from 'pathe'
 
 Error.stackTraceLimit = 1000
 
@@ -187,6 +188,59 @@ describe(
       })
 
       expect(out).toMatchSnapshot()
+    })
+
+    it('should handle errors as defined', async () => {
+      const onParseError = vi.fn(function ({ useBuiltinStrategy }) {
+        return useBuiltinStrategy('use-message-as-literal')
+      } satisfies _distWebpack.PluginOptions['onParseError'])
+
+      const out = await buildFile('fixtures/errored/input.mjs', (config) => {
+        ;(config.plugins ??= []).push(
+          icuMessages({
+            format: 'crowdin',
+            onParseError,
+          }),
+        )
+      })
+
+      expect(out).toMatchSnapshot()
+
+      expect(onParseError.mock.calls).toHaveLength(1)
+
+      const context = onParseError.mock.calls[0][0]
+
+      expect(context).toBeDefined()
+
+      const { message, messageId, error } = context
+
+      expect({
+        message,
+        messageId,
+        error,
+        moduleId: basename(context.moduleId),
+        locale: context.parserOptions?.locale?.baseName,
+      }).toMatchInlineSnapshot(`
+        {
+          "error": [SyntaxError: INVALID_TAG],
+          "locale": "en",
+          "message": "Hello, <bold>{name}</bold!",
+          "messageId": "greeting",
+          "moduleId": "en.messages.json",
+        }
+      `)
+
+      expect(onParseError.mock.results[0]).toMatchInlineSnapshot(`
+        {
+          "type": "return",
+          "value": [
+            {
+              "type": 0,
+              "value": "Hello, <bold>{name}</bold!",
+            },
+          ],
+        }
+      `)
     })
   },
   { timeout: 60_000 },

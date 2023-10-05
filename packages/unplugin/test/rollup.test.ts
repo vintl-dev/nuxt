@@ -1,11 +1,11 @@
-import { fileURLToPath } from 'node:url'
-import { dirname, resolve } from 'pathe'
-import { rollup } from 'rollup'
-import json from '@rollup/plugin-json'
-import { describe, expect, it } from 'vitest'
+import type { ParserOptions } from '@formatjs/icu-messageformat-parser'
 import TOML from '@ltd/j-toml'
-import type { ParserOptions } from '@formatjs/icu-messageformat-parser/parser'
-import { AnyMessage, icuMessages } from '../dist/rollup'
+import json from '@rollup/plugin-json'
+import { fileURLToPath } from 'node:url'
+import { basename, dirname, resolve } from 'pathe'
+import { rollup } from 'rollup'
+import { describe, expect, it, vi } from 'vitest'
+import { AnyMessage, icuMessages, type PluginOptions } from '../dist/rollup'
 
 describe('rollup', () => {
   it('should generate bundle', async () => {
@@ -294,6 +294,74 @@ describe('rollup', () => {
 
     expect(output).toHaveLength(1)
     expect(output[0]?.code).toMatchSnapshot()
+  })
+
+  it('should handle errors as defined', async () => {
+    const onParseError = vi.fn(function ({ useBuiltinStrategy }) {
+      return useBuiltinStrategy('use-message-as-literal')
+    } satisfies PluginOptions['onParseError'])
+
+    const { generate } = await rollup({
+      input: [
+        resolve(
+          dirname(fileURLToPath(import.meta.url)),
+          'fixtures/errored/input.mjs',
+        ),
+      ],
+      plugins: [
+        icuMessages({
+          format: 'crowdin',
+          parserOptions() {
+            return {
+              ...this.getDefaultOptions(),
+            }
+          },
+          onParseError,
+        }),
+      ],
+    })
+
+    const { output } = await generate({ format: 'esm' })
+
+    expect(output).toHaveLength(1)
+
+    expect(output[0]?.code).toMatchSnapshot()
+
+    expect(onParseError.mock.calls).toHaveLength(1)
+
+    const context = onParseError.mock.calls[0][0]
+
+    expect(context).toBeDefined()
+
+    const { message, messageId, error } = context
+
+    expect({
+      message,
+      messageId,
+      error,
+      moduleId: basename(context.moduleId),
+      locale: context.parserOptions?.locale?.baseName,
+    }).toMatchInlineSnapshot(`
+      {
+        "error": [SyntaxError: INVALID_TAG],
+        "locale": "en",
+        "message": "Hello, <bold>{name}</bold!",
+        "messageId": "greeting",
+        "moduleId": "en.messages.json",
+      }
+    `)
+
+    expect(onParseError.mock.results[0]).toMatchInlineSnapshot(`
+      {
+        "type": "return",
+        "value": [
+          {
+            "type": 0,
+            "value": "Hello, <bold>{name}</bold!",
+          },
+        ],
+      }
+    `)
   })
 
   it('exposes filter in public API', () => {

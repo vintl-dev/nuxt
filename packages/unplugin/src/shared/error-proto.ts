@@ -4,7 +4,7 @@ export interface BaseErrorOptions {
 }
 
 export class BaseError extends Error {
-  public constructor(message: string, options: BaseErrorOptions = {}) {
+  public constructor(message?: string, options: BaseErrorOptions = {}) {
     super(message)
 
     if ('cause' in options && !('cause' in this)) {

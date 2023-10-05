@@ -1,6 +1,10 @@
 import type { CompileFn } from '@formatjs/cli-lib'
 import type { FilterPattern } from '@rollup/pluginutils'
-import type { MessagesParserOptionsValue } from '../parser/options.ts'
+import {
+  resolveParseErrorHandler,
+  type MessagesParserOptionsValue,
+  type ParseErrorHandlingOption,
+} from '../parser/index.ts'
 import {
   normalizeWrappingOptions,
   type WrappablePlugin,
@@ -127,6 +131,37 @@ export interface Options<PluginType extends WrappablePlugin> {
   parserOptions?: MessagesParserOptionsValue
 
   /**
+   * A method to handle any errors that may arise during the parsing of one of
+   * the messages.
+   *
+   * This can be either a name of the built-in handler, or a custom method that
+   * will accept context and may return the fallback result, throw another error
+   * or return nothing (`undefined`) to ignore the error.
+   *
+   * Custom methods can access the built-in handlers using the context's
+   * `useBuiltinStrategy` method and used solely for logging.
+   *
+   * The following built-in handlers exist:
+   *
+   * |           Name           | Description                                      |
+   * | :----------------------: | ------------------------------------------------ |
+   * | `use-message-as-literal` | Uses the unparsed message contents as a literal. |
+   * |   `use-id-as-literal`    | Uses the message ID as a literal.                |
+   * |   `use-empty-literal`    | Uses literal with empty string.                  |
+   * |          `skip`          | Ignore the error and skip the message.           |
+   *
+   * @example
+   *   const opts: PluginOptions = {
+   *     // ...
+   *     onParseError({ message, moduleId, useBuiltinStrategy }) {
+   *       console.warn(`[i18n] Cannot parse "${message}" in "${moduleId}"`)
+   *       return useBuiltinStrategy('use-message-as-literal')
+   *     },
+   *   }
+   */
+  onParseError?: ParseErrorHandlingOption
+
+  /**
    * Plugins wrapping enables additional hooks in compatible bundlers to prevent
    * other plugins from transforming files that would be transformed by this
    * plugin.
@@ -185,7 +220,11 @@ export function normalizeOptions<PluginType extends WrappablePlugin>(
       options?.pluginsWrapping ?? false,
     ),
     output: normalizeOutputOptions(options?.output),
-  } satisfies Options<PluginType>
+    onParseError:
+      options?.onParseError == null
+        ? undefined
+        : resolveParseErrorHandler(options?.onParseError),
+  }
 }
 
 /** Represents the options after normalization using {@link normalizeOptions}. */

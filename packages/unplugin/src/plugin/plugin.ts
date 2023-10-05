@@ -40,6 +40,7 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
     parse,
     pluginsWrapping,
     output: outputOpts,
+    onParseError,
     ...options
   } = normalizeOptions(options_ ?? {})
 
@@ -190,7 +191,7 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
       let data: MessagesASTMap | MessagesMap
       if (outputOpts.type === 'ast') {
         try {
-          data = parseMessages(messages, getParserOptions, id)
+          data = parseMessages(messages, id, getParserOptions, onParseError)
         } catch (cause) {
           this.error(
             new TransformError('Cannot generate messages AST', { cause }),

@@ -208,6 +208,59 @@ export { __webpack_exports__default as default };
 "
 `;
 
+exports[`webpack > should handle errors as defined 1`] = `
+"/******/ // The require scope
+/******/ var __webpack_require__ = {};
+/******/ 
+/************************************************************************/
+/******/ /* webpack/runtime/define property getters */
+/******/ (() => {
+/******/ 	// define getter functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			}
+/******/ 		}
+/******/ 	};
+/******/ })();
+/******/ 
+/******/ /* webpack/runtime/hasOwnProperty shorthand */
+/******/ (() => {
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ })();
+/******/ 
+/************************************************************************/
+var __webpack_exports__ = {};
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  Z: () => (/* binding */ example)
+});
+
+;// CONCATENATED MODULE: ./test/fixtures/errored/en.messages.json
+const greeting = [
+	{
+		type: 0,
+		value: \\"Hello, <bold>{name}</bold!\\"
+	}
+];
+/* harmony default export */ const en_messages = ({
+	greeting: greeting
+});
+
+;// CONCATENATED MODULE: ./test/fixtures/errored/input.mjs
+
+
+function example() {
+  return en_messages
+}
+
+var __webpack_exports__default = __webpack_exports__.Z;
+export { __webpack_exports__default as default };
+"
+`;
+
 exports[`webpack > should transform to AST JSON 1`] = `
 "/******/ // The require scope
 /******/ var __webpack_require__ = {};

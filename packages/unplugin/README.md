@@ -149,12 +149,80 @@ This function accepts file contents and parses it to a JavaScript value that wil
 
 An object whose keys are message IDs and whose values are either parsing options for those messages or a resolver function that generates parsing options based on contextual information (such as module ID, message ID, and all messages).
 
+#### **`onParseError`**
+
+- **Type**: [`ParseErrorHandlingOption`](#parseerrorhandlingoption)
+- **Default**: `undefined`
+
+A method to handle any errors that may arise during the parsing of one of the messages.
+
 #### **`pluginsWrapping`**
 
-- **Type**: `boolean | WrappingOptions<PluginType>`
+- **Type**: `boolean` `|` [`WrappingOptions<PluginType>`](#wrappingoptions)
 - **Default**: `false`
 
 Plugins wrapping enables additional hooks in compatible bundlers to prevent other plugins from transforming files that would be transformed by this plugin.
+
+---
+
+### `ParseErrorHandlingOption`
+
+- **Type**: `(context: `[`ParseErrorContext`](#parseerrorcontext)`) => MessageFormatElement[] | void`
+
+Either a name of the built-in handler, or a custom method that will accept context and may return the fallback result, throw another error, or return nothing (`undefined`) to ignore the error.
+
+Custom methods can access the built-in handlers using the context's `useBuiltinStrategy` method and are used solely for logging.
+
+The following built-in handlers exist:
+
+| Name                     | Description                                      |
+| ------------------------ | ------------------------------------------------ |
+| `use-message-as-literal` | Uses the unparsed message contents as a literal. |
+| `use-id-as-literal`      | Uses the the message ID as a literal.            |
+| `use-empty-literal`      | Uses a literal with an empty string.             |
+| `skip`                   | Ignore the error and skip the message.           |
+
+---
+
+### `ParseErrorContext`
+
+A read-only object containing information relevant to the parsing error, including the error itself.
+
+#### **`moduleId`**
+
+- **Type**: `string`
+
+ID of the module that is being parsed.
+
+#### **`messageId`**
+
+- **Type**: `string`
+
+ID of the message that cannot be parsed.
+
+#### **`message`**
+
+- **Type**: `string`
+
+Message that cannot be parsed.
+
+#### **`error`**
+
+- **Type**: `unknown`
+
+Error that occurred during the parsing.
+
+#### **`parserOptions`**
+
+- **Type**: `ParserOptions | undefined`
+
+Parser options that were used to parse the message.
+
+#### **`useBuiltinStrategy`**
+
+- **Type**: `(name: ParseErrorHandlingStrategy) => MessageFormatElement[] | void`
+
+Method used to call one of the built-in error handling strategies and return its result.
 
 ---
 
