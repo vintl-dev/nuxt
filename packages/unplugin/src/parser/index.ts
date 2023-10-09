@@ -12,4 +12,5 @@ export {
   type ParseErrorHandlingOption,
   type ParseErrorContext,
   type ParseErrorHandlingStrategy,
+  type ParseErrorHandlerResult,
 } from './error-handling.ts'

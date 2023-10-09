@@ -4,4 +4,5 @@ export {
   type ParseErrorHandler,
   type ParseErrorHandlingOption,
   type ParseErrorHandlingStrategy,
+  type ParseErrorHandlerResult,
 } from './parser/index.ts'
