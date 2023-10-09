@@ -4,7 +4,7 @@ import {
   type ParserOptions,
 } from '@formatjs/icu-messageformat-parser'
 
-type ParseErrorHandlerResult = MessageFormatElement[] | undefined | void
+export type ParseErrorHandlerResult = MessageFormatElement[] | undefined | void
 
 /**
  * A function that handles parsing error and either throws another error, or
@@ -39,7 +39,7 @@ export const builtinStrategies = {
 
 Object.setPrototypeOf(builtinStrategies, null)
 
-type ParseErrorHandlingStrategy = keyof typeof builtinStrategies
+export type ParseErrorHandlingStrategy = keyof typeof builtinStrategies
 
 export type ParseErrorHandlingOption =
   | ParseErrorHandler
@@ -61,7 +61,7 @@ export function resolveParseErrorHandler(option: ParseErrorHandlingOption) {
   throw new Error(`Cannot resolve built-in strategy with name "${option}"`)
 }
 
-interface ParseErrorContext {
+export interface ParseErrorContext {
   /** ID of the module that is being parsed. */
   get moduleId(): string
 
