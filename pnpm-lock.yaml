@@ -101,7 +101,7 @@ importers:
   packages/vintl-nuxt:
     dependencies:
       '@formatjs/intl':
-        specifier: 2.9.3
+        specifier: ^2.9.3
         version: 2.9.3(typescript@5.2.2)
       '@formatjs/intl-localematcher':
         specifier: ^0.4.2
