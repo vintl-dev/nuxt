@@ -34,7 +34,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "nuxt-module-build",
+    "build": "nuxt-module-build build",
     "lint": "eslint --cache .",
     "prepack": "pnpm run -s lint && pnpm run -s build"
   },
