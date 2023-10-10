@@ -1,5 +1,23 @@
 # @vintl/nuxt
 
+## 1.6.0
+
+### Minor Changes
+
+- 81c23b0: Support for parsing error handling
+
+  `@vintl/nuxt` can now handle errors when parsing message files containing broken messages in a configurable manner.
+
+  You can configure how errors are handled using `onParseError` module option, which can either be a name of the built-in strategy, or a function that takes in context and optionally provides fallback message AST.
+
+  Check out documentation for more information.
+
+### Patch Changes
+
+- 2b5a59b: Unpin FormatJS dependencies
+
+  We proveviously had `@formatjs/intl` pinned because of the broken ESM migration, however this has been fixed for quite some time already, so the pinned version has been to changed to a range, which ensures that `@formatjs/intl` can be updated with latest bug fixes and improvements until the next major version.
+
 ## 1.5.0
 
 ### Minor Changes
