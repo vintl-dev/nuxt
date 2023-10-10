@@ -393,6 +393,77 @@ describe('rollup', () => {
     `)
   })
 
+  it('should pass parsing fc to error handler', async () => {
+    const onParseError = vi.fn(function ({
+      message,
+      useBuiltinStrategy,
+      parseMessage,
+      parserOptions,
+    }) {
+      try {
+        return parseMessage(message, { ...parserOptions, ignoreTag: true })
+      } catch (e) {
+        return useBuiltinStrategy('use-message-as-literal')
+      }
+    } satisfies PluginOptions['onParseError'])
+
+    const { generate } = await rollup({
+      input: [
+        resolve(
+          dirname(fileURLToPath(import.meta.url)),
+          'fixtures/errored/input.mjs',
+        ),
+      ],
+      plugins: [
+        icuMessages({
+          format: 'crowdin',
+          parserOptions() {
+            return {
+              ...this.getDefaultOptions(),
+            }
+          },
+          onParseError,
+        }),
+      ],
+    })
+
+    const { output } = await generate({ format: 'esm' })
+
+    expect(output).toHaveLength(1)
+
+    expect(output[0]?.code).toMatchSnapshot()
+
+    expect(onParseError.mock.calls).toHaveLength(1)
+
+    const context = onParseError.mock.calls[0][0]
+
+    expect(context).toBeDefined()
+
+    const { parseMessage } = context
+
+    expect(parseMessage).toBeTypeOf('function')
+
+    expect(onParseError.mock.results[0]).toMatchInlineSnapshot(`
+      {
+        "type": "return",
+        "value": [
+          {
+            "type": 0,
+            "value": "Hello, <bold>",
+          },
+          {
+            "type": 1,
+            "value": "name",
+          },
+          {
+            "type": 0,
+            "value": "</bold!",
+          },
+        ],
+      }
+    `)
+  })
+
   it('exposes filter in public API', () => {
     expect(icuMessages({}).api).toHaveProperty('filter')
   })

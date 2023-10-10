@@ -111,6 +111,7 @@ export function parseMessages(
             message,
             messageId,
             parserOptions,
+            parseMessage,
           }),
         )
 

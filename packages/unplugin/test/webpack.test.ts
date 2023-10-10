@@ -260,6 +260,56 @@ describe(
         }
       `)
     })
+
+    it('should pass parsing fc to error handler', async () => {
+      const onParseError = vi.fn(function ({
+        message,
+        useBuiltinStrategy,
+        parseMessage,
+        parserOptions,
+      }) {
+        try {
+          return parseMessage(message, { ...parserOptions, ignoreTag: true })
+        } catch (e) {
+          return useBuiltinStrategy('use-message-as-literal')
+        }
+      } satisfies _distWebpack.PluginOptions['onParseError'])
+
+      const out = await buildFile('fixtures/errored/input.mjs', (config) => {
+        ;(config.plugins ??= []).push(
+          icuMessages({
+            format: 'crowdin',
+            onParseError,
+          }),
+        )
+      })
+
+      expect(out).toMatchSnapshot()
+
+      const { mock } = onParseError
+
+      expect(mock.calls?.[0]?.[0]?.parseMessage).toBeTypeOf('function')
+
+      expect(mock.results[0]).toMatchInlineSnapshot(`
+        {
+          "type": "return",
+          "value": [
+            {
+              "type": 0,
+              "value": "Hello, <bold>",
+            },
+            {
+              "type": 1,
+              "value": "name",
+            },
+            {
+              "type": 0,
+              "value": "</bold!",
+            },
+          ],
+        }
+      `)
+    })
   },
   { timeout: 60_000 },
 )

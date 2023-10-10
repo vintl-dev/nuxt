@@ -2,6 +2,7 @@ import {
   type MessageFormatElement,
   createLiteralElement,
   type ParserOptions,
+  type parse,
 } from '@formatjs/icu-messageformat-parser'
 
 export type ParseErrorHandlerResult = MessageFormatElement[] | undefined | void
@@ -77,6 +78,9 @@ export interface ParseErrorContext {
   /** Parser options that were used to parse the message. */
   get parserOptions(): ParserOptions | undefined
 
+  /** Function that can be used to parse a custom message. */
+  get parseMessage(): typeof parse
+
   /**
    * Call one of the built-in error handling strategies.
    *
@@ -95,7 +99,12 @@ export interface ParseErrorContext {
 export function createParseErrorContext(
   info: Pick<
     ParseErrorContext,
-    'error' | 'moduleId' | 'message' | 'messageId' | 'parserOptions'
+    | 'error'
+    | 'moduleId'
+    | 'message'
+    | 'messageId'
+    | 'parserOptions'
+    | 'parseMessage'
   >,
 ) {
   const ctx = {

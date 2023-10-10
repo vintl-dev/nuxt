@@ -116,6 +116,33 @@ export { example as default };
 "
 `;
 
+exports[`rollup > should pass parsing fc to error handler 1`] = `
+"const greeting = [
+	{
+		type: 0,
+		value: \\"Hello, <bold>\\"
+	},
+	{
+		type: 1,
+		value: \\"name\\"
+	},
+	{
+		type: 0,
+		value: \\"</bold!\\"
+	}
+];
+var messages = {
+	greeting: greeting
+};
+
+function example() {
+  return messages
+}
+
+export { example as default };
+"
+`;
+
 exports[`rollup > should prevent json plugins if specified 1`] = `
 "var type = 0;
 var target = \\"World\\";
