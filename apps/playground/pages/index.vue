@@ -27,6 +27,10 @@ const messages = defineMessages({
     id: 'index.use-automatic',
     defaultMessage: 'Use automatic',
   },
+  brokenMessage: {
+    id: 'broken-message',
+    defaultMessage: 'This is {broken, }'
+  },
 } as const)
 
 const vintl = useVIntl()

@@ -124,11 +124,31 @@ export default defineNuxtModule<ModuleOptions>({
 
       const { icuMessages } = await import('@vintl/unplugin')
 
+      const onParseError = (() => {
+        let { onParseError } = options
+
+        if (onParseError === 'log-and-skip') {
+          onParseError = (ctx) => {
+            consola.warn(
+              `[vintl] Cannot parse the message "${
+                ctx.messageId
+              }" in "${relativizePath(
+                nuxt.options.srcDir,
+                ctx.moduleId,
+              )}". It will me skipped.`,
+            )
+          }
+        }
+
+        return onParseError
+      })()
+
       extendWebpackConfig((cfg) => {
         const plugins = (cfg.plugins ??= [])
         plugins.push(
           ...pluginOptionsBank
             .createOptions({
+              onParseError,
               output: {
                 type: parserlessModeEnabled ? 'ast' : 'raw',
               },
@@ -143,6 +163,7 @@ export default defineNuxtModule<ModuleOptions>({
           ...pluginOptionsBank
             .createOptions({
               pluginsWrapping: true,
+              onParseError,
               output: {
                 type: parserlessModeEnabled ? 'ast' : 'raw',
               },

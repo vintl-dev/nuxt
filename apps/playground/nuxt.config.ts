@@ -39,5 +39,6 @@ export default defineNuxtConfig({
       xDefaultHreflang: false,
       defaultLocaleHasParameter: false,
     },
+    onParseError: 'log-and-skip',
   },
 })

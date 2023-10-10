@@ -1,4 +1,7 @@
 {
+  "broken-message": {
+    "message": "This is {broken, }"
+  },
   "example": {
     "message": "Example"
   },

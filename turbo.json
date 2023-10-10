@@ -7,8 +7,11 @@
     "@vintl/nuxt#lint": {
       "outputs": [".eslintcache"]
     },
+    "@vintl-dev/pg#intl:extract": {
+      "outputs": ["./locales/en-US.json"]
+    },
     "@vintl-dev/pg#dev:prepare": {
-      "dependsOn": ["@vintl/nuxt#build"],
+      "dependsOn": ["@vintl/nuxt#build", "@vintl-dev/pg#intl:extract"],
       "inputs": ["./package.json", "./nuxt.config.ts"],
       "outputs": [".nuxt"]
     },

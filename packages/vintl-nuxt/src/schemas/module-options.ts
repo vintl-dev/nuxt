@@ -3,6 +3,27 @@ import { tSwitch } from '../utils/zod-utils.js'
 import { languageTagSchema } from './language-tag.js'
 import { localeDescriptorSchema } from './locales.js'
 import { seoOptions } from './seo.js'
+import type { ParseErrorHandler } from '@vintl/unplugin'
+
+const parseErrorHandingStrategy = t.union([
+  t.literal('use-message-as-literal'),
+  t.literal('use-id-as-literal'),
+  t.literal('use-empty-literal'),
+  t.literal('log-and-skip'),
+  t.literal('skip'),
+])
+
+const parseErrorHandler = t.custom<ParseErrorHandler>(
+  (value) => typeof value === 'function',
+)
+
+export const parseErrorHandling = tSwitch((input) => {
+  if (typeof input === 'function') {
+    return parseErrorHandler
+  } else if (typeof input === 'string') {
+    return parseErrorHandingStrategy
+  }
+})
 
 const parselessModeEnumSchema = t.enum(['always', 'only-prod', 'never'])
 
@@ -200,6 +221,14 @@ export const moduleOptionsSchema = t
         return parselessOptionsSchema
       }
     }).default('only-prod'),
+
+    /**
+     * Either a literal name of the strategy or a function that handles the
+     * errors that occur during the parsing of one of the imported files.
+     *
+     * @see https://github.com/vintl-dev/unplugin/blob/df9b3be9c77f78eaf5fe7f8d6fde1655f2bc79e1/README.md#onparseerror
+     */
+    onParseError: parseErrorHandling.optional(),
   })
   .transform((from) => {
     if (from.seo === undefined) {
