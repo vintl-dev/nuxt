@@ -1,6 +1,6 @@
 import { dataToEsm } from '@rollup/pluginutils'
 import type { CompileFn } from '@formatjs/cli-lib'
-import { createUnplugin, type RollupPlugin } from 'unplugin'
+import { createUnplugin } from 'unplugin'
 import { basePluginName } from '../shared/consts.ts'
 import {
   createOptionsResolver,
@@ -75,53 +75,13 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
     compileFunc = await getBultinFormatter(format)
   }
 
-  /** @see https://github.com/unjs/unplugin/issues/293 */
-  const buildStart = (() => {
-    let buildStartCall: Promise<void> | undefined
-
-    function buildStart() {
-      if (buildStartCall != null) {
-        throw new BaseError('buildStart() has already been called')
-      }
-
-      return (buildStartCall = (async () => {
-        try {
-          return await resolveFormatter()
-        } finally {
-          buildStartCall = undefined
-        }
-      })())
-    }
-
-    return {
-      run: buildStart,
-      async waitForCompletion() {
-        await buildStartCall
-      },
-    }
-  })()
-
   return {
     name: basePluginName,
 
     rollup: {
       ...(pluginsWrapping.use &&
         meta.framework === 'rollup' &&
-        (() => {
-          // unplugin doesn't have hook merging, so this is the way to go
-          const { buildStart: pluginsWrap } = rollupWrappingPartial(
-            pluginsWrapping,
-            filter,
-          )
-
-          return {
-            async buildStart(rollupOptions) {
-              await buildStart.run()
-
-              pluginsWrap?.call(this, rollupOptions)
-            },
-          } satisfies Omit<RollupPlugin, 'name'>
-        })()),
+        rollupWrappingPartial(pluginsWrapping, filter)),
       api,
     },
 
@@ -143,18 +103,13 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
       return filter(id)
     },
 
-    buildStart: buildStart.run,
-
     async transform(code, id) {
-      try {
-        await buildStart.waitForCompletion()
-      } catch (err) {
-        this.error(
-          new BaseError('Previously invoked buildStart() failed', {
-            cause: err,
-          }),
-        )
-        return
+      if (compileFunc == null) {
+        try {
+          await resolveFormatter()
+        } catch (err) {
+          this.error(err)
+        }
       }
 
       if (compileFunc == null) {
