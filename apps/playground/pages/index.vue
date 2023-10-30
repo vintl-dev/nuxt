@@ -29,7 +29,7 @@ const messages = defineMessages({
   },
   brokenMessage: {
     id: 'broken-message',
-    defaultMessage: 'This is {broken, }'
+    defaultMessage: 'This is {broken, }',
   },
 } as const)
 
@@ -89,10 +89,9 @@ const useAutomatic = computed({
             id="language-select"
             v-model="currentLocale"
             :disabled="vintl.automatic"
-            @change="onLocaleChange"
           >
             <option
-              v-for="locale in [...$nuxt.$i18n.$locales.value.keys()]"
+              v-for="locale in [...$i18n.$locales.value.keys()]"
               :key="locale.tag"
               :value="locale.tag"
             >

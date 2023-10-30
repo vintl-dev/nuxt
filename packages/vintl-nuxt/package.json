@@ -55,7 +55,7 @@
     "@formatjs/intl-localematcher": "^0.4.2",
     "@nuxt/kit": "^3.8.0",
     "@vintl/unplugin": "^1.5.1",
-    "@vintl/vintl": "^4.3.0",
+    "@vintl/vintl": "^4.4.1",
     "astring": "^1.8.6",
     "consola": "^3.2.3",
     "hash-sum": "^2.0.0",
