@@ -12,9 +12,36 @@ import type {
 
 type UniqueOptions = t.output<typeof messagesImportOptionsSchema>
 
+class Marker {
+  private readonly regExp: RegExp
+
+  public constructor(public readonly marker: string) {
+    this.regExp = new RegExp(`(\\?|&)${marker}(&|$)`)
+  }
+
+  public apply(id: string) {
+    return `${id}${id.includes('?') ? '&' : '?'}${this.marker}`
+  }
+
+  public matches(id: string) {
+    return this.regExp.test(id)
+  }
+}
+
+class MarkedFileSet extends Set<string> {
+  public readonly marker: Marker
+
+  constructor(marker: Marker, iterable?: Iterable<string> | null | undefined) {
+    super(iterable)
+    this.marker = marker
+  }
+}
+
 export class PluginOptionsBank {
   // let the uniqueOptions be a map of unique options to a list of files that have the same options
-  private readonly filesByOptions: Map<UniqueOptions, Set<string>> = new Map()
+  private readonly filesByOptions = new Map<UniqueOptions, MarkedFileSet>()
+
+  private incrementingMarker = 0
 
   private findOrCreateFileSet(optionsVariation: UniqueOptions) {
     for (const [knownOptionsVariation, files] of this.filesByOptions) {
@@ -31,7 +58,9 @@ export class PluginOptionsBank {
       parser: optionsVariation.parser,
     }
 
-    const fileSet = new Set<string>()
+    const marker = new Marker(`icu-messages-${this.incrementingMarker++}`)
+
+    const fileSet = new MarkedFileSet(marker)
     this.filesByOptions.set(filteredOptions, fileSet)
     return fileSet
   }
@@ -40,7 +69,8 @@ export class PluginOptionsBank {
     file: t.output<typeof messagesImportSourceSchema>,
     resolvedPath: string,
   ) {
-    this.findOrCreateFileSet(file).add(resolvedPath)
+    const { marker } = this.findOrCreateFileSet(file).add(resolvedPath)
+    return marker.apply(resolvedPath)
   }
 
   public createOptions<T extends { name: string }>(
@@ -49,7 +79,7 @@ export class PluginOptionsBank {
     const options: PluginOptions<T>[] = []
 
     for (const [{ format, parser }, files] of this.filesByOptions) {
-      const filter = (id: string) => files.has(id)
+      const filter = (id: string) => files.marker.matches(id)
 
       options.push({
         ...baseOptions,

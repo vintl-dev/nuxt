@@ -623,11 +623,12 @@ interface GeneratorContext {
    *
    * @param file Input message file options.
    * @param importPath Resolved path.
+   * @returns Marked import path.
    */
   registerMessagesFile(
     file: t.output<typeof messagesImportSourceSchema>,
     importPath: string,
-  ): void
+  ): string
 
   /**
    * Resolves a module from the runtime directory.
@@ -780,8 +781,10 @@ export function generate(
 
     for (const messageFile of files) {
       const { from: importPath, name: importKey } = messageFile
-      const resolvedPath = resolve(messageFile.from)
-      registerMessagesFile(messageFile, resolvedPath)
+      const resolvedPath = registerMessagesFile(
+        messageFile,
+        resolve(messageFile.from),
+      )
 
       if (isDefaultLocale) {
         // if import key is 'default' then:

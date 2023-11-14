@@ -96,7 +96,7 @@ export default defineNuxtModule<ModuleOptions>({
               return resolveInResDir(specifier).relativeTo(optionsFile.dst)
             },
             registerMessagesFile(file, importPath) {
-              pluginOptionsBank.registerFile(
+              return pluginOptionsBank.registerFile(
                 file,
                 resolvePath(dirname(optionsFile.dst), importPath),
               )
