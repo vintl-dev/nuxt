@@ -163,7 +163,7 @@ type EventContext<E> = {
   controller: IntlController<MessageValueType>
 }
 
-declare module 'nuxt/app' {
+declare module '#app' {
   interface NuxtApp
     extends InjectedProperties<VueIntlController.MessageValueTypes> {}
 
