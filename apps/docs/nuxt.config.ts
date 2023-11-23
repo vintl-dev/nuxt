@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  extends: '@nuxt-themes/docus',
+  extends: ['@nuxt-themes/docus'],
   modules: ['@vintl/nuxt'],
   vintl: {
     defaultLocale: 'en-US',
