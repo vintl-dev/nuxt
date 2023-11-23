@@ -1,5 +1,11 @@
 # @vintl/nuxt
 
+## 1.8.1
+
+### Patch Changes
+
+- 114d04a: Switched to a slightly more compatible `#app` augmentation
+
 ## 1.8.0
 
 ### Minor Changes
