@@ -13,15 +13,15 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.2.1",
+    "@formatjs/cli": "^6.2.4",
     "@nuxt-themes/docus": "^1.15.0",
     "@nuxt/eslint-config": "^0.2.0",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl/nuxt": "workspace:^",
-    "eslint": "^8.52.0",
+    "eslint": "^8.54.0",
     "nuxi": "^3.9.1",
-    "nuxt": "^3.8.0",
-    "theme-colors": "^0.0.5",
-    "vue": "^3.3.7"
+    "nuxt": "^3.8.1",
+    "theme-colors": "^0.1.0",
+    "vue": "^3.3.8"
   }
 }
