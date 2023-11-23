@@ -41,4 +41,11 @@ export default defineNuxtConfig({
     },
     onParseError: 'log-and-skip',
   },
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        moduleResolution: 'bundler',
+      },
+    },
+  },
 })
