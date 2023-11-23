@@ -48,4 +48,10 @@ export default defineNuxtConfig({
       },
     },
   },
+  plugins: [
+    {
+      src: './plugins/test.ts',
+      order: -100,
+    },
+  ],
 })
