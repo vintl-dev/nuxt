@@ -1,5 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  if (process.client && typeof window !== null) {
+  if (process.client && typeof window !== 'undefined') {
     Object.defineProperty(window, 'vintl', {
       configurable: true,
       writable: true,
