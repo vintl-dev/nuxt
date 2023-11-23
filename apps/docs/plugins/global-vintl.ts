@@ -1,6 +1,11 @@
 export default defineNuxtPlugin((nuxtApp) => {
   if (process.client && typeof window !== null) {
-    ;(window as any).vintl = nuxtApp.$i18n
+    Object.defineProperty(window, 'vintl', {
+      configurable: true,
+      writable: true,
+      enumerable: true,
+      value: nuxtApp.$i18n,
+    })
     console.log('~'.repeat(80))
     console.log('%cHey there! 👋', 'font-size: 1.2rem')
     console.log(
