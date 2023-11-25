@@ -134,7 +134,7 @@ export default defineNuxtModule<ModuleOptions>({
               }" in "${relativizePath(
                 nuxt.options.srcDir,
                 ctx.moduleId,
-              )}". It will me skipped.`,
+              )}". It will be skipped.`,
             )
           }
         }
