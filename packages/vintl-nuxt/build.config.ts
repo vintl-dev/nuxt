@@ -12,6 +12,14 @@ export default defineBuildConfig({
           entry.ext = 'js'
         }
       }
+
+      ctx.options.entries.push({
+        builder: 'rollup',
+        name: 'options',
+        input: './src/options/index.ts',
+        declaration: 'compatible',
+        outDir: './dist',
+      })
     },
   },
 })

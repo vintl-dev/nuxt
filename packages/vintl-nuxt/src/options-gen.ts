@@ -1,10 +1,9 @@
 import hash from 'hash-sum'
 import { generate as fromAST } from 'astring'
-import type { z as t } from 'zod'
 import type {
-  messagesImportSourceSchema,
-  moduleOptionsSchema,
-} from './schemas/index.js'
+  NormalizedMessagesImportSource,
+  NormalizedModuleOptions,
+} from './options/index.ts'
 
 // You probably opened this file and shocked to find out the whole AST tree
 // generation here. Yeah, I guess this is a bit too much, but this actually
@@ -155,7 +154,10 @@ class VariableDeclaration implements Node {
 class ExportSpecifier implements Node {
   public readonly type = 'ExportSpecifier'
 
-  constructor(public local: Identifier, public exported: Identifier = local) {}
+  constructor(
+    public local: Identifier,
+    public exported: Identifier = local,
+  ) {}
 }
 
 class ExportNamedDeclaration {
@@ -626,7 +628,7 @@ interface GeneratorContext {
    * @returns Marked import path.
    */
   registerMessagesFile(
-    file: t.output<typeof messagesImportSourceSchema>,
+    file: NormalizedMessagesImportSource,
     importPath: string,
   ): string
 
@@ -651,7 +653,7 @@ interface GeneratorContext {
  * to a special file and read at runtime to retrieve the options.
  */
 export function generate(
-  opts: t.output<typeof moduleOptionsSchema>,
+  opts: NormalizedModuleOptions,
   {
     resolve,
     resolveRuntimeModule,
@@ -740,11 +742,7 @@ export function generate(
       ]),
     )
 
-    const files: t.output<typeof messagesImportSourceSchema>[] = []
-
-    if (locale.file != null) {
-      files.push(locale.file)
-    }
+    const files: NormalizedMessagesImportSource[] = []
 
     if (locale.files != null) {
       for (const file of locale.files) {

@@ -16,19 +16,20 @@ import {
 import { generate as generateOptions } from './options-gen.js'
 import { createDirResolver } from './utils/resolvers.js'
 import { purgeEntryResources } from './manifest-clean.js'
-import { type z as t, ZodError } from 'zod'
-import { moduleOptionsSchema } from './schemas/index.js'
 import { PluginOptionsBank } from './parser-bank.js'
-import { formatZodError } from './utils/zod-error.js'
-import { OptionsError } from './errors.js'
 import { consola } from 'consola'
+import {
+  normalizeModuleOptions,
+  assertModuleOptionsValid,
+  type ModuleOptions,
+} from './options/index.ts'
+import { getErrorSummary } from './utils/error.ts'
+import { OptionsError } from './errors.ts'
+import { indent } from './utils/strings.ts'
+import fmt from 'picocolors'
 
 /** Path to the options file relative to `buildDir`. */
 const optionsFilePath = 'i18n/options.mjs'
-
-type _InputModuleOptions = typeof moduleOptionsSchema
-
-export interface ModuleOptions extends t.input<_InputModuleOptions> {}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -51,25 +52,23 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolveInRuntime('./plugin.js').path)
 
     if (!nuxt.options._prepare) {
-      let options: t.output<typeof moduleOptionsSchema>
+      const options = normalizeModuleOptions(inputOptions)
 
       try {
-        options = moduleOptionsSchema.parse(inputOptions)
+        assertModuleOptionsValid(options)
       } catch (err) {
-        if (err instanceof ZodError) {
-          consola.error(
-            formatZodError(err, {
-              initialMessage: 'Invalid Nuxt VIntl configuration',
-              rootPropertyName: 'vintl',
-            }),
-          )
+        let msg = fmt.red(
+          'Your VIntl for Nuxt module options have failed correctness assertion',
+        )
 
-          throw new OptionsError(
-            'You have errors in your Nuxt VIntl configuration, check console log for more information',
-          )
-        }
+        msg += `\n${indent(getErrorSummary(err), 2)}`
 
-        throw err
+        consola.error(msg.trim())
+
+        throw new OptionsError(
+          'You have errors in your Nuxt VIntl configuration, check console log for more information',
+          { cause: err },
+        )
       }
 
       const parserlessModeEnabled = (() => {
@@ -220,7 +219,5 @@ export default defineNuxtModule<ModuleOptions>({
 })
 
 export interface ModuleHooks {
-  'vintl:extendOptions'(
-    options: t.input<typeof moduleOptionsSchema>,
-  ): Promise<void> | void
+  'vintl:extendOptions'(options: ModuleOptions): Promise<void> | void
 }
