@@ -742,14 +742,6 @@ export function generate(
       ]),
     )
 
-    const files: NormalizedMessagesImportSource[] = []
-
-    if (locale.files != null) {
-      for (const file of locale.files) {
-        files.push(file)
-      }
-    }
-
     // if (isDefaultLocale) {
     //   // import locale<hash> from "<locale path>"
     //   imports.push(
@@ -777,7 +769,7 @@ export function generate(
     //   )
     // }
 
-    for (const messageFile of files) {
+    for (const messageFile of locale.files) {
       const { from: importPath, name: importKey } = messageFile
       const resolvedPath = registerMessagesFile(
         messageFile,
