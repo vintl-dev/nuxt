@@ -34,15 +34,15 @@ __webpack_require__.d(__webpack_exports__, {
 const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, \\"
+		value: "Hello, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 /* harmony default export */ const en_messages = ({
@@ -92,34 +92,34 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/with-json/options.json
-const options_namespaceObject = {\\"d\\":0};
+const options_namespaceObject = {"d":0};
 ;// CONCATENATED MODULE: ./test/fixtures/with-json/en.messages.json
 const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, \\"
+		value: "Hello, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 const goodbye = [
 	{
 		type: 0,
-		value: \\"Farewell, \\"
+		value: "Farewell, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 /* harmony default export */ const en_messages = ({
@@ -181,15 +181,15 @@ __webpack_require__.d(__webpack_exports__, {
 const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, \\"
+		value: "Hello, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 /* harmony default export */ const en_messages = ({
@@ -242,7 +242,7 @@ __webpack_require__.d(__webpack_exports__, {
 const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, <bold>{name}</bold!\\"
+		value: "Hello, <bold>{name}</bold!"
 	}
 ];
 /* harmony default export */ const en_messages = ({
@@ -295,15 +295,15 @@ __webpack_require__.d(__webpack_exports__, {
 const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, <bold>\\"
+		value: "Hello, <bold>"
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"</bold!\\"
+		value: "</bold!"
 	}
 ];
 /* harmony default export */ const en_messages = ({
@@ -353,7 +353,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
-const en_messages_namespaceObject = JSON.parse('{\\"greeting\\":[{\\"type\\":0,\\"value\\":\\"Hello, \\"},{\\"type\\":1,\\"value\\":\\"name\\"},{\\"type\\":0,\\"value\\":\\"!\\"}]}');
+const en_messages_namespaceObject = JSON.parse('{"greeting":[{"type":0,"value":"Hello, "},{"type":1,"value":"name"},{"type":0,"value":"!"}]}');
 ;// CONCATENATED MODULE: ./test/fixtures/normal/input.mjs
 
 
@@ -397,7 +397,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
-const en_messages_namespaceObject = JSON.parse('{\\"greeting\\":\\"Hello, {name}!\\"}');
+const en_messages_namespaceObject = JSON.parse('{"greeting":"Hello, {name}!"}');
 ;// CONCATENATED MODULE: ./test/fixtures/normal/input.mjs
 
 
@@ -416,7 +416,7 @@ exports[`webpack > should transform using custom formatter 1`] = `
 /***/ 371:
 /***/ (() => {
 
-[[\\"greeting\\",[{\\"type\\":0,\\"value\\":\\"Hello, \\"},{\\"type\\":1,\\"value\\":\\"name\\"},{\\"type\\":0,\\"value\\":\\"!\\"}]]]
+[["greeting",[{"type":0,"value":"Hello, "},{"type":1,"value":"name"},{"type":0,"value":"!"}]]]
 
 /***/ })
 

@@ -4,15 +4,15 @@ exports[`vite > should generate bundle 1`] = `
 "const e = [
   {
     type: 0,
-    value: \\"Hello, \\"
+    value: "Hello, "
   },
   {
     type: 1,
-    value: \\"name\\"
+    value: "name"
   },
   {
     type: 0,
-    value: \\"!\\"
+    value: "!"
   }
 ], t = {
   greeting: e

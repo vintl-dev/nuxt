@@ -4,33 +4,33 @@ exports[`rollup > respects parser options 1`] = `
 "const introduction = [
 	{
 		type: 0,
-		value: \\"Hello, \\"
+		value: "Hello, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"! Press <Enter> to continue.\\"
+		value: "! Press <Enter> to continue."
 	}
 ];
 var messages = {
 	introduction: introduction,
-	\\"invalid-key\\": [
+	"invalid-key": [
 	{
 		type: 8,
-		value: \\"strong\\",
+		value: "strong",
 		children: [
 			{
 				type: 0,
-				value: \\"Warning\\"
+				value: "Warning"
 			}
 		]
 	},
 	{
 		type: 0,
-		value: \\": Invalid key pressed\\"
+		value: ": Invalid key pressed"
 	}
 ]
 };
@@ -47,15 +47,15 @@ exports[`rollup > should generate bundle 1`] = `
 "const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, \\"
+		value: "Hello, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 var messages = {
@@ -74,7 +74,7 @@ exports[`rollup > should handle errors as defined 1`] = `
 "const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, <bold>{name}</bold!\\"
+		value: "Hello, <bold>{name}</bold!"
 	}
 ];
 var messages = {
@@ -93,15 +93,15 @@ exports[`rollup > should parse TOML when specified 1`] = `
 "const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, \\"
+		value: "Hello, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 var messages = {
@@ -120,15 +120,15 @@ exports[`rollup > should pass parsing fc to error handler 1`] = `
 "const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, <bold>\\"
+		value: "Hello, <bold>"
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"</bold!\\"
+		value: "</bold!"
 	}
 ];
 var messages = {
@@ -145,7 +145,7 @@ export { example as default };
 
 exports[`rollup > should prevent json plugins if specified 1`] = `
 "var type = 0;
-var target = \\"World\\";
+var target = "World";
 var options = {
 	type: type,
 	target: target
@@ -154,29 +154,29 @@ var options = {
 const greeting = [
 	{
 		type: 0,
-		value: \\"Hello, \\"
+		value: "Hello, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 const goodbye = [
 	{
 		type: 0,
-		value: \\"Farewell, \\"
+		value: "Farewell, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 var messages = {
@@ -203,15 +203,15 @@ exports[`rollup > should transform to JSON of AST 1`] = `
 "var greeting = [
 	{
 		type: 0,
-		value: \\"Hello, \\"
+		value: "Hello, "
 	},
 	{
 		type: 1,
-		value: \\"name\\"
+		value: "name"
 	},
 	{
 		type: 0,
-		value: \\"!\\"
+		value: "!"
 	}
 ];
 var messages = {
@@ -227,7 +227,7 @@ export { example as default };
 `;
 
 exports[`rollup > should transform to JSON of messages 1`] = `
-"var greeting = \\"Hello, {name}!\\";
+"var greeting = "Hello, {name}!";
 var messages = {
 	greeting: greeting
 };
@@ -243,19 +243,19 @@ export { example as default };
 exports[`rollup > should transform using custom formatter 1`] = `
 "var messages = [
 	[
-		\\"greeting\\",
+		"greeting",
 		[
 			{
 				type: 0,
-				value: \\"Hello, \\"
+				value: "Hello, "
 			},
 			{
 				type: 1,
-				value: \\"name\\"
+				value: "name"
 			},
 			{
 				type: 0,
-				value: \\"!\\"
+				value: "!"
 			}
 		]
 	]
