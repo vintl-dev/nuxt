@@ -78,10 +78,7 @@ export type NormalizedMessagesImportFormatter = ReturnType<
  */
 export type MessagesImportParser<R> = (code: string, moduleId: string) => R
 
-export type MessagesImportSourceObject<V = unknown> = Omit<
-  ImportSourceObject,
-  'resolve'
-> & {
+export interface MessagesImportOptions<V = unknown> {
   /**
    * A function that receives file contents and produces an output that will be
    * used by the formatter.
@@ -96,6 +93,41 @@ export type MessagesImportSourceObject<V = unknown> = Omit<
   format?: MessagesImportFormatter<V>
 }
 
+export function isMessagesImportOptions(
+  input: unknown,
+): input is MessagesImportOptions<any> {
+  return (
+    input != null &&
+    typeof input === 'object' &&
+    (!('parser' in input) ||
+      input.parser == null ||
+      typeof input.parser === 'function') &&
+    (!('format' in input) ||
+      input.format == null ||
+      typeof input.format === 'string' ||
+      typeof input.format === 'function')
+  )
+}
+
+export function normalizeMessagesImportOptions<V = unknown>(
+  input: MessagesImportOptions<V>,
+) {
+  return {
+    format: normalizeMessagesImportFormatter(input.format),
+    parser: input.parser,
+  } as const
+}
+
+export type NormalizedMessagesImportOptions<V = unknown> = ReturnType<
+  typeof normalizeMessagesImportOptions<V>
+>
+
+export type MessagesImportSourceObject<V = unknown> = Omit<
+  ImportSourceObject,
+  'resolve'
+> &
+  MessagesImportOptions<V>
+
 export function isMessagesImportSourceObject(
   input: unknown,
 ): input is MessagesImportSourceObject {
@@ -107,13 +139,7 @@ export function isMessagesImportSourceObject(
   }
   return (
     isImportSourceObject(filteredInput) &&
-    (!('parser' in filteredInput) ||
-      filteredInput.parser == null ||
-      typeof filteredInput.parser === 'function') &&
-    (!('format' in filteredInput) ||
-      filteredInput.format == null ||
-      typeof filteredInput.format === 'string' ||
-      typeof filteredInput.format === 'function')
+    isMessagesImportOptions(filteredInput)
   )
 }
 
@@ -121,12 +147,10 @@ export function normalizeMessagesImportSourceObject<V>(
   input: MessagesImportSourceObject<V>,
 ) {
   const { from, name } = normalizeImportSourceObject(input)
-  const { format, parser } = input
   return {
     from,
     name,
-    format: normalizeMessagesImportFormatter(format),
-    parser,
+    ...normalizeMessagesImportOptions(input),
   } as const
 }
 
