@@ -2,15 +2,14 @@
 // we track every message file import, we need a special class that create
 // unique plugin instances.
 import type { PluginOptions } from '@vintl/unplugin'
-import type { z as t } from 'zod'
 import type {
-  messagesImportOptionsSchema,
-  messagesImportSourceSchema,
-} from './schemas/messages-imports.js'
+  NormalizedMessagesImportOptions,
+  NormalizedMessagesImportSource,
+} from './options'
 
 // we have two unique properties: 1) file structure format 2) file parser
 
-type UniqueOptions = t.output<typeof messagesImportOptionsSchema>
+type UniqueOptions = NormalizedMessagesImportOptions
 
 class Marker {
   private readonly regExp: RegExp
@@ -66,7 +65,7 @@ export class PluginOptionsBank {
   }
 
   public registerFile(
-    file: t.output<typeof messagesImportSourceSchema>,
+    file: NormalizedMessagesImportSource,
     resolvedPath: string,
   ) {
     const { marker } = this.findOrCreateFileSet(file).add(resolvedPath)
