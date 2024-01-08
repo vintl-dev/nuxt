@@ -37,7 +37,10 @@ async function buildFile(
       path: '/dist',
     },
     experiments: { outputModule: true },
-    optimization: { minimize: false },
+    optimization: {
+      minimize: false,
+      moduleIds: 'named',
+    },
   }
 
   await extendConfig?.(config)
