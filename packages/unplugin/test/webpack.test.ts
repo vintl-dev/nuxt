@@ -6,15 +6,13 @@ import {
 } from 'webpack'
 import { describe, it, expect, vi } from 'vitest'
 import { createFsFromVolume, Volume } from 'memfs'
-import type * as _distWebpack from '../dist/webpack'
 import { createResolver } from './utils/resolver'
 import { basename } from 'pathe'
+import type { PluginOptions } from '../dist/webpack.cjs'
 
 Error.stackTraceLimit = 1000
 
-const { icuMessages }: typeof _distWebpack = await import(
-  '../dist/webpa' + 'ck.cjs' // because unbuild emits .d.ts, but .(c|m)js files
-)
+const { icuMessages } = await import('../dist/webpack.cjs')
 
 const resolve = createResolver(import.meta.url)
 
@@ -214,7 +212,7 @@ describe(
     it('should handle errors as defined', async () => {
       const onParseError = vi.fn(function ({ useBuiltinStrategy }) {
         return useBuiltinStrategy('use-message-as-literal')
-      } satisfies _distWebpack.PluginOptions['onParseError'])
+      } satisfies PluginOptions['onParseError'])
 
       const out = await buildFile('fixtures/errored/input.mjs', (config) => {
         ;(config.plugins ??= []).push(
@@ -276,7 +274,7 @@ describe(
         } catch (e) {
           return useBuiltinStrategy('use-message-as-literal')
         }
-      } satisfies _distWebpack.PluginOptions['onParseError'])
+      } satisfies PluginOptions['onParseError'])
 
       const out = await buildFile('fixtures/errored/input.mjs', (config) => {
         ;(config.plugins ??= []).push(
