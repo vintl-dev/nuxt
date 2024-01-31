@@ -27,6 +27,7 @@ import { getErrorSummary } from './utils/error.ts'
 import { OptionsError } from './errors.ts'
 import { indent } from './utils/strings.ts'
 import fmt from 'picocolors'
+import type { ResolvedNuxtTemplate } from '@nuxt/schema'
 
 /** Path to the options file relative to `buildDir`. */
 const optionsFilePath = 'i18n/options.mjs'
@@ -82,7 +83,7 @@ export default defineNuxtModule<ModuleOptions>({
 
       const pluginOptionsBank = new PluginOptionsBank()
 
-      const optionsFile = addTemplate({
+      const optionsFile: ResolvedNuxtTemplate = addTemplate({
         filename: optionsFilePath,
         write: true,
         getContents() {
