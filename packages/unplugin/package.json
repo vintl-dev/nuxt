@@ -1,6 +1,6 @@
 {
   "name": "@vintl/unplugin",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "description": "Transform files containing ICU MessageFormat messages.",
   "author": {
     "name": "Alexander 'Brawaru' Sorokin",
