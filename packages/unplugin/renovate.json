@@ -1,10 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    "group:allNonMajor",
-    ":semanticCommitTypeAll(chore)"
-  ],
+  "extends": ["config:base", "group:allNonMajor"],
   "meteor": {
     "enabled": false
   },
