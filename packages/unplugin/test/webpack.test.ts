@@ -38,6 +38,8 @@ async function buildFile(
     optimization: {
       minimize: false,
       moduleIds: 'named',
+      chunkIds: 'named',
+      mangleExports: false,
     },
   }
 
