@@ -353,7 +353,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
-const en_messages_namespaceObject = JSON.parse('{"greeting":[{"type":0,"value":"Hello, "},{"type":1,"value":"name"},{"type":0,"value":"!"}]}');
+const en_messages_namespaceObject = /*#__PURE__*/JSON.parse('{"greeting":[{"type":0,"value":"Hello, "},{"type":1,"value":"name"},{"type":0,"value":"!"}]}');
 ;// CONCATENATED MODULE: ./test/fixtures/normal/input.mjs
 
 
@@ -397,7 +397,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./test/fixtures/normal/en.messages.json
-const en_messages_namespaceObject = JSON.parse('{"greeting":"Hello, {name}!"}');
+const en_messages_namespaceObject = /*#__PURE__*/JSON.parse('{"greeting":"Hello, {name}!"}');
 ;// CONCATENATED MODULE: ./test/fixtures/normal/input.mjs
 
 
