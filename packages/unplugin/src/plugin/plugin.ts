@@ -108,7 +108,11 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
         try {
           await resolveFormatter()
         } catch (err) {
-          this.error(err)
+          if (err instanceof Error) {
+            this.error(err)
+          } else {
+            this.error(String(err))
+          }
         }
       }
 
