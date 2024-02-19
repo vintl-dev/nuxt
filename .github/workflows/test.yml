@@ -18,7 +18,7 @@ jobs:
           node-version: 18.x
 
       - name: Check changed files
-        uses: dorny/paths-filter@v2
+        uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
