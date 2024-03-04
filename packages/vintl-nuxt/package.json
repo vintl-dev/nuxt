@@ -46,7 +46,7 @@
     "@nuxt/module-builder": "^0.5.5",
     "@nuxt/schema": "^3.10.3",
     "@types/hash-sum": "^1.0.2",
-    "@types/node": "^18.19.18",
+    "@types/node": "^18.19.21",
     "@unhead/vue": "^1.8.10",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "hookable": "^5.5.3",
