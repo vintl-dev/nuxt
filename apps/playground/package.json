@@ -19,6 +19,6 @@
     "@vintl/nuxt": "workspace:^",
     "eslint": "^8.57.0",
     "nuxi": "^3.11.1",
-    "nuxt": "^3.11.1"
+    "nuxt": "^3.11.2"
   }
 }
