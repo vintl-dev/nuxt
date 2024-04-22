@@ -15,13 +15,13 @@
   "devDependencies": {
     "@formatjs/cli": "^6.2.9",
     "@nuxt-themes/docus": "^1.15.0",
-    "@nuxt/eslint-config": "^0.3.6",
+    "@nuxt/eslint-config": "^0.3.8",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl/nuxt": "workspace:^",
     "eslint": "^8.57.0",
     "nuxi": "^3.11.1",
     "nuxt": "^3.11.2",
     "theme-colors": "^0.1.0",
-    "vue": "^3.4.21"
+    "vue": "^3.4.23"
   }
 }
