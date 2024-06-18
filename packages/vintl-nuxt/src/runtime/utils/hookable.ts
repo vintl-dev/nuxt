@@ -6,6 +6,9 @@ import type { HookCallback } from 'hookable'
  * @param hooks An array of hooks to call.
  * @param arguments_ Arguments to call hooks with.
  */
-export function syncCaller(hooks: HookCallback[], arguments_?: any[]): void {
+export function syncCaller(
+  hooks: HookCallback[],
+  arguments_?: unknown[],
+): void {
   for (const hook of hooks) hook(arguments_)
 }

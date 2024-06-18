@@ -27,6 +27,7 @@
  */
 export function isFunction<T>(
   value: T,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): value is T extends (...args: any[]) => any ? T : never {
   return typeof value === 'function'
 }

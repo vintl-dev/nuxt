@@ -38,6 +38,7 @@ export type ValueOf<T> = T | (() => T | Promise<T>)
  */
 export function retrieveValue<T>(
   value: ValueOf<T>,
-): Promise<T extends (...args: any[]) => any ? ReturnType<T> | T : T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<T extends (...args: any[]) => infer R ? R | T : T> {
   return isFunction(value) ? value() : value
 }

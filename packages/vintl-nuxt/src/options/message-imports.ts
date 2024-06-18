@@ -70,7 +70,8 @@ export type NormalizedMessagesImportFormatter = ReturnType<
  * and parses it into a value that is later used by the formatter.
  *
  * @example
- *   const jsonParser: MessagesImportParser<any> = (code) => JSON.parse(code)
+ *   const jsonParser: MessagesImportParser<unknown> = (code) =>
+ *     JSON.parse(code)
  *
  * @param code Messages file contents to parse.
  * @param moduleId Module ID of the messages file.
@@ -95,7 +96,7 @@ export interface MessagesImportOptions<V = unknown> {
 
 export function isMessagesImportOptions(
   input: unknown,
-): input is MessagesImportOptions<any> {
+): input is MessagesImportOptions<unknown> {
   return (
     input != null &&
     typeof input === 'object' &&
@@ -134,7 +135,7 @@ export function isMessagesImportSourceObject(
   let filteredInput
   if (typeof input === 'object' && input != null) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { resolve: _ignored, ...rest } = input as Record<string, any>
+    const { resolve: _ignored, ...rest } = input as Record<string, unknown>
     filteredInput = rest
   }
   return (

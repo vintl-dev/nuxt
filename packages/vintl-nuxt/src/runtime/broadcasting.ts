@@ -2,7 +2,8 @@ import type { IntlController } from '@vintl/vintl/controller'
 import type { AfterLocaleChangeEvent } from '@vintl/vintl/events'
 import { isOfType } from './utils/type-checks.js'
 
-export function setupBroadcasting(controller: IntlController<any>) {
+// eslint-disable-next-rule
+export function setupBroadcasting<T>(controller: IntlController<T>) {
   if (!process.client) return
 
   if (typeof BroadcastChannel !== 'function') {

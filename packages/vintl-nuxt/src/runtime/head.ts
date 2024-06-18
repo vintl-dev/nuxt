@@ -38,8 +38,8 @@ type LangHrefLink = {
 
 type HeadOptions = Omit<SEOOptions, 'enabled'>
 
-export function initHead(
-  controller: IntlController<any>,
+export function initHead<T>(
+  controller: IntlController<T>,
   options: HeadOptions,
 ) {
   const router = useRouter()
