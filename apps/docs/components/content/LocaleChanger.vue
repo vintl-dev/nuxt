@@ -19,7 +19,7 @@ const activeLocale = computed({
   <div>
     <label>
       Locale:
-      <select v-model="activeLocale" :disabled="switching.value">
+      <select v-model="activeLocale" :disabled="switching">
         <option v-for="locale in vintl.availableLocales" :key="locale.tag">
           {{ locale.tag }}
         </option>
