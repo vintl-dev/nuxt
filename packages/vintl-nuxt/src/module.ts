@@ -32,6 +32,8 @@ import type { ResolvedNuxtTemplate } from '@nuxt/schema'
 /** Path to the options file relative to `buildDir`. */
 const optionsFilePath = 'i18n/options.mjs'
 
+export type { ModuleOptions }
+
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@vintl/nuxt',
