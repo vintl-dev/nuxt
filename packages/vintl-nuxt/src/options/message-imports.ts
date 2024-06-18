@@ -134,7 +134,6 @@ export function isMessagesImportSourceObject(
 ): input is MessagesImportSourceObject {
   let filteredInput
   if (typeof input === 'object' && input != null) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { resolve: _ignored, ...rest } = input as Record<string, unknown>
     filteredInput = rest
   }
