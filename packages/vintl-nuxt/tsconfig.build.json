@@ -3,13 +3,17 @@
   "compilerOptions": {
     "composite": true,
 
-    "module": "ESNext",
+    "module": "NodeNext",
 
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
 
     "esModuleInterop": true,
 
-    "types": ["node"]
+    "types": ["node"],
+
+    "allowJs": true,
+
+    "noEmit": true
   },
-  "include": ["./build.config.ts"]
+  "include": ["./build.config.ts", "./eslint.config.mjs"]
 }

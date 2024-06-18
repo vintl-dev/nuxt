@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@vintl/nuxt'],
+  modules: ['@vintl/nuxt', '@nuxt/eslint'],
   vintl: {
     defaultLocale: 'en-US',
     locales: [

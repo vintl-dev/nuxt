@@ -18,22 +18,21 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./config.json"
+      "import": "./eslint.config.mjs"
+    },
+    "./overrides": {
+      "import": "./overrides.mjs"
     },
     "./package.json": "./package.json"
   },
   "files": [
     "config.json"
   ],
-  "dependencies": {
-    "@rushstack/eslint-patch": "^1.10.2",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "eslint-plugin-vue": "^9.25.0",
-    "typescript": "^5.4.5"
-  },
   "devDependencies": {
-    "@types/eslint": "^8.56.10",
     "eslint": "^9.5.0"
+  },
+  "dependencies": {
+    "@nuxt/eslint-config": "^0.3.8",
+    "eslint-flat-config-utils": "^0.2.5"
   }
 }

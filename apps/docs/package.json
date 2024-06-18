@@ -15,6 +15,7 @@
   "devDependencies": {
     "@formatjs/cli": "^6.2.9",
     "@nuxt-themes/docus": "^1.15.0",
+    "@nuxt/eslint": "^0.3.13",
     "@nuxt/eslint-config": "^0.3.8",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl/nuxt": "workspace:^",
