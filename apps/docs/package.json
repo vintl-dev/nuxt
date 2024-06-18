@@ -18,7 +18,7 @@
     "@nuxt/eslint-config": "^0.3.8",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl/nuxt": "workspace:^",
-    "eslint": "^8.57.0",
+    "eslint": "^9.5.0",
     "nuxi": "^3.11.1",
     "nuxt": "^3.11.2",
     "theme-colors": "^0.1.0",
