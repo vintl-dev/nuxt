@@ -36,7 +36,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     try {
       locale = (await storage.read()) ?? undefined
     } catch (err) {
-      if (process.dev) {
+      if (import.meta.dev) {
         console.error('[@vintl/nuxt] Cannot read last used locale', err)
       }
     }
@@ -112,7 +112,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
           try {
             await storage?.save(event.automatic ? null : event.locale.tag)
           } catch (_err) {
-            if (process.dev) {
+            if (import.meta.dev) {
               console.error(
                 '[@vintl/nuxt] Cannot save last used locale',
                 event.locale.tag,
@@ -127,7 +127,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         },
       },
       preferredLocaleSources: [
-        process.server
+        import.meta.server
           ? (() => {
               const acceptLanguage =
                 nuxtApp.ssrContext?.event.node.req.headers['accept-language']

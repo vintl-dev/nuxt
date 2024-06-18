@@ -1,5 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  if (process.client && typeof window !== 'undefined') {
+  if (import.meta.client && typeof window !== 'undefined') {
     Object.defineProperty(window, 'vintl', {
       configurable: true,
       writable: true,
@@ -14,7 +14,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     console.log(
       'Have playing with it! And if you break anything, just refresh the page :P',
     )
-    if (!process.dev) {
+    if (!import.meta.dev) {
       console.log(
         '⚠️ This is a production environment. Message parsing is unavailable.',
       )

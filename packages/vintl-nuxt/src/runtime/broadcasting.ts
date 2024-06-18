@@ -4,7 +4,7 @@ import { isOfType } from './utils/type-checks.js'
 
 // eslint-disable-next-rule
 export function setupBroadcasting<T>(controller: IntlController<T>) {
-  if (!process.client) return
+  if (!import.meta.client) return
 
   if (typeof BroadcastChannel !== 'function') {
     console.warn(
