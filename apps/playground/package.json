@@ -19,7 +19,7 @@
     "@vintl-dev/pg-messages": "workspace:^",
     "@vintl/nuxt": "workspace:^",
     "eslint": "^9.5.0",
-    "nuxi": "^3.11.1",
-    "nuxt": "^3.11.2"
+    "nuxi": "^3.12.0",
+    "nuxt": "^3.12.1"
   }
 }

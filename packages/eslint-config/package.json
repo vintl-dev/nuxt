@@ -32,7 +32,7 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
-    "@nuxt/eslint-config": "^0.3.8",
+    "@nuxt/eslint-config": "^0.3.13",
     "eslint-flat-config-utils": "^0.2.5"
   }
 }
