@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.27.5",
+    "@changesets/cli": "^2.27.6",
     "turbo": "^2.0.4"
   },
   "scripts": {
@@ -36,5 +36,5 @@
       }
     }
   },
-  "packageManager": "pnpm@9.3.0"
+  "packageManager": "pnpm@9.4.0"
 }
