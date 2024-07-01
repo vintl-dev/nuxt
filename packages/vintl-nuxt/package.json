@@ -43,7 +43,7 @@
     "prepack": "pnpm run -s lint && pnpm run -s build"
   },
   "devDependencies": {
-    "@nuxt/module-builder": "^0.8.0",
+    "@nuxt/module-builder": "^0.8.1",
     "@nuxt/schema": "^3.12.2",
     "@types/hash-sum": "^1.0.2",
     "@types/node": "^18.19.39",
