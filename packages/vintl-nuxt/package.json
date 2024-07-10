@@ -50,7 +50,6 @@
     "@unhead/vue": "^1.9.14",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "hookable": "^5.5.3",
-    "prettier-plugin-jsdoc": "^1.3.0",
     "typescript": "^5.5.2",
     "vue-router": "^4.4.0"
   },
