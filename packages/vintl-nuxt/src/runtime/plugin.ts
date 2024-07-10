@@ -18,7 +18,7 @@ import type {
 } from '@vintl/vintl/events'
 import { useNavigatorLanguage } from '@vintl/vintl/sources/navigator'
 import { useAcceptLanguageHeader } from '@vintl/vintl/sources/header'
-import { defineNuxtPlugin } from 'nuxt/app'
+import { defineNuxtPlugin } from '#imports'
 import { syncCaller } from './utils/hookable.js'
 import { initHead } from './head.js'
 import { match as matchLocales } from '@formatjs/intl-localematcher'

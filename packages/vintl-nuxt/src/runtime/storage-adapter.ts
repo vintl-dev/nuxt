@@ -1,4 +1,4 @@
-import type { Plugin } from 'nuxt/app'
+import type { Plugin } from '#app'
 
 type _NuxtApp = Parameters<Plugin>[0]
 

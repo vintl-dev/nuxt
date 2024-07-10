@@ -1,12 +1,18 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
+    "@vintl/nuxt#dev:prepare": {
+      "inputs": ["package.json", "nuxt.config.ts", "src"],
+      "outputs": [".nuxt"]
+    },
     "@vintl/nuxt#build": {
+      "dependsOn": ["@vintl/nuxt#dev:prepare"],
       "outputs": ["dist"]
     },
     "@vintl/nuxt#lint": {
       "outputs": [".eslintcache"]
     },
+    "@vintl/nuxt#typecheck": {},
     "@vintl-dev/pg#intl:extract": {
       "outputs": ["./locales/en-US.json"]
     },
@@ -64,7 +70,11 @@
       "outputs": [".eslintcache"]
     },
     "//#prepare": {
-      "dependsOn": ["@vintl-dev/pg#dev:prepare", "@vintl-dev/docs#dev:prepare"]
+      "dependsOn": [
+        "@vintl/nuxt#dev:prepare",
+        "@vintl-dev/pg#dev:prepare",
+        "@vintl-dev/docs#dev:prepare"
+      ]
     },
     "//#build": {
       "dependsOn": [

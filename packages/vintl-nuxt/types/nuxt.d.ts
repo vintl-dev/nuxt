@@ -1,11 +1,5 @@
-/// <reference types="nuxt" />
-
-import type { ModuleHooks } from '../src/module.js'
+import type { ModuleHooks } from '../src/module.ts'
 
 declare module '@nuxt/schema' {
   interface NuxtHooks extends ModuleHooks {}
-}
-
-declare module '#imports' {
-  export { useHead } from '@unhead/vue'
 }

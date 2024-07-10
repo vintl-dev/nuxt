@@ -1,4 +1,4 @@
-import { useCookie } from 'nuxt/app'
+import { useCookie } from '#imports'
 import { defineStorageAdapter } from '../storage-adapter.js'
 
 export default defineStorageAdapter(() => {

@@ -53,3 +53,6 @@ dist
 
 # Don't ignore VS Code settings that configure ESLint extension
 !.vscode/settings.json
+
+# Nuxt
+.nuxt

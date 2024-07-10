@@ -1,7 +1,6 @@
-import { useHead } from '#imports'
+import { useRouter as _useRouter, useHead, useRequestURL } from '#imports'
 import type { SEOOptions } from '@vintl/nuxt-runtime/options'
 import type { IntlController } from '@vintl/vintl/controller'
-import { useRouter as _useRouter, useRequestURL } from 'nuxt/app'
 import { joinURL } from 'ufo'
 import { computed } from 'vue'
 import type { LocationQuery, useRouter as _useRouter$type } from 'vue-router'

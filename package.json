@@ -21,8 +21,10 @@
     "docs:build": "turbo run --no-daemon @vintl-dev/docs#build",
     "docs:start": "turbo run --no-daemon @vintl-dev/docs#start",
     "docs:lint": "turbo run --no-daemon @vintl-dev/docs#lint",
+    "mod:prepare": "turbo run --no-daemon @vintl/nuxt#dev:prepare",
     "mod:build": "turbo run --no-daemon @vintl/nuxt#build",
     "mod:lint": "turbo run --no-daemon @vintl/nuxt#lint",
+    "mod:typecheck": "turbo run --no-daemon @vintl/nuxt#typecheck",
     "all:prepare": "turbo run --no-daemon prepare",
     "all:lint": "turbo run --no-daemon lint",
     "_ci:publish": "changeset publish"
