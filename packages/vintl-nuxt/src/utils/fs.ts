@@ -1,5 +1,5 @@
 import { readdir, stat } from 'node:fs/promises'
-import { join } from 'path'
+import { join } from 'node:path'
 
 /**
  * Creates a generator that yields for each file in the directory, and files
