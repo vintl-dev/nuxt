@@ -1,5 +1,13 @@
 # @vintl/nuxt
 
+## 1.9.2
+
+### Patch Changes
+
+- 4244794: Add missing prepack script
+
+  1.9.1 contained no files because during the switch I've forgotten the `prepack` script. This fixes that and brings back the files 💀
+
 ## 1.9.1
 
 ### Patch Changes
