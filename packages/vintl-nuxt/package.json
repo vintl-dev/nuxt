@@ -41,7 +41,8 @@
     "build": "nuxt-module-build build",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare",
     "lint": "eslint .",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "prepack": "pnpm run -s build"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.3.9",
