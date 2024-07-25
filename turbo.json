@@ -90,5 +90,6 @@
         "@vintl-dev/docs#lint"
       ]
     }
-  }
+  },
+  "globalEnv": ["NODE_ENV", "NITRO_PRESET"]
 }
