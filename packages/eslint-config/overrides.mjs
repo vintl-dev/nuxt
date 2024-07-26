@@ -7,5 +7,7 @@ export default defineFlatConfig({
     'vue/html-self-closing': 'off',
     // Gladly we know how to use dynamic delete, tyvm
     '@typescript-eslint/no-dynamic-delete': 'off',
+    // Vue fully supports multiple root template children
+    'vue/no-multiple-template-root': 'off',
   },
 })
