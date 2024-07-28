@@ -48,18 +48,18 @@
     "@nuxt/devtools": "^1.3.9",
     "@nuxt/eslint-config": "^0.3.13",
     "@nuxt/module-builder": "^0.8.1",
-    "@nuxt/schema": "^3.12.2",
+    "@nuxt/schema": "^3.12.4",
     "@types/hash-sum": "^1.0.2",
-    "@types/node": "^18.19.39",
+    "@types/node": "^18.19.42",
     "@vintl-dev/eslint-config-peony": "workspace:^",
-    "nuxt": "^3.12.2",
-    "typescript": "^5.4.5",
-    "vue-tsc": "^2.0.24"
+    "nuxt": "^3.12.4",
+    "typescript": "^5.5.4",
+    "vue-tsc": "^2.0.29"
   },
   "dependencies": {
     "@formatjs/intl": "^2.10.4",
     "@formatjs/intl-localematcher": "^0.5.4",
-    "@nuxt/kit": "^3.12.2",
+    "@nuxt/kit": "^3.12.4",
     "@vintl/unplugin": "^2.0.0",
     "@vintl/vintl": "^4.4.1",
     "astring": "^1.8.6",
@@ -69,6 +69,6 @@
     "pathe": "^1.1.2",
     "picocolors": "^1.0.1",
     "slash": "^5.1.0",
-    "ufo": "^1.5.3"
+    "ufo": "^1.5.4"
   }
 }
