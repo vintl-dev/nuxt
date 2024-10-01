@@ -9,5 +9,11 @@ export default defineFlatConfig({
     '@typescript-eslint/no-dynamic-delete': 'off',
     // Vue fully supports multiple root template children
     'vue/no-multiple-template-root': 'off',
+    '@typescript-eslint/no-empty-object-type': [
+      'error',
+      {
+        allowInterfaces: 'with-single-extends',
+      },
+    ],
   },
 })
