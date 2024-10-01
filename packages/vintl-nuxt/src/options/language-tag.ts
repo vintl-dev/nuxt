@@ -1,6 +1,6 @@
-declare const languageTagMarker: unique symbol
+declare const _languageTagMarker: unique symbol
 
-export type LanguageTagMarker = typeof languageTagMarker
+export type LanguageTagMarker = typeof _languageTagMarker
 
 export type LanguageTag = string & { [K in LanguageTagMarker]: true }
 
