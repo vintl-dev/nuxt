@@ -111,11 +111,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         async afterlocalechange(event) {
           try {
             await storage?.save(event.automatic ? null : event.locale.tag)
-          } catch (_err) {
+          } catch (err) {
             if (import.meta.dev) {
               console.error(
                 '[@vintl/nuxt] Cannot save last used locale',
                 event.locale.tag,
+                err,
               )
             }
           }
