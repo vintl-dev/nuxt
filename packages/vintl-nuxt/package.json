@@ -45,20 +45,20 @@
     "prepack": "pnpm turbo --no-daemon build"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^1.5.2",
-    "@nuxt/eslint-config": "^0.5.7",
+    "@nuxt/devtools": "^1.6.0",
+    "@nuxt/eslint-config": "^0.6.0",
     "@nuxt/module-builder": "^0.8.4",
     "@nuxt/schema": "^3.13.2",
     "@types/hash-sum": "^1.0.2",
-    "@types/node": "^18.19.54",
+    "@types/node": "^18.19.56",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "nuxt": "^3.13.2",
-    "typescript": "^5.6.2",
+    "typescript": "^5.6.3",
     "vue-tsc": "^2.1.6"
   },
   "dependencies": {
-    "@formatjs/intl": "^2.10.5",
-    "@formatjs/intl-localematcher": "^0.5.4",
+    "@formatjs/intl": "^2.10.8",
+    "@formatjs/intl-localematcher": "^0.5.5",
     "@nuxt/kit": "^3.13.2",
     "@vintl/unplugin": "^2.0.0",
     "@vintl/vintl": "^4.4.1",
@@ -67,7 +67,7 @@
     "hash-sum": "^2.0.0",
     "import-meta-resolve": "^4.1.0",
     "pathe": "^1.1.2",
-    "picocolors": "^1.1.0",
+    "picocolors": "^1.1.1",
     "slash": "^5.1.0",
     "ufo": "^1.5.4"
   }
