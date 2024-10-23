@@ -1,588 +1,13 @@
+import * as babelGenerator from '@babel/generator'
+import t from '@babel/types'
 import hash from 'hash-sum'
-import { generate as fromAST } from 'astring'
 import type {
   NormalizedMessagesImportSource,
   NormalizedModuleOptions,
-} from './options/index.ts'
-
-// You probably opened this file and shocked to find out the whole AST tree
-// generation here. Yeah, I guess this is a bit too much, but this actually
-// isn't that bad.
-//
-// The reason I decided to go with AST approach, even though it has obvious
-// downsides like huge file size, is that it is much cleaner what your intents
-// are with it, it also does some kind of checking, whereas if you were to use
-// something like lodash templates that Nuxt has, you'd be writing a mess
-// without any syntax highlighting and checking, and having no clue whether the
-// thing is actually going to work.
-//
-// To see an example of code, simply create an example file by building the
-// project, then running node and importing `dist/options-gen.cjs`.
-//
-// To make changes, use generated code using the above, open AST Explorer
-// (https://astexplorer.net/), switching it to acorn/meriyah parser, and then
-// make the changes to the file you want. After you've done prototyping, simply
-// explore the tree you have created and try re-implement them in `generate`
-// function. Any missing AST Nodes can be implemented easily, trust me - I did
-// not spend much time writing below even though it may look like it. I didn't
-// even have to debug much, it all just worked, unlike lodash templates or
-// string generation that I had to previously use. Only things that took some
-// time is finding workarounds to some rough cases like JSON or inline comments
-// for webpack imports, but even that was surprisingly easy.
-
-// interface GeneratorContext {
-//   /**
-//    * Resolves an import against the root directory.
-//    * @param value Import to resolve.
-//    * @return Resolved import.
-//    */
-//   resolveImport(value: string): string
-// }
-
-/** Represents an AST node. */
-interface Node {
-  /** Type of the node. */
-  type: string
-}
-
-/** Represents a Node that has comments. */
-interface Commentable {
-  comments?: Comment[]
-
-  addComments(...comments: Comment[]): this
-}
-
-class Identifier implements Node {
-  public readonly type = 'Identifier'
-
-  constructor(public name: string) {}
-}
-
-class ImportDefaultSpecifier implements Node {
-  public readonly type = 'ImportDefaultSpecifier'
-
-  constructor(public local: Identifier) {}
-}
-
-class ImportNamespaceSpecifier implements Node {
-  public readonly type = 'ImportNamespaceSpecifier'
-
-  constructor(public local: Identifier) {}
-}
-
-class ImportSpecifier implements Node {
-  public readonly type = 'ImportSpecifier'
-
-  constructor(
-    public local: Identifier,
-    public imported: Identifier | Literal<string> = local,
-  ) {}
-}
-
-type LiteralType = string | number | boolean | null
-
-abstract class Comment {
-  constructor(public value: string) {}
-}
-
-class BlockComment extends Comment {
-  public readonly type = 'Block'
-}
-
-class InlineComment extends Comment {
-  public readonly type = 'Line'
-}
-
-class Literal<T extends LiteralType = LiteralType>
-  implements Node, Commentable
-{
-  public readonly type = 'Literal'
-
-  constructor(public value: T) {}
-
-  public raw?: string
-
-  public comments?: Comment[]
-
-  public setRaw(value: string | null) {
-    if (value == null) {
-      delete this.raw
-    } else {
-      this.raw = value
-    }
-
-    return this
-  }
-
-  public addComments(...comments: Comment[]) {
-    if (this.comments == null) this.comments = []
-
-    this.comments.push(...comments)
-
-    return this
-  }
-}
-
-class VariableDeclarator implements Node {
-  public readonly type = 'VariableDeclarator'
-
-  constructor(
-    public id: Identifier,
-    public init: Identifier | Literal | Expression | null = null,
-  ) {}
-}
-
-type VariableDeclarationKind = 'var' | 'let' | 'const'
-
-class VariableDeclaration implements Node {
-  public readonly type = 'VariableDeclaration'
-
-  constructor(
-    public kind: VariableDeclarationKind,
-    public declarations: VariableDeclarator[],
-  ) {
-    if (
-      kind === 'const' &&
-      (declarations.length === 0 ||
-        declarations.every((declaration) => declaration.init === null))
-    ) {
-      throw new Error('const variable declarations must be initialized')
-    }
-  }
-}
-
-class ExportSpecifier implements Node {
-  public readonly type = 'ExportSpecifier'
-
-  constructor(
-    public local: Identifier,
-    public exported: Identifier = local,
-  ) {}
-}
-
-class ExportNamedDeclaration {
-  public readonly type = 'ExportNamedDeclaration'
-
-  public declaration: VariableDeclaration | null = null
-
-  public specifiers: ExportSpecifier[] = []
-
-  public source: Literal<string> | null = null
-
-  public setDeclaration(declaration: VariableDeclaration) {
-    if (this.specifiers.length > 0) {
-      throw new Error(
-        'Cannot set declaration for the named export containing specifiers',
-      )
-    }
-
-    if (this.source != null) {
-      throw new Error(
-        'Cannot set declaration for the named export containing source',
-      )
-    }
-
-    this.declaration = declaration
-
-    return this
-  }
-
-  public addSpecifier(...specifiers: ExportSpecifier[]) {
-    if (this.declaration != null) {
-      throw new Error(
-        'Cannot add specifiers to the named export containing declaration',
-      )
-    }
-
-    this.specifiers.push(...specifiers)
-
-    return this
-  }
-
-  public setSource(source: string) {
-    if (this.declaration != null) {
-      throw new Error(
-        'Cannot set source for the named export containing declaration',
-      )
-    }
-
-    this.source = new Literal(source)
-
-    return this
-  }
-}
-
-class ImportDeclaration implements Node {
-  public readonly type = 'ImportDeclaration'
-
-  constructor(public source: Literal) {}
-
-  public specifiers: (
-    | ImportDefaultSpecifier
-    | ImportNamespaceSpecifier
-    | ImportSpecifier
-  )[] = []
-
-  public setDefaultSpecifier(local: Identifier) {
-    this.specifiers = this.specifiers.filter(
-      (specifier) => specifier.type !== 'ImportDefaultSpecifier',
-    )
-
-    this.specifiers.push(new ImportDefaultSpecifier(local))
-
-    return this
-  }
-
-  public setNamespaceSpecifier(local: Identifier) {
-    if (
-      this.specifiers.some((specifier) => specifier.type === 'ImportSpecifier')
-    ) {
-      throw new Error(
-        'Cannot add namespace specifier when regular specifiers are present',
-      )
-    }
-
-    this.specifiers = this.specifiers.filter(
-      (specifier) => specifier.type !== 'ImportNamespaceSpecifier',
-    )
-
-    this.specifiers.push(new ImportNamespaceSpecifier(local))
-
-    return this
-  }
-
-  public addSpecifier(
-    local: Identifier,
-    imported?: Identifier | Literal<string>,
-  ) {
-    if (
-      this.specifiers.some(
-        (specifier) => specifier.type === 'ImportNamespaceSpecifier',
-      )
-    ) {
-      throw new Error(
-        'Cannot add regular specifier when namespace specifier exists',
-      )
-    }
-
-    this.specifiers.push(new ImportSpecifier(local, imported))
-
-    return this
-  }
-}
-
-class ThisExpression {
-  public readonly type = 'ThisExpression'
-}
-
-class MemberExpression {
-  public readonly type = 'MemberExpression'
-
-  public constructor(
-    public object: Literal | Identifier | Expression,
-    public property: Literal | Identifier | Expression,
-    public computed: boolean = false,
-    public optional: boolean = false,
-  ) {}
-}
-
-class CallExpression {
-  public readonly type = 'CallExpression'
-
-  public arguments: (Identifier | Literal | Expression)[]
-
-  public constructor(
-    public callee: Identifier | Literal | Expression,
-    args: (Identifier | Literal | Expression)[] = [],
-    public optional: boolean = false,
-  ) {
-    this.arguments = args
-  }
-}
-
-class ImportExpression implements Node {
-  public readonly type = 'ImportExpression'
-  public constructor(public source: Identifier | Literal | Expression) {}
-}
-
-type Expression =
-  | CallExpression
-  | ThisExpression
-  | MemberExpression
-  | ObjectExpression
-  | FunctionExpression
-  | ArrowFunctionExpression
-  | ImportExpression
-  | AwaitExpression
-  | AssignmentExpression
-
-class ObjectPattern implements Node {
-  public readonly type = 'ObjectPattern'
-
-  public constructor(public properties: Property[] = []) {}
-}
-
-class SpreadElement implements Node {
-  public readonly type = 'SpreadElement'
-
-  public constructor(public argument: Expression | Identifier) {}
-}
-
-class ArrayPattern implements Node {
-  public readonly type = 'ArrayPattern'
-
-  public constructor(
-    public elements: (
-      | Identifier
-      | ObjectPattern
-      | ArrayPattern
-      | AssignmentPattern
-      | RestElement
-    )[],
-  ) {}
-}
-
-type Pattern = ObjectPattern | ArrayPattern | AssignmentPattern
-
-class Property implements Node {
-  public readonly type = 'Property'
-
-  public value!: Identifier | Literal | Expression | Pattern
-
-  public kind!: 'init' | 'get' | 'set'
-
-  public constructor(
-    public key: Identifier | Literal | Expression,
-    value: Property['value'] = key,
-    kind: Property['kind'] = 'init',
-  ) {
-    this.setValue(value, kind)
-  }
-
-  public method = false
-
-  public shorthand = false
-
-  public computed = false
-
-  public setMethod(value = true) {
-    if (value && this.value.type !== 'FunctionExpression') {
-      throw new SyntaxError(
-        'Property must be a function to be used as a method',
-      )
-    }
-
-    this.method = value
-
-    return this
-  }
-
-  public setComputed(value = true) {
-    this.computed = value
-
-    return this
-  }
-
-  public setValue(value: this['value'], kind: this['kind'] = 'init') {
-    if (kind === 'get' || kind === 'set') {
-      if (value.type !== 'FunctionExpression') {
-        throw new SyntaxError(
-          'Getter/setter value must be a function expression',
-        )
-      }
-
-      if (value.async) {
-        throw new SyntaxError('Getters and setters cannot be async')
-      }
-
-      if (kind === 'set') {
-        if (value.params.length !== 1) {
-          throw new SyntaxError('Setters must have exactly one parameter')
-        }
-
-        if (value.params[0]?.type === 'RestElement') {
-          throw new SyntaxError('Setters cannot use rest parameter')
-        }
-      }
-    }
-
-    this.value = value
-    this.kind = kind
-
-    return this
-  }
-
-  public setShorthand(value = true) {
-    if (value) {
-      if (this.kind !== 'init') {
-        throw new SyntaxError('Getters or setters cannot be shorthands')
-      }
-
-      if (this.key.type !== 'Identifier') {
-        throw new SyntaxError(
-          'Cannot change property to a shorthand if its key is not an identifier',
-        )
-      }
-
-      this.value = this.key
-    }
-
-    this.shorthand = value
-
-    return this
-  }
-}
-
-class ObjectExpression implements Node {
-  public readonly type = 'ObjectExpression'
-
-  public constructor(public properties: (Property | SpreadElement)[] = []) {}
-}
-
-class AssignmentPattern implements Node {
-  public readonly type = 'AssignmentPattern'
-
-  public constructor(
-    public left: Identifier,
-    public right: Identifier | Expression,
-  ) {}
-}
-
-class RestElement {
-  public readonly type = 'RestElement'
-
-  public argument: Identifier
-
-  public constructor(arg: Identifier) {
-    this.argument = arg
-  }
-}
-
-class BlockStatement {
-  public readonly type = 'BlockStatement'
-
-  public constructor(
-    public readonly body: (Statement | VariableDeclaration)[] = [],
-  ) {}
-}
-
-type Parameter =
-  | Identifier
-  | ObjectPattern
-  | ArrayPattern
-  | AssignmentPattern
-  | RestElement
-
-class FunctionExpression implements Node {
-  public readonly type = 'FunctionExpression'
-
-  public constructor(
-    public id: Identifier | null,
-    public params: Parameter[] = [],
-    public body: BlockStatement = new BlockStatement(),
-    public async: boolean = false,
-    public generator: boolean = false,
-    public expression: boolean = false,
-  ) {}
-}
-
-class ArrowFunctionExpression implements Node {
-  public readonly type = 'ArrowFunctionExpression'
-
-  public id = null
-
-  public constructor(
-    public params: Parameter[] = [],
-    public body: BlockStatement = new BlockStatement(),
-    public async: boolean = false,
-    public generator: boolean = false,
-    public expression: boolean = false,
-  ) {}
-}
-
-class AwaitExpression implements Node {
-  public readonly type = 'AwaitExpression'
-
-  public constructor(public argument: Identifier | Expression | Literal) {}
-}
-
-type AssignmentOperator =
-  | '='
-  | '+='
-  | '-='
-  | '*='
-  | '/='
-  | '%='
-  | '**='
-  | '<<='
-  | '>>='
-  | '>>>='
-  | '&='
-  | '^='
-  | '|='
-  | '&&='
-  | '||='
-  | '??='
-
-class AssignmentExpression implements Node {
-  public readonly type = 'AssignmentExpression'
-
-  public constructor(
-    public operator: AssignmentOperator,
-    public left: Identifier | MemberExpression,
-    public right: Identifier | Expression | Literal,
-  ) {}
-}
-
-class ExpressionStatement implements Node {
-  public readonly type = 'ExpressionStatement'
-
-  public constructor(public expression: Expression) {}
-}
-
-class ReturnStatement implements Node {
-  public readonly type = 'ReturnStatement'
-
-  public constructor(public argument: Identifier | Expression | null = null) {}
-}
-
-type Statement = ExpressionStatement | BlockStatement | ReturnStatement
-
-class Program implements Node, Commentable {
-  public readonly type = 'Program'
-
-  public constructor(
-    public body: (
-      | Statement
-      | ExportNamedDeclaration
-      | ImportDeclaration
-    )[] = [],
-    public sourceType: 'module' | 'script' = 'module',
-  ) {}
-
-  public comments?: Comment[]
-
-  public addComments(...comments: Comment[]) {
-    if (this.comments == null) this.comments = []
-
-    this.comments.push(...comments)
-
-    return this
-  }
-}
-
-function computeRawWithComments(literal: Literal) {
-  let commentContents = ''
-
-  for (const comment of literal.comments ?? []) {
-    const prog = new Program().addComments(comment)
-    commentContents += fromAST(prog, { comments: true }).trim()
-    commentContents += ' '
-  }
-
-  literal.raw = undefined
-  literal.raw = commentContents + fromAST(literal, { comments: false })
-}
+} from './options'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fromAST = (babelGenerator as any).default
+  .default as (typeof babelGenerator)['default']
 
 interface WebpackMagicValues {
   chunkName: string
@@ -599,16 +24,12 @@ function webpackMagicComment(values: Partial<WebpackMagicValues>) {
 function webpackMagicImportAST(
   source: string,
   magicValues: Partial<WebpackMagicValues>,
-): ImportExpression {
-  const sourceLiteral = new Literal(source)
+) {
+  const sourceLiteral = t.stringLiteral(source)
 
-  computeRawWithComments(
-    sourceLiteral.addComments(
-      new BlockComment(webpackMagicComment(magicValues)),
-    ),
-  )
+  t.addComment(sourceLiteral, 'leading', webpackMagicComment(magicValues))
 
-  return new ImportExpression(sourceLiteral)
+  return t.importExpression(sourceLiteral)
 }
 
 interface GeneratorContext {
@@ -647,11 +68,6 @@ interface GeneratorContext {
   }
 }
 
-/**
- * Takes in active options object, internally generates an AST tree for it and
- * then renders it to actual JavaScript code. The resulting code can be written
- * to a special file and read at runtime to retrieve the options.
- */
 export function generate(
   opts: NormalizedModuleOptions,
   {
@@ -662,69 +78,60 @@ export function generate(
   }: GeneratorContext,
 ) {
   if (opts.defaultLocale == null) {
-    throw new Error('Options are missing a default locale')
+    throw new Error('Options are missing a default value')
   }
 
-  /** An array of top-most imports. */
-  const imports: ImportDeclaration[] = []
+  const imports: t.ImportDeclaration[] = []
 
-  /** An array of top-most exports. */
-  const exports: ExportNamedDeclaration[] = []
+  const exports: t.ExportNamedDeclaration[] = []
 
-  /** Identifier for the import of locale loader that creates locale declarator. */
-  const id$defineLocale = new Identifier('locale')
+  const id$defineLocale = t.identifier('locale')
 
-  /** Identifier for the import of locale loader that identifies value as raw. */
-  const id$rawValue = new Identifier('raw')
+  const id$rawValue = t.identifier('raw')
 
-  /** Identifier for the variable holding a locale declaration. */
-  const id$localeDefinition = new Identifier('l')
+  const id$localeDefinition = t.identifier('l')
 
-  /** Expression to acquire the method that sets the messages. */
-  const exp$addMessages = new MemberExpression(
+  const exp$addMessages = t.memberExpression(
     id$localeDefinition,
-    new Identifier('m'),
+    t.identifier('m'),
   )
 
-  /** Expression to acquire the method that defines a resource. */
-  const exp$addResource = new MemberExpression(
+  const exp$addResource = t.memberExpression(
     id$localeDefinition,
-    new Identifier('r'),
+    t.identifier('r'),
   )
 
-  /** Expression to acquire the method that defines a locale import. */
-  const exp$addImport = new MemberExpression(
+  const exp$addImport = t.memberExpression(
     id$localeDefinition,
-    new Identifier('i'),
+    t.identifier('i'),
   )
 
   imports.push(
-    new ImportDeclaration(
-      new Literal(resolveRuntimeModule('./utils/locale-loader.js')),
-    )
-      .addSpecifier(id$defineLocale)
-      .addSpecifier(id$rawValue),
+    t.importDeclaration(
+      [
+        t.importSpecifier(id$defineLocale, id$defineLocale),
+        t.importSpecifier(id$rawValue, id$rawValue),
+      ],
+      t.stringLiteral(resolveRuntimeModule('./utils/locale-loader.js')),
+    ),
   )
 
-  /** An object that holds all the locales mapped by their locale code. */
-  const localesObject = new ObjectExpression()
+  const localesObject = t.objectExpression([])
 
-  const processedLocales: string[] = []
+  const processedLocales = new Set<string>()
 
   for (const locale of opts.locales) {
     if (locale.tag == null) {
       throw new Error('Locale descriptor is missing a file property')
     }
 
-    if (processedLocales.includes(locale.tag)) {
-      throw new Error(`Locale "${locale.tag}" has already been processed`)
+    if (processedLocales.has(locale.tag)) {
+      throw new Error(`Locale ${locale.tag} has already been processed`)
     } else {
-      processedLocales.push(locale.tag)
+      processedLocales.add(locale.tag)
     }
 
-    // const localeFilePath = locale.file
-    // const localeIdentifier = new Identifier(`locale${hash(locale)}`)
-    const importFunctionBody = new BlockStatement()
+    const importFunctionBody = t.blockStatement([])
 
     const chunkName = `locale-${locale.tag}`
 
@@ -732,92 +139,59 @@ export function generate(
 
     const isDefaultLocale = locale.tag === opts.defaultLocale
 
-    // var l = locale()
     importFunctionBody.body.push(
-      new VariableDeclaration('var', [
-        new VariableDeclarator(
+      t.variableDeclaration('var', [
+        t.variableDeclarator(
           id$localeDefinition,
-          new CallExpression(id$defineLocale),
+          t.callExpression(id$defineLocale, []),
         ),
       ]),
     )
 
-    // if (isDefaultLocale) {
-    //   // import locale<hash> from "<locale path>"
-    //   imports.push(
-    //     new ImportDeclaration(new Literal(localeFilePath)).setDefaultSpecifier(
-    //       localeIdentifier,
-    //     ),
-    //   )
-
-    //   // l.m(raw("<locale path>"))
-    //   importFunctionBody.body.push(
-    //     new ExpressionStatement(
-    //       new CallExpression(exp$setMessages, [
-    //         new CallExpression(id$rawValue, [localeIdentifier]),
-    //       ]),
-    //     ),
-    //   )
-    // } else {
-    //   // l.m(import("<locale path>"))
-    //   importFunctionBody.body.push(
-    //     new ExpressionStatement(
-    //       new CallExpression(exp$setMessages, [
-    //         webpackMagicImportAST(localeFilePath, { chunkName }),
-    //       ]),
-    //     ),
-    //   )
-    // }
-
     for (const messageFile of locale.files) {
       const { from: importPath, name: importKey } = messageFile
+
       const resolvedPath = registerMessagesFile(
         messageFile,
         resolve(messageFile.from),
       )
 
       if (isDefaultLocale) {
-        // if import key is 'default' then:
-        // import locale<hash>$m<import hash> from "<import path>"
-        // else:
-        // import { "<importKey>" as locale<hash>$m<import hash> } from "<import path>"
-
-        const resourceImportIdentifier = new Identifier(
-          `${localeIdentifier}$m${hash(importPath)}`,
+        const resourceImportIdentifier = t.identifier(
+          `${localeIdentifier}$m$${hash(importPath)}`,
         )
 
-        const resourceImport = new ImportDeclaration(new Literal(resolvedPath))
+        imports.push(
+          t.importDeclaration(
+            importKey === 'default'
+              ? [t.importDefaultSpecifier(resourceImportIdentifier)]
+              : [
+                  t.importSpecifier(
+                    resourceImportIdentifier,
+                    t.stringLiteral(importKey),
+                  ),
+                ],
+            t.stringLiteral(resolvedPath),
+          ),
+        )
 
-        if (importKey === 'default') {
-          resourceImport.setDefaultSpecifier(resourceImportIdentifier)
-        } else {
-          resourceImport.addSpecifier(
-            resourceImportIdentifier,
-            new Literal(importKey),
-          )
-        }
-
-        imports.push(resourceImport)
-
-        // l.m(raw(<upmost import>))
         importFunctionBody.body.push(
-          new ExpressionStatement(
-            new CallExpression(exp$addMessages, [
-              new CallExpression(id$rawValue, [resourceImportIdentifier]),
+          t.expressionStatement(
+            t.callExpression(exp$addMessages, [
+              t.callExpression(id$rawValue, [resourceImportIdentifier]),
             ]),
           ),
         )
       } else {
-        // l.m(import("<import path>"), "<import key>")
-        const resourceAddCall = new CallExpression(exp$addMessages, [
+        const addMessagesCall = t.callExpression(exp$addMessages, [
           webpackMagicImportAST(resolvedPath, { chunkName }),
         ])
 
         if (importKey !== 'default') {
-          resourceAddCall.arguments.push(new Literal(importKey))
+          addMessagesCall.arguments.push(t.stringLiteral(importKey))
         }
 
-        importFunctionBody.body.push(new ExpressionStatement(resourceAddCall))
+        importFunctionBody.body.push(t.expressionStatement(addMessagesCall))
       }
     }
 
@@ -827,13 +201,11 @@ export function generate(
         : import_.from
 
       if (isDefaultLocale) {
-        // import "<import path>"
-        imports.push(new ImportDeclaration(new Literal(resolvedPath)))
+        imports.push(t.importDeclaration([], t.stringLiteral(resolvedPath)))
       } else {
-        // l.i(import("<import path>"))
         importFunctionBody.body.push(
-          new ExpressionStatement(
-            new CallExpression(exp$addImport, [
+          t.expressionStatement(
+            t.callExpression(exp$addImport, [
               webpackMagicImportAST(resolvedPath, { chunkName }),
             ]),
           ),
@@ -853,108 +225,87 @@ export function generate(
       const resolvedPath = shouldResolve ? resolve(importPath) : importPath
 
       if (isDefaultLocale) {
-        // if import key is 'default' then:
-        // import locale<hash>$r<import hash> from "<import path>"
-        // else:
-        // import { "<importKey>" as locale<hash>$r<import hash> } from "<import path>"
-
-        const resourceImportIdentifier = new Identifier(
-          `${localeIdentifier}$r${hash(importPath)}`,
+        const resourceImportIdentifier = t.identifier(
+          `${localeIdentifier}$r$${hash(importPath)}`,
         )
 
-        const resourceImport = new ImportDeclaration(new Literal(resolvedPath))
-
-        if (importKey === 'default') {
-          resourceImport.setDefaultSpecifier(resourceImportIdentifier)
-        } else {
-          resourceImport.addSpecifier(
-            resourceImportIdentifier,
-            new Literal(importKey),
-          )
-        }
+        const resourceImport = t.importDeclaration(
+          importKey === 'default'
+            ? [t.importDefaultSpecifier(resourceImportIdentifier)]
+            : [
+                t.importSpecifier(
+                  resourceImportIdentifier,
+                  t.stringLiteral(importKey),
+                ),
+              ],
+          t.stringLiteral(resolvedPath),
+        )
 
         imports.push(resourceImport)
 
-        // l.r("<resource name>", raw(<upmost import>))
         importFunctionBody.body.push(
-          new ExpressionStatement(
-            new CallExpression(exp$addResource, [
-              new Literal(resourceName),
-              new CallExpression(id$rawValue, [resourceImportIdentifier]),
+          t.expressionStatement(
+            t.callExpression(exp$addResource, [
+              t.stringLiteral(resourceName),
+              t.callExpression(id$rawValue, [resourceImportIdentifier]),
             ]),
           ),
         )
       } else {
-        // l.r("<resource name>", import("<import path>"), "<import key>")
-        const resourceAddCall = new CallExpression(exp$addResource, [
-          new Literal(resourceName),
+        const addResourceCall = t.callExpression(exp$addResource, [
+          t.stringLiteral(resourceName),
           webpackMagicImportAST(resolvedPath, { chunkName }),
         ])
 
         if (importKey !== 'default') {
-          resourceAddCall.arguments.push(new Literal(importKey))
+          addResourceCall.arguments.push(t.stringLiteral(importKey))
         }
 
-        importFunctionBody.body.push(new ExpressionStatement(resourceAddCall))
+        importFunctionBody.body.push(t.expressionStatement(addResourceCall))
       }
     }
 
-    // we implement 'then' on the locale definition so it can be just
-    // return await l
     importFunctionBody.body.push(
-      new ReturnStatement(new AwaitExpression(id$localeDefinition)),
+      t.returnStatement(t.awaitExpression(id$localeDefinition)),
     )
 
-    const localeObject = new ObjectExpression()
-
-    localeObject.properties.push(
-      new Property(
-        new Identifier('importFunction'),
-        new FunctionExpression(null, [], importFunctionBody, true),
-      ).setMethod(),
-    )
+    const localeObject = t.objectExpression([
+      t.objectMethod(
+        'method',
+        t.identifier('importFunction'),
+        [],
+        importFunctionBody,
+        false,
+        false,
+        true,
+      ),
+    ])
 
     if (locale.meta != null) {
       localeObject.properties.push(
-        new Property(new Identifier('meta')).setValue(
-          new Literal(null).setRaw(JSON.stringify(locale.meta)),
-        ),
+        t.objectProperty(t.identifier('meta'), t.valueToNode(locale.meta)),
       )
     }
 
     localesObject.properties.push(
-      new Property(new Literal(locale.tag), localeObject),
+      t.objectProperty(t.stringLiteral(locale.tag), localeObject),
     )
   }
 
   exports.push(
-    new ExportNamedDeclaration().setDeclaration(
-      new VariableDeclaration('const', [
-        new VariableDeclarator(
-          new Identifier('localeDefinitions'),
-          localesObject,
-        ),
+    t.exportNamedDeclaration(
+      t.variableDeclaration('const', [
+        t.variableDeclarator(t.identifier('localeDefinitions'), localesObject),
       ]),
     ),
   )
 
-  // exports.push(
-  //   new ExportNamedDeclaration().setDeclaration(
-  //     new VariableDeclaration('const', [
-  //       new VariableDeclarator(
-  //         new Identifier('baseURL'),
-  //         new Literal(typeof opts.baseURL === 'string' ? opts.baseURL : null),
-  //       ),
-  //     ]),
-  //   ),
-  // )
-
   exports.push(
-    new ExportNamedDeclaration().setDeclaration(
-      new VariableDeclaration('const', [
-        new VariableDeclarator(
-          new Identifier('defaultLocale'),
-          new Literal(opts.defaultLocale),
+    t.exportNamedDeclaration(
+      t.variableDeclaration('const', [
+        t.variableDeclarator(
+          t.identifier('defaultLocale'),
+          t.stringLiteral(opts.defaultLocale),
         ),
       ]),
     ),
@@ -962,18 +313,19 @@ export function generate(
 
   if (opts.storage == null) {
     exports.push(
-      new ExportNamedDeclaration().setDeclaration(
-        new VariableDeclaration('const', [
-          new VariableDeclarator(
-            new Identifier('storageAdapterFactory'),
-            new Literal(null),
+      t.exportNamedDeclaration(
+        t.variableDeclaration('const', [
+          t.variableDeclarator(
+            t.identifier('storageAdapterFactory'),
+            t.nullLiteral(),
           ),
         ]),
       ),
     )
   } else {
-    let storage = opts.storage
+    let { storage } = opts
 
+    // FIXME: the caller should do this!
     if (storage === 'localStorage') {
       storage = resolveRuntimeModule('./storage/local-storage.js')
     } else if (storage === 'cookie') {
@@ -983,23 +335,25 @@ export function generate(
     }
 
     exports.push(
-      new ExportNamedDeclaration()
-        .addSpecifier(
-          new ExportSpecifier(
-            new Identifier('default'),
-            new Identifier('storageAdapterFactory'),
+      t.exportNamedDeclaration(
+        null,
+        [
+          t.exportSpecifier(
+            t.identifier('default'),
+            t.identifier('storageAdapterFactory'),
           ),
-        )
-        .setSource(storage),
+        ],
+        t.stringLiteral(storage),
+      ),
     )
   }
 
   exports.push(
-    new ExportNamedDeclaration().setDeclaration(
-      new VariableDeclaration('const', [
-        new VariableDeclarator(
-          new Identifier('broadcastLocaleChange'),
-          new Literal(
+    t.exportNamedDeclaration(
+      t.variableDeclaration('const', [
+        t.variableDeclarator(
+          t.identifier('broadcastLocaleChange'),
+          t.booleanLiteral(
             typeof opts.broadcastLocaleChange === 'boolean'
               ? opts.broadcastLocaleChange
               : true,
@@ -1010,36 +364,38 @@ export function generate(
   )
 
   exports.push(
-    new ExportNamedDeclaration().setDeclaration(
-      new VariableDeclaration('const', [
-        new VariableDeclarator(
-          new Identifier('seo'),
-          new Literal(null).setRaw(JSON.stringify(opts.seo)),
-        ),
+    t.exportNamedDeclaration(
+      t.variableDeclaration('const', [
+        t.variableDeclarator(t.identifier('seo'), t.valueToNode(opts.seo)),
       ]),
     ),
   )
 
   exports.push(
-    new ExportNamedDeclaration().setDeclaration(
-      new VariableDeclaration('const', [
-        new VariableDeclarator(
-          new Identifier('parserless'),
-          new Literal(state.parserlessModeEnabled),
+    t.exportNamedDeclaration(
+      t.variableDeclaration('const', [
+        t.variableDeclarator(
+          t.identifier('parserless'),
+          t.booleanLiteral(state.parserlessModeEnabled),
         ),
       ]),
     ),
   )
 
-  return fromAST(
-    new Program([...imports, ...exports]).addComments(
-      new InlineComment(
-        'This file is generated automatically based on your nuxt-intl module options.',
-      ),
-      new InlineComment(
-        'Do not modify it manually, it will be re-generated every time you start your Nuxt app.',
-      ),
-    ),
-    { comments: true },
-  )
+  const program = t.program([...imports, ...exports], undefined, 'module')
+
+  t.addComments(program, 'leading', [
+    {
+      type: 'CommentLine',
+      value:
+        ' This file is generated automatically based on your nuxt-intl module options.',
+    },
+    {
+      type: 'CommentLine',
+      value:
+        ' Do not modify it manually, it will be re-generated every time you start your Nuxt app.',
+    },
+  ])
+
+  return fromAST(program).code
 }
