@@ -51,17 +51,17 @@
     "@nuxt/schema": "^3.13.2",
     "@types/babel__generator": "^7.6.8",
     "@types/hash-sum": "^1.0.2",
-    "@types/node": "^18.19.56",
+    "@types/node": "^18.19.59",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "nuxt": "^3.13.2",
     "typescript": "^5.6.3",
-    "vue-tsc": "^2.1.6"
+    "vue-tsc": "^2.1.8"
   },
   "dependencies": {
-    "@babel/generator": "^7.25.9",
-    "@babel/types": "^7.25.9",
-    "@formatjs/intl": "^2.10.8",
-    "@formatjs/intl-localematcher": "^0.5.5",
+    "@babel/generator": "^7.26.0",
+    "@babel/types": "^7.26.0",
+    "@formatjs/intl": "^2.10.11",
+    "@formatjs/intl-localematcher": "^0.5.6",
     "@nuxt/kit": "^3.13.2",
     "@vintl/unplugin": "^2.0.0",
     "@vintl/vintl": "^4.4.1",
