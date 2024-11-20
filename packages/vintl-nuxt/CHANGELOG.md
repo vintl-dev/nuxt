@@ -1,5 +1,11 @@
 # @vintl/nuxt
 
+## 1.9.3
+
+### Patch Changes
+
+- 1583989: Switch to Babel for runtime options generation
+
 ## 1.9.2
 
 ### Patch Changes
