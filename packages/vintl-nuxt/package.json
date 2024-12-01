@@ -51,7 +51,7 @@
     "@nuxt/schema": "^3.14.159",
     "@types/babel__generator": "^7.6.8",
     "@types/hash-sum": "^1.0.2",
-    "@types/node": "^18.19.64",
+    "@types/node": "^22.10.1",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "nuxt": "^3.14.159",
     "typescript": "^5.6.3",
