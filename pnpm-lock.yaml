@@ -105,8 +105,8 @@ importers:
         specifier: ^7.26.0
         version: 7.26.0
       '@formatjs/intl':
-        specifier: ^2.10.14
-        version: 2.10.15(typescript@5.6.3)
+        specifier: ^3.0.1
+        version: 3.0.1(typescript@5.6.3)
       '@formatjs/intl-localematcher':
         specifier: ^0.5.7
         version: 0.5.8
@@ -1192,6 +1192,14 @@ packages:
     resolution: {integrity: sha512-i6+xVqT+6KCz7nBfk4ybMXmbKO36tKvbMKtgFz9KV+8idYFyFbfwKooYk8kGjyA5+T5f1kEPQM5IDLXucTAQ9g==}
     peerDependencies:
       typescript: ^4.7 || 5
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@formatjs/intl@3.0.1':
+    resolution: {integrity: sha512-QzdeMxOnSuGJhF0eWOIXHDtXZgIBwAqBZ4/bgZmPMC+FmYI8X2Akmu/j/ABKKO85GnxPV6KN8hJ8zytLnTJuYQ==}
+    peerDependencies:
+      typescript: '5'
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -6872,6 +6880,15 @@ snapshots:
       '@formatjs/icu-messageformat-parser': 2.9.4
       '@formatjs/intl-displaynames': 6.8.5
       '@formatjs/intl-listformat': 7.7.5
+      intl-messageformat: 10.7.7
+      tslib: 2.8.0
+    optionalDependencies:
+      typescript: 5.6.3
+
+  '@formatjs/intl@3.0.1(typescript@5.6.3)':
+    dependencies:
+      '@formatjs/fast-memoize': 2.2.3
+      '@formatjs/icu-messageformat-parser': 2.9.4
       intl-messageformat: 10.7.7
       tslib: 2.8.0
     optionalDependencies:
