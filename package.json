@@ -7,8 +7,8 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.27.9",
-    "turbo": "^2.3.0"
+    "@changesets/cli": "^2.27.10",
+    "turbo": "^2.3.3"
   },
   "scripts": {
     "pg:prepare": "turbo run --no-daemon @vintl-dev/pg#dev:prepare",
@@ -38,9 +38,9 @@
       }
     }
   },
-  "packageManager": "pnpm@9.13.2",
+  "packageManager": "pnpm@9.15.0",
   "dependencies": {
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.2",
     "prettier-plugin-jsdoc": "^1.3.0"
   }
 }
