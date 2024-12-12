@@ -60,7 +60,7 @@
   "dependencies": {
     "@babel/generator": "^7.26.2",
     "@babel/types": "^7.26.0",
-    "@formatjs/intl": "^2.10.14",
+    "@formatjs/intl": "^3.0.4",
     "@formatjs/intl-localematcher": "^0.5.7",
     "@nuxt/kit": "^3.14.159",
     "@vintl/unplugin": "^2.0.0",
