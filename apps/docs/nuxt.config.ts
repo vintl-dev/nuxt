@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   extends: [],
-  modules: ['@nuxt/content', '@vintl/nuxt', '@nuxt/eslint', "@nuxt/icon"],
+  modules: ['@nuxt/content', '@vintl/nuxt', '@nuxt/eslint', '@nuxt/icon'],
   vintl: {
     defaultLocale: 'en-US',
     locales: [

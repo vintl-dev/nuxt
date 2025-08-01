@@ -11,20 +11,20 @@ type TypeOfTypes =
 type TypeOf<T extends TypeOfTypes> = T extends 'string'
   ? string
   : T extends 'number'
-  ? number
-  : T extends 'bigint'
-  ? bigint
-  : T extends 'boolean'
-  ? boolean
-  : T extends 'symbol'
-  ? symbol
-  : T extends 'undefined'
-  ? undefined
-  : T extends 'object'
-  ? Record<PropertyKey, unknown> | null
-  : T extends 'function'
-  ? (this: unknown, ...args: unknown[]) => unknown
-  : never
+    ? number
+    : T extends 'bigint'
+      ? bigint
+      : T extends 'boolean'
+        ? boolean
+        : T extends 'symbol'
+          ? symbol
+          : T extends 'undefined'
+            ? undefined
+            : T extends 'object'
+              ? Record<PropertyKey, unknown> | null
+              : T extends 'function'
+                ? (this: unknown, ...args: unknown[]) => unknown
+                : never
 
 /**
  * Uses `typeof` expression to check type of the file, provides TypeScript type
