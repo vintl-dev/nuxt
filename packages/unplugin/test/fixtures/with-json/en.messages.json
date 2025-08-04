@@ -1,0 +1,8 @@
+{
+  "greeting": {
+    "message": "Hello, {name}!"
+  },
+  "goodbye": {
+    "message": "Farewell, {name}!"
+  }
+}

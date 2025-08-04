@@ -1,0 +1,8 @@
+{
+  "introduction": {
+    "message": "Hello, {name}! Press <Enter> to continue."
+  },
+  "invalid-key": {
+    "message": "<strong>Warning</strong>: Invalid key pressed"
+  }
+}

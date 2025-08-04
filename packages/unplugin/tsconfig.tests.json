@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+
+    "module": "ESNext",
+
+    "moduleResolution": "bundler",
+
+    "esModuleInterop": true,
+
+    "types": []
+  },
+  "exclude": ["./dist", "./src"],
+  "include": ["./vitest.config.ts", "./test/*.test.ts", "./test/utils/*.ts"]
+}
