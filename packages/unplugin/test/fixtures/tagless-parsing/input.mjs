@@ -1,5 +1,9 @@
 import messages from './en.messages.json'
 
-export default function example() {
+export function getIntroduction() {
   return messages.introduction
+}
+
+export function getInvalidKey() {
+  return messages['invalid-key']
 }

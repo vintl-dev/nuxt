@@ -35,11 +35,15 @@ var messages = {
 ]
 };
 
-function example() {
+function getIntroduction() {
   return messages.introduction
 }
 
-export { example as default };
+function getInvalidKey() {
+  return messages['invalid-key']
+}
+
+export { getIntroduction, getInvalidKey };
 "
 `;
 
@@ -192,7 +196,10 @@ const messageTypes = [
 function example() {
   const messageId = messageTypes.find(([type]) => options.type === type);
   if (messageId == null) throw new Error(\`Unknown type \${options.type}\`)
-  return messages[messageId]
+  return {
+    message: messages[messageId],
+    target: options.target,
+  }
 }
 
 export { example as default };
