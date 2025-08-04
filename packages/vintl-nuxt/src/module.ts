@@ -39,8 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@vintl/nuxt',
     configKey: 'vintl',
     compatibility: {
-      bridge: false,
-      nuxt: '^3.0.0',
+      nuxt: '^4.0.0',
     },
   },
   async setup(inputOptions, nuxt) {
