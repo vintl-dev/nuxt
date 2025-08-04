@@ -22,9 +22,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types.d.ts",
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
+      "import": "./dist/module.mjs"
     },
     "./options": {
       "import": "./dist/options.mjs"
@@ -32,8 +30,6 @@
     "./package.json": "./package.json"
   },
   "module": "./dist/module.mjs",
-  "main": "./dist/module.cjs",
-  "types": "./dist/types.d.ts",
   "files": [
     "dist"
   ],
