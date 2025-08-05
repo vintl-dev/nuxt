@@ -100,6 +100,9 @@
         "@vintl-dev/pg#lint",
         "@vintl-dev/docs#lint"
       ]
+    },
+    "//test": {
+      "dependsOn": ["@vintl/unplugin#test"]
     }
   },
   "globalEnv": ["NODE_ENV", "NITRO_PRESET"]
