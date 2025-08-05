@@ -97,152 +97,149 @@ async function buildFile(
   return memfs.readFileSync('/dist/index.mjs', { encoding: 'utf-8' })
 }
 
-describe(
-  'webpack',
-  { timeout: 60_000 },
-  () => {
-    it('should generate bundle', async () => {
-      const out = await buildFile('fixtures/normal/input.mjs', (config) => {
+describe('webpack', { timeout: 60_000 }, () => {
+  it('should generate bundle', async () => {
+    const out = await buildFile('fixtures/normal/input.mjs', (config) => {
+      ;(config.plugins ??= []).push(
+        icuMessages({
+          include: '**/*.messages.json',
+          format: 'crowdin',
+        }),
+      )
+    })
+
+    expect(out).toMatchSnapshot()
+  })
+
+  it('should fail with unresolved formatter', async () => {
+    let err: unknown
+    try {
+      await buildFile('fixtures/normal/input.mjs', (config) => {
         ;(config.plugins ??= []).push(
           icuMessages({
             include: '**/*.messages.json',
-            format: 'crowdin',
+            format: 'non-existent',
           }),
         )
       })
+    } catch (err_) {
+      err = err_
+    }
 
-      expect(out).toMatchSnapshot()
+    expect(err).toBeDefined()
+  })
+
+  it('should be compatible with other json files', async () => {
+    const out = await buildFile('fixtures/with-json/input.mjs', (config) => {
+      ;(config.plugins ??= []).push(
+        icuMessages({
+          include: '**/*.messages.json',
+          format: 'crowdin',
+        }),
+      )
     })
 
-    it('should fail with unresolved formatter', async () => {
-      let err: unknown
-      try {
-        await buildFile('fixtures/normal/input.mjs', (config) => {
-          ;(config.plugins ??= []).push(
-            icuMessages({
-              include: '**/*.messages.json',
-              format: 'non-existent',
-            }),
-          )
-        })
-      } catch (err_) {
-        err = err_
-      }
+    expect(out).toMatchSnapshot()
+  })
 
-      expect(err).toBeDefined()
+  it('should be able to parse using TOML files', async () => {
+    const out = await buildFile('fixtures/toml/input.mjs', async (config) => {
+      ;(config.plugins ??= []).push(
+        icuMessages({
+          include: '**/*.messages.toml',
+          format: 'crowdin',
+          parse: await import('@ltd/j-toml').then(
+            (_) => (code: string) => _.parse(code),
+          ),
+        }),
+      )
     })
 
-    it('should be compatible with other json files', async () => {
-      const out = await buildFile('fixtures/with-json/input.mjs', (config) => {
-        ;(config.plugins ??= []).push(
-          icuMessages({
-            include: '**/*.messages.json',
-            format: 'crowdin',
-          }),
-        )
-      })
+    expect(out).toMatchSnapshot()
+  })
 
-      expect(out).toMatchSnapshot()
+  it('should transform to AST JSON', async () => {
+    const out = await buildFile('fixtures/normal/input.mjs', (config) => {
+      ;(config.plugins ??= []).push(
+        icuMessages({
+          include: '**/*.messages.json',
+          format: 'crowdin',
+          output: {
+            format: 'json',
+          },
+        }),
+      )
     })
 
-    it('should be able to parse using TOML files', async () => {
-      const out = await buildFile('fixtures/toml/input.mjs', async (config) => {
-        ;(config.plugins ??= []).push(
-          icuMessages({
-            include: '**/*.messages.toml',
-            format: 'crowdin',
-            parse: await import('@ltd/j-toml').then(
-              (_) => (code: string) => _.parse(code),
-            ),
-          }),
-        )
-      })
+    expect(out).toMatchSnapshot()
+  })
 
-      expect(out).toMatchSnapshot()
+  it('should transform to JSON of raw messages', async () => {
+    const out = await buildFile('fixtures/normal/input.mjs', (config) => {
+      ;(config.plugins ??= []).push(
+        icuMessages({
+          include: '**/*.messages.json',
+          format: 'crowdin',
+          output: {
+            type: 'raw',
+            format: 'json',
+          },
+        }),
+      )
     })
 
-    it('should transform to AST JSON', async () => {
-      const out = await buildFile('fixtures/normal/input.mjs', (config) => {
-        ;(config.plugins ??= []).push(
-          icuMessages({
-            include: '**/*.messages.json',
-            format: 'crowdin',
-            output: {
-              format: 'json',
+    expect(out).toMatchSnapshot()
+  })
+
+  it('should transform using custom formatter', async () => {
+    const out = await buildFile('fixtures/normal/input.mjs', (config) => {
+      ;(config.plugins ??= []).push(
+        icuMessages({
+          include: '**/*.messages.json',
+          format: 'crowdin',
+          output: {
+            format(messages) {
+              return JSON.stringify(Object.entries(messages))
             },
-          }),
-        )
-      })
-
-      expect(out).toMatchSnapshot()
+          },
+        }),
+      )
     })
 
-    it('should transform to JSON of raw messages', async () => {
-      const out = await buildFile('fixtures/normal/input.mjs', (config) => {
-        ;(config.plugins ??= []).push(
-          icuMessages({
-            include: '**/*.messages.json',
-            format: 'crowdin',
-            output: {
-              type: 'raw',
-              format: 'json',
-            },
-          }),
-        )
-      })
+    expect(out).toMatchSnapshot()
+  })
 
-      expect(out).toMatchSnapshot()
+  it('should handle errors as defined', async () => {
+    const onParseError = vi.fn(function ({ useBuiltinStrategy }) {
+      return useBuiltinStrategy('use-message-as-literal')
+    } satisfies PluginOptions['onParseError'])
+
+    const out = await buildFile('fixtures/errored/input.mjs', (config) => {
+      ;(config.plugins ??= []).push(
+        icuMessages({
+          format: 'crowdin',
+          onParseError,
+        }),
+      )
     })
 
-    it('should transform using custom formatter', async () => {
-      const out = await buildFile('fixtures/normal/input.mjs', (config) => {
-        ;(config.plugins ??= []).push(
-          icuMessages({
-            include: '**/*.messages.json',
-            format: 'crowdin',
-            output: {
-              format(messages) {
-                return JSON.stringify(Object.entries(messages))
-              },
-            },
-          }),
-        )
-      })
+    expect(out).toMatchSnapshot()
 
-      expect(out).toMatchSnapshot()
-    })
+    expect(onParseError.mock.calls).toHaveLength(1)
 
-    it('should handle errors as defined', async () => {
-      const onParseError = vi.fn(function ({ useBuiltinStrategy }) {
-        return useBuiltinStrategy('use-message-as-literal')
-      } satisfies PluginOptions['onParseError'])
+    const context = onParseError.mock.calls[0][0]
 
-      const out = await buildFile('fixtures/errored/input.mjs', (config) => {
-        ;(config.plugins ??= []).push(
-          icuMessages({
-            format: 'crowdin',
-            onParseError,
-          }),
-        )
-      })
+    expect(context).toBeDefined()
 
-      expect(out).toMatchSnapshot()
+    const { message, messageId, error } = context
 
-      expect(onParseError.mock.calls).toHaveLength(1)
-
-      const context = onParseError.mock.calls[0][0]
-
-      expect(context).toBeDefined()
-
-      const { message, messageId, error } = context
-
-      expect({
-        message,
-        messageId,
-        error,
-        moduleId: basename(context.moduleId),
-        locale: context.parserOptions?.locale?.baseName,
-      }).toMatchInlineSnapshot(`
+    expect({
+      message,
+      messageId,
+      error,
+      moduleId: basename(context.moduleId),
+      locale: context.parserOptions?.locale?.baseName,
+    }).toMatchInlineSnapshot(`
         {
           "error": [SyntaxError: INVALID_TAG],
           "locale": "en",
@@ -252,7 +249,7 @@ describe(
         }
       `)
 
-      expect(onParseError.mock.results[0]).toMatchInlineSnapshot(`
+    expect(onParseError.mock.results[0]).toMatchInlineSnapshot(`
         {
           "type": "return",
           "value": [
@@ -263,38 +260,38 @@ describe(
           ],
         }
       `)
+  })
+
+  it('should pass parsing fc to error handler', async () => {
+    const onParseError = vi.fn(function ({
+      message,
+      useBuiltinStrategy,
+      parseMessage,
+      parserOptions,
+    }) {
+      try {
+        return parseMessage(message, { ...parserOptions, ignoreTag: true })
+      } catch (e) {
+        return useBuiltinStrategy('use-message-as-literal')
+      }
+    } satisfies PluginOptions['onParseError'])
+
+    const out = await buildFile('fixtures/errored/input.mjs', (config) => {
+      ;(config.plugins ??= []).push(
+        icuMessages({
+          format: 'crowdin',
+          onParseError,
+        }),
+      )
     })
 
-    it('should pass parsing fc to error handler', async () => {
-      const onParseError = vi.fn(function ({
-        message,
-        useBuiltinStrategy,
-        parseMessage,
-        parserOptions,
-      }) {
-        try {
-          return parseMessage(message, { ...parserOptions, ignoreTag: true })
-        } catch (e) {
-          return useBuiltinStrategy('use-message-as-literal')
-        }
-      } satisfies PluginOptions['onParseError'])
+    expect(out).toMatchSnapshot()
 
-      const out = await buildFile('fixtures/errored/input.mjs', (config) => {
-        ;(config.plugins ??= []).push(
-          icuMessages({
-            format: 'crowdin',
-            onParseError,
-          }),
-        )
-      })
+    const { mock } = onParseError
 
-      expect(out).toMatchSnapshot()
+    expect(mock.calls?.[0]?.[0]?.parseMessage).toBeTypeOf('function')
 
-      const { mock } = onParseError
-
-      expect(mock.calls?.[0]?.[0]?.parseMessage).toBeTypeOf('function')
-
-      expect(mock.results[0]).toMatchInlineSnapshot(`
+    expect(mock.results[0]).toMatchInlineSnapshot(`
         {
           "type": "return",
           "value": [
@@ -313,6 +310,5 @@ describe(
           ],
         }
       `)
-    })
-  },
-)
+  })
+})

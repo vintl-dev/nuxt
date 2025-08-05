@@ -21,7 +21,7 @@ export async function getBuiltinFormatter(name: string): Promise<CompileFn> {
   let formattersIndexFile: string
 
   try {
-    const indexFile = '@formatjs/cli-lib/lib_esnext/src/formatters/index.js';
+    const indexFile = '@formatjs/cli-lib/lib_esnext/src/formatters/index.js'
 
     formattersIndexFile = await import('import-meta-resolve').then((mod) =>
       mod.resolve(indexFile, import.meta.url),

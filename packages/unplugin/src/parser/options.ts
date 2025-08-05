@@ -133,7 +133,7 @@ function resolveOptionsWithResolver(
       messageId,
     )
 
-    return options === null ? undefined : options ?? getDefaultOptions()
+    return options === null ? undefined : (options ?? getDefaultOptions())
   }
 
   return resolver
