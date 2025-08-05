@@ -66,6 +66,9 @@ jobs:
       - name: Lint everything
         run: pnpm all:lint
 
+      - name: Test everything
+        run: pnpm all:test
+
       - name: Build module
         if: steps.filter.outputs.nvintl == 'true'
         run: pnpm mod:build
