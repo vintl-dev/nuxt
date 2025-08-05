@@ -1,3 +1,4 @@
 apps/docs/content/0.index.md
 pnpm-lock.yaml
 .output
+.turbo
