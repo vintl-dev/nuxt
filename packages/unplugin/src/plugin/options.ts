@@ -1,4 +1,4 @@
-import type { CompileFn } from '@formatjs/cli-lib'
+import type { CompileFn } from '@formatjs/cli-lib/lib_esnext/src/formatters/default.js'
 import type { FilterPattern } from '@rollup/pluginutils'
 import {
   resolveParseErrorHandler,

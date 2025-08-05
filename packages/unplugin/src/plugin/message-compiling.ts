@@ -1,4 +1,4 @@
-import type { CompileFn } from '@formatjs/cli-lib'
+import type { CompileFn } from '@formatjs/cli-lib/lib_esnext/src/formatters/default.js'
 import { BaseError } from '../shared/error-proto.ts'
 import type { MessagesMap } from './types.ts'
 

@@ -1,7 +1,7 @@
-import { fileURLToPath, pathToFileURL } from 'url'
+import type { CompileFn } from '@formatjs/cli-lib/lib_esnext/src/formatters/default.js'
 import { glob } from 'glob'
 import { basename, dirname, extname } from 'pathe'
-import type { CompileFn } from '@formatjs/cli-lib'
+import { fileURLToPath, pathToFileURL } from 'url'
 import { BaseError } from '../shared/error-proto.ts'
 
 /** An error that is thrown whenever a built-in formatter cannot be resolved. */
@@ -21,13 +21,15 @@ export async function getBuiltinFormatter(name: string): Promise<CompileFn> {
   let formattersIndexFile: string
 
   try {
+    const indexFile = '@formatjs/cli-lib/lib_esnext/src/formatters/index.js';
+
     formattersIndexFile = await import('import-meta-resolve').then((mod) =>
-      mod.resolve('@formatjs/cli-lib/src/formatters/index.js', import.meta.url),
+      mod.resolve(indexFile, import.meta.url),
     )
 
     if (formattersIndexFile == null) {
       // eslint-disable-next-line no-throw-literal
-      throw `resolving "@formatjs/cli-lib/src/formatters/index.js" returned ${formattersIndexFile}`
+      throw `resolving "${indexFile}" returned ${formattersIndexFile}`
     }
   } catch (cause) {
     throw new FormatterResolutionError(

@@ -1,25 +1,25 @@
+import type { CompileFn } from '@formatjs/cli-lib/lib_esnext/src/formatters/default.js'
 import { dataToEsm } from '@rollup/pluginutils'
-import type { CompileFn } from '@formatjs/cli-lib'
 import { createUnplugin } from 'unplugin'
-import { basePluginName } from '../shared/consts.ts'
 import {
   createOptionsResolver,
   defaultOptionsResolver,
 } from '../parser/index.ts'
-import { isTransformed } from '../utils/code.ts'
+import { basePluginName } from '../shared/consts.ts'
 import { BaseError } from '../shared/error-proto.ts'
+import { isTransformed } from '../utils/code.ts'
 import {
   rollupWrappingPartial,
-  viteWrappingPartial,
   supportsWrapping,
+  viteWrappingPartial,
 } from '../wrapping/index.ts'
 import type { API } from './api.ts'
-import { normalizeOptions, type Options } from './options.ts'
-import { parseMessages } from './message-parsing.ts'
-import { compileMessages } from './message-compiling.ts'
-import { readMessagesFile } from './message-reading.ts'
-import type { MessagesASTMap, MessagesMap } from './types.ts'
 import { createFilter } from './filter.ts'
+import { compileMessages } from './message-compiling.ts'
+import { parseMessages } from './message-parsing.ts'
+import { readMessagesFile } from './message-reading.ts'
+import { normalizeOptions, type Options } from './options.ts'
+import type { MessagesASTMap, MessagesMap } from './types.ts'
 
 /**
  * An error that is thrown whenever plugin encounters an error during the
