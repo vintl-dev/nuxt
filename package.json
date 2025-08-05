@@ -27,6 +27,9 @@
     "mod:typecheck": "turbo run --no-daemon @vintl/nuxt#typecheck",
     "all:prepare": "turbo run --no-daemon prepare",
     "all:lint": "turbo run --no-daemon lint",
+    "unplugin:lint": "turbo run --no-daemon @vintl/unplugin#lint",
+    "unplugin:test": "turbo run --no-daemon @vintl/unplugin#test",
+    "unplugin:build": "turbo run --no-daemon @vintl/unplugin#build",
     "_ci:publish": "changeset publish"
   },
   "pnpm": {
