@@ -45,11 +45,11 @@ async function buildFile(
 
   await extendConfig?.(config)
 
-  const compiler = webpack(config)
+  const compiler = webpack(config)!
 
   const memfs = createFsFromVolume(new Volume())
 
-  compiler.outputFileSystem = memfs
+  compiler.outputFileSystem = memfs as any
 
   await new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
@@ -99,6 +99,7 @@ async function buildFile(
 
 describe(
   'webpack',
+  { timeout: 60_000 },
   () => {
     it('should generate bundle', async () => {
       const out = await buildFile('fixtures/normal/input.mjs', (config) => {
@@ -314,5 +315,4 @@ describe(
       `)
     })
   },
-  { timeout: 60_000 },
 )
