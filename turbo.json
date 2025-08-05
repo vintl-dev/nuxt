@@ -70,9 +70,15 @@
       "outputs": [".eslintcache"]
     },
     "@vintl/unplugin#build": {
+      "inputs": ["$TURBO_DEFAULT$", "!test"],
       "outputs": ["dist"]
     },
     "@vintl/unplugin#lint": {},
+    "@vintl/unplugin#test": {
+      "dependsOn": ["@vintl/unplugin#build"],
+      "inputs": ["test/**/*.test.ts"],
+      "outputs": ["test/__snapshots__"]
+    },
     "//#prepare": {
       "dependsOn": [
         "@vintl/nuxt#dev:prepare",
