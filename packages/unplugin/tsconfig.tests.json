@@ -12,5 +12,5 @@
     "types": []
   },
   "exclude": ["./dist", "./src"],
-  "include": ["./vitest.config.ts", "./test/*.test.ts", "./test/utils/*.ts"]
+  "include": ["./test/*.test.ts", "./test/utils/*.ts"]
 }
