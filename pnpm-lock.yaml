@@ -133,8 +133,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(rollup@4.46.2)
       '@types/node':
-        specifier: ^18.19.15
-        version: 18.19.64
+        specifier: ^20.19.9
+        version: 20.19.9
       eslint:
         specifier: ^9.32.0
         version: 9.32.0(jiti@2.5.1)
@@ -158,10 +158,10 @@ importers:
         version: 3.6.0(typescript@5.9.2)(vue-sfc-transformer@0.1.16(@vue/compiler-core@3.5.18)(esbuild@0.25.8)(vue@3.5.18(typescript@5.9.2)))(vue-tsc@3.0.5(typescript@5.9.2))(vue@3.5.18(typescript@5.9.2))
       vite:
         specifier: ^5.1.1
-        version: 5.4.11(@types/node@18.19.64)(terser@5.43.1)
+        version: 5.4.11(@types/node@20.19.9)(terser@5.43.1)
       vitest:
         specifier: ^1.2.2
-        version: 1.6.1(@types/node@18.19.64)(terser@5.43.1)
+        version: 1.6.1(@types/node@20.19.9)(terser@5.43.1)
       webpack:
         specifier: ^5.90.1
         version: 5.101.0(esbuild@0.25.8)
@@ -2079,6 +2079,9 @@ packages:
 
   '@types/node@18.19.64':
     resolution: {integrity: sha512-955mDqvO2vFf/oL7V3WiUtiz+BugyX8uVbaT2H8oj3+8dRyH2FLiNdowe7eNqRM7IOIZvzDH76EoAT+gwm6aIQ==}
+
+  '@types/node@20.19.9':
+    resolution: {integrity: sha512-cuVNgarYWZqxRJDQHEB58GEONhOK79QVR/qYx4S7kcUObQvUwvFnYxJuuHUKm2aieN9X3yZB4LZsuYNU1Qphsw==}
 
   '@types/node@22.17.0':
     resolution: {integrity: sha512-bbAKTCqX5aNVryi7qXVMi+OkB3w/OyblodicMbvE38blyAz7GxXf6XYhklokijuPwwVg9sDLKRxt0ZHXQwZVfQ==}
@@ -9398,7 +9401,7 @@ snapshots:
   '@types/fs-extra@11.0.4':
     dependencies:
       '@types/jsonfile': 6.1.4
-      '@types/node': 18.19.64
+      '@types/node': 20.19.9
 
   '@types/hash-sum@1.0.2': {}
 
@@ -9416,7 +9419,7 @@ snapshots:
 
   '@types/jsonfile@6.1.4':
     dependencies:
-      '@types/node': 18.19.64
+      '@types/node': 20.19.9
 
   '@types/lodash@4.17.20': {}
 
@@ -9431,6 +9434,10 @@ snapshots:
   '@types/node@18.19.64':
     dependencies:
       undici-types: 5.26.5
+
+  '@types/node@20.19.9':
+    dependencies:
+      undici-types: 6.21.0
 
   '@types/node@22.17.0':
     dependencies:
@@ -12296,7 +12303,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 18.19.64
+      '@types/node': 20.19.9
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -15266,13 +15273,13 @@ snapshots:
     dependencies:
       vite: 7.0.6(@types/node@22.17.0)(jiti@2.5.1)(terser@5.43.1)(yaml@2.8.0)
 
-  vite-node@1.6.1(@types/node@18.19.64)(terser@5.43.1):
+  vite-node@1.6.1(@types/node@20.19.9)(terser@5.43.1):
     dependencies:
       cac: 6.7.14
       debug: 4.4.1
       pathe: 1.1.2
       picocolors: 1.1.1
-      vite: 5.4.11(@types/node@18.19.64)(terser@5.43.1)
+      vite: 5.4.11(@types/node@20.19.9)(terser@5.43.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -15421,6 +15428,16 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.43.1
 
+  vite@5.4.11(@types/node@20.19.9)(terser@5.43.1):
+    dependencies:
+      esbuild: 0.21.5
+      postcss: 8.5.6
+      rollup: 4.46.2
+    optionalDependencies:
+      '@types/node': 20.19.9
+      fsevents: 2.3.3
+      terser: 5.43.1
+
   vite@5.4.11(@types/node@22.17.0)(terser@5.43.1):
     dependencies:
       esbuild: 0.21.5
@@ -15461,7 +15478,7 @@ snapshots:
       terser: 5.43.1
       yaml: 2.8.0
 
-  vitest@1.6.1(@types/node@18.19.64)(terser@5.43.1):
+  vitest@1.6.1(@types/node@20.19.9)(terser@5.43.1):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
@@ -15480,11 +15497,11 @@ snapshots:
       strip-literal: 2.1.0
       tinybench: 2.9.0
       tinypool: 0.8.4
-      vite: 5.4.11(@types/node@18.19.64)(terser@5.43.1)
-      vite-node: 1.6.1(@types/node@18.19.64)(terser@5.43.1)
+      vite: 5.4.11(@types/node@20.19.9)(terser@5.43.1)
+      vite-node: 1.6.1(@types/node@20.19.9)(terser@5.43.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 18.19.64
+      '@types/node': 20.19.9
     transitivePeerDependencies:
       - less
       - lightningcss
