@@ -83,7 +83,7 @@
     "@formatjs/cli-lib": "^6.3.6",
     "@formatjs/icu-messageformat-parser": "^2.7.6",
     "@rollup/pluginutils": "^5.1.0",
-    "glob": "^10.3.10",
+    "glob": "^11.0.3",
     "import-meta-resolve": "^4.0.0",
     "pathe": "^2.0.3",
     "unplugin": "^1.7.1"
