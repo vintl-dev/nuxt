@@ -24,7 +24,7 @@ export function wrapTransform(
         handler(code, id) {
           if (filter(id)) return null as ReturnType<TransformHook>
 
-          return handler.call(this, id, code) as ReturnType<TransformHook>
+          return handler.call(this, code, id) as ReturnType<TransformHook>
         },
       }
     } else {
