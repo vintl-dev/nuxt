@@ -6,16 +6,16 @@
     "name": "Alexander 'Brawaru' Sorokin",
     "url": "https://github.com/brawaru"
   },
-  "repository": "github:vintl-dev/unplugin",
-  "bugs": "https://github.com/vintl-dev/unplugin/issues",
-  "homepage": "https://github.com/vintl-dev/unplugin#readme",
+  "repository": "github:vintl-dev/nuxt",
+  "bugs": "https://github.com/vintl-dev/nuxt/issues",
+  "homepage": "https://github.com/vintl-dev/nuxt/tree/main/packages/unplugin#readme",
   "funding": "https://github.com/Brawaru/Brawaru/blob/main/SUPPORT.md",
   "keywords": [
     "i18n",
     "icu-messageformat",
     "rollup",
     "vite",
-    "wepack",
+    "webpack",
     "unplugin"
   ],
   "license": "MIT",
