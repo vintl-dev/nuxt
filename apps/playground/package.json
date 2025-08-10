@@ -14,12 +14,12 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^1.7.1",
+    "@nuxt/eslint": "^1.8.0",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl-dev/pg-messages": "workspace:^",
     "@vintl/nuxt": "workspace:^",
-    "eslint": "^9.32.0",
+    "eslint": "^9.33.0",
     "nuxi": "^3.27.0",
-    "nuxt": "^4.0.2"
+    "nuxt": "^4.0.3"
   }
 }
