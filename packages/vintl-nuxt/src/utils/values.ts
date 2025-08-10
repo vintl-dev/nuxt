@@ -40,5 +40,6 @@ export function retrieveValue<T>(
   value: ValueOf<T>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<T extends (...args: any[]) => infer R ? R | T : T> {
-  return isFunction(value) ? value() : value
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return isFunction(value) ? value() : value as any
 }

@@ -61,7 +61,7 @@ export function locale() {
       } else {
         allRequests.push(
           messagesImport.then((imported) => {
-            messages[id] = imported[importProperty]
+            messages[id] = imported[importProperty]!
           }),
         )
       }
