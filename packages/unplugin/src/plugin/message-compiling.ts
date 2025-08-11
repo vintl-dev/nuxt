@@ -17,6 +17,7 @@ class CompilationError extends BaseError {
  * @throws {@link CompilationError} If the compilation fails or the output is
  *   invalid.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function compileMessages(compileFc: CompileFn, inputValue: any) {
   let messages: MessagesMap
 

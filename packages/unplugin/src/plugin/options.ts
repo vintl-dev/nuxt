@@ -189,6 +189,7 @@ export interface Options<PluginType extends WrappablePlugin> {
   output?: OutputOptions
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function normalizeIndent(indent?: Options<any>['indent']) {
   if (indent == null) return '\t'
   return typeof indent === 'number' ? ' '.repeat(indent) : indent

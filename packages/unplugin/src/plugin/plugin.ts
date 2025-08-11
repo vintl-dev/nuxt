@@ -30,6 +30,7 @@ class TransformError extends BaseError {
 }
 
 /** Represents universal options, regardless the bundler. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Options_ = Options<any> | undefined
 
 /** Unplugin that parses files containing ICU MessageFormat messages into AST. */
@@ -56,7 +57,6 @@ export const plugin = createUnplugin<Options_, false>((options_, meta) => {
   const api = { filter } satisfies API
 
   if (pluginsWrapping.use && !supportsWrapping(meta.framework)) {
-    // eslint-disable-next-line no-console
     console.warn(
       `icu-messages: 'pluginsWrapping.enabled' is set to true, however unsupported framework is used (${meta.framework})`,
     )

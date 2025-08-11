@@ -28,7 +28,6 @@ export async function getBuiltinFormatter(name: string): Promise<CompileFn> {
     )
 
     if (formattersIndexFile == null) {
-      // eslint-disable-next-line no-throw-literal
       throw `resolving "${indexFile}" returned ${formattersIndexFile}`
     }
   } catch (cause) {

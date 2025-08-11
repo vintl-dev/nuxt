@@ -7,7 +7,7 @@ import { BaseError } from '../shared/error-proto.ts'
  * @param moduleId Module ID of the messages file.
  * @returns Parsed messages file contents with uncompiled messages.
  */
-export type ParseFunction = (code: string, moduleId: string) => any
+export type ParseFunction = (code: string, moduleId: string) => unknown
 
 /** An error that is thrown if there's an error with parsing the messages file. */
 export class ReadoutError extends BaseError {

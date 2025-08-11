@@ -5,7 +5,7 @@
  * @param value An object to check.
  * @returns Whether the object is `undefined`, `null`, or has no own properties.
  */
-export function isEmptyObject(value?: Record<string, any>): boolean {
+export function isEmptyObject(value?: Record<string, unknown>): boolean {
   if (value != null) {
     for (const key in value) {
       if (Object.hasOwn(value, key)) return false

@@ -23,7 +23,6 @@ export function vite(
       ? {
           configResolved(config) {
             wrapPlugins(config.plugins, options, filter, (warning) => {
-              // eslint-disable-next-line no-console
               console.warn(String(warning))
             })
           },
@@ -57,7 +56,6 @@ export function rollup(
               rollupOptions.plugins,
               options,
               filter,
-              // eslint-disable-next-line no-console
               this?.warn ?? ((warn) => console.warn(warn)),
             )
           },
