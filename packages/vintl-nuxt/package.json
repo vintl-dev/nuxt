@@ -22,9 +22,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types.d.ts",
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
+      "import": "./dist/module.mjs"
     },
     "./options": {
       "import": "./dist/options.mjs"
@@ -32,8 +30,6 @@
     "./package.json": "./package.json"
   },
   "module": "./dist/module.mjs",
-  "main": "./dist/module.cjs",
-  "types": "./dist/types.d.ts",
   "files": [
     "dist"
   ],
@@ -45,32 +41,32 @@
     "prepack": "pnpm turbo --no-daemon build"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^1.6.0",
-    "@nuxt/eslint-config": "^0.7.0",
-    "@nuxt/module-builder": "^0.8.4",
-    "@nuxt/schema": "^3.14.159",
-    "@types/babel__generator": "^7.6.8",
+    "@nuxt/devtools": "^2.6.2",
+    "@nuxt/eslint-config": "^1.8.0",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.0.3",
+    "@types/babel__generator": "^7.27.0",
     "@types/hash-sum": "^1.0.2",
-    "@types/node": "^18.19.64",
+    "@types/node": "^18.19.122",
     "@vintl-dev/eslint-config-peony": "workspace:^",
-    "nuxt": "^3.14.159",
-    "typescript": "^5.6.3",
-    "vue-tsc": "^2.1.10"
+    "nuxt": "^4.0.3",
+    "typescript": "^5.9.2",
+    "vue-tsc": "^3.0.5"
   },
   "dependencies": {
-    "@babel/generator": "^7.26.2",
-    "@babel/types": "^7.26.0",
-    "@formatjs/intl": "^2.10.14",
-    "@formatjs/intl-localematcher": "^0.5.7",
-    "@nuxt/kit": "^3.14.159",
-    "@vintl/unplugin": "^2.0.0",
+    "@babel/generator": "^7.28.0",
+    "@babel/types": "^7.28.2",
+    "@formatjs/intl": "^3.1.6",
+    "@formatjs/intl-localematcher": "^0.6.1",
+    "@nuxt/kit": "^4.0.3",
+    "@vintl/unplugin": "workspace:^",
     "@vintl/vintl": "^4.4.1",
-    "consola": "^3.2.3",
+    "consola": "^3.4.2",
     "hash-sum": "^2.0.0",
     "import-meta-resolve": "^4.1.0",
-    "pathe": "^1.1.2",
+    "pathe": "^2.0.3",
     "picocolors": "^1.1.1",
     "slash": "^5.1.0",
-    "ufo": "^1.5.4"
+    "ufo": "^1.6.1"
   }
 }

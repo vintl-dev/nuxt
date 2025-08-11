@@ -205,7 +205,7 @@ export function assertModuleOptionsValid(options: NormalizedModuleOptions) {
   let hasDuplicates = false
 
   for (let i = 0, l = locales.length; i < l; i++) {
-    const locale = locales[i]
+    const locale = locales[i]!
 
     try {
       assertLocaleDescriptorValid(locale)

@@ -3,8 +3,8 @@ export default defineNuxtConfig({
     tsConfig: {
       compilerOptions: {
         moduleResolution: 'bundler',
-        allowImportingTsExtensions: true
-      }
-    }
-  }
+        allowImportingTsExtensions: true,
+      },
+    },
+  },
 })

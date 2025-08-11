@@ -15,5 +15,7 @@ export default defineFlatConfig({
         allowInterfaces: 'with-single-extends',
       },
     ],
+    // More often than not, this rule triggers on very valid use cases
+    '@typescript-eslint/no-invalid-void-type': 'off'
   },
 })

@@ -10,16 +10,16 @@
     "generate": "nuxi generate",
     "preview": "nuxi preview",
     "lint": "eslint --cache .",
-    "intl:extract": "formatjs extract \"./{,components,composables,layouts,middleware,modules,pages,plugins,utils}/**/*.{vue,ts,tsx,js,jsx,mts,cts,mjs,cjs}\" --ignore '**/*.d.ts' --ignore 'node_modules' --out-file locales/en-US.json --format crowdin",
+    "intl:extract": "formatjs extract \"./{,components,composables,layouts,middleware,modules,pages,plugins,utils}/**/*.{vue,ts,tsx,js,jsx,mts,cts,mjs,cjs}\" --ignore \"**/*.d.ts\" --ignore \"node_modules\" --out-file locales/en-US.json --format crowdin",
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.7.0",
+    "@nuxt/eslint": "^1.8.0",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl-dev/pg-messages": "workspace:^",
     "@vintl/nuxt": "workspace:^",
-    "eslint": "^9.15.0",
-    "nuxi": "^3.15.0",
-    "nuxt": "^3.14.159"
+    "eslint": "^9.33.0",
+    "nuxi": "^3.27.0",
+    "nuxt": "^4.0.3"
   }
 }

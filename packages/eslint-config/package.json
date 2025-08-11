@@ -29,10 +29,10 @@
     "config.json"
   ],
   "devDependencies": {
-    "eslint": "^9.15.0"
+    "eslint": "^9.33.0"
   },
   "dependencies": {
-    "@nuxt/eslint-config": "^0.7.0",
-    "eslint-flat-config-utils": "^0.4.0"
+    "@nuxt/eslint-config": "^1.8.0",
+    "eslint-flat-config-utils": "^2.1.1"
   }
 }
