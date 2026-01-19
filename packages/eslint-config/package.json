@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "@nuxt/eslint-config": "^0.7.0",
-    "eslint-flat-config-utils": "^0.4.0"
+    "eslint-flat-config-utils": "^2.1.4"
   }
 }
