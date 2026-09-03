@@ -14,7 +14,7 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.7.0",
+    "@nuxt/eslint": "^1.17.0",
     "@vintl-dev/eslint-config-peony": "workspace:^",
     "@vintl-dev/pg-messages": "workspace:^",
     "@vintl/nuxt": "workspace:^",
