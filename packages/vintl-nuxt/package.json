@@ -48,7 +48,7 @@
     "@nuxt/devtools": "^1.6.0",
     "@nuxt/eslint-config": "^0.7.0",
     "@nuxt/module-builder": "^0.8.4",
-    "@nuxt/schema": "^3.14.159",
+    "@nuxt/schema": "^4.0.0",
     "@types/babel__generator": "^7.6.8",
     "@types/hash-sum": "^1.0.2",
     "@types/node": "^18.19.64",
